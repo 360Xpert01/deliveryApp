@@ -1,7 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Import FontAwesome icon set
+import Icon from 'react-native-vector-icons/FontAwesome'; 
+
 
 const HomeScreen = () => {
   const navigation = useNavigation();

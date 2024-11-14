@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { View, Text } from 'react-native';
 
 const withAuth = (WrappedComponent) => (props) => {
-  // Directly handle authentication logic here
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const checkAuthStatus = async () => {
-    // Here you can check if the user is authenticated (replace with actual logic)
-    // For example, check for a token in local storage or async storage
-    const token = await getAuthToken(); // Replace this with actual token check logic
+    const token = await getAuthToken();
     if (token) {
       setIsAuthenticated(true);
     } else {
@@ -30,11 +27,8 @@ const withAuth = (WrappedComponent) => (props) => {
 
   return <WrappedComponent {...props} />;
 };
-
-// Dummy function to simulate token retrieval
 const getAuthToken = async () => {
-  // Simulate checking for a stored token (replace with actual logic)
-  return null; // Return null to simulate not authenticated, or a token string if authenticated
+  return null; 
 };
 
 export default withAuth;
