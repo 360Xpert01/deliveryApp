@@ -3,15 +3,14 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import SplashScreen from '../screens/splashScreen/splashScreen';
 import LoginScreen from '../screens/loginScreen/loginScreen';
-import HomeScreen from '../screens/homeScreen/home'; // Import your Home Screen
-import NotificationScreen from '../screens/notificationScreen/notification'; // Import your Notification Screen
+import HomeScreen from '../screens/homeScreen/home';
+import NotificationScreen from '../screens/notificationScreen/notification';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import withAuth from '../components/withAuth';
 import withLoading from '../components/withLoading';
 
 const Stack = createNativeStackNavigator();
-
-// Wrapping NotificationScreen with auth and loading HOCs
-const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
+// const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
 
 const AppNavigator = () => (
   <NavigationContainer>
@@ -21,11 +20,22 @@ const AppNavigator = () => (
       <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{ title: 'Home' }} 
+        options={({ navigation }) => ({
+          title: 'Home',
+          headerRight: () => (
+            <Icon
+              name="bell"
+              size={24}
+              color="black"
+              onPress={() => navigation.navigate('Notifications')}
+              style={{ marginRight: 10 }}
+            />
+          ),
+        })}
       />
       <Stack.Screen
         name="Notifications"
-        component={AuthenticatedNotificationScreen}
+        component={NotificationScreen}
         options={{ title: 'Notifications' }}
       />
     </Stack.Navigator>

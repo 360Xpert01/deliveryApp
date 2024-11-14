@@ -9,7 +9,6 @@ const loginUser = async ({ email, password }) => {
 export const useLogin = (options = {}) => {
   return useMutation(loginUser, {
     onSuccess: (data) => {
-      // You can store the token or user data here
       console.log('Login successful:', data);
       if (options.onSuccess) {
         options.onSuccess();
