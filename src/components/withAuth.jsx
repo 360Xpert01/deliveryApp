@@ -25,7 +25,7 @@ const withAuth = (WrappedComponent) => (props) => {
     );
   }
 
-  return <WrappedComponent {...props} />;
+  return <WrappedComponent {...props} />
 };
 const getAuthToken = async () => {
   return null; 
