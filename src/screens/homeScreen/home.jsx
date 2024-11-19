@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
-
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -15,14 +15,14 @@ const HomeScreen = () => {
 };
 
 HomeScreen.options = ({ navigation }) => ({
-  title: 'Home', 
+  title: 'Home',
   headerRight: () => (
     <Icon
       name="bell"
-      size={24}
+      size={wp('6%')} 
       color="black"
-      onPress={() => navigation.navigate('Notifications')} 
-      style={{ marginRight: 10 }}
+      onPress={() => navigation.navigate('Notifications')}
+      style={styles.icon}
     />
   ),
 });
@@ -32,9 +32,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    padding: wp('5%'), 
   },
   text: {
-    fontSize: 24,
+    fontSize: wp('6%'),
+    textAlign: 'center',
+  },
+  icon: {
+    marginRight: wp('2.5%'),
   },
 });
 
