@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome'; 
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { useLogin } from '../../api/auth';
 import { useNavigation } from '@react-navigation/native';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false); 
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const navigation = useNavigation();
 
   const { mutate: login, isLoading, error } = useLogin({
@@ -37,13 +38,13 @@ const LoginScreen = () => {
           placeholder="Password"
           value={password}
           onChangeText={setPassword}
-          secureTextEntry={!isPasswordVisible} 
+          secureTextEntry={!isPasswordVisible}
           editable={!isLoading}
         />
         <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
           <Icon
             name={isPasswordVisible ? 'eye' : 'eye-slash'}
-            size={24}
+            size={wp('6%')} 
             color="grey"
             style={styles.eyeIcon}
           />
@@ -65,39 +66,41 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    padding: wp('5%'),
     backgroundColor: '#f8f9fa',
   },
   input: {
-    height: 50,
+    height: hp('6%'),
     borderColor: '#ddd',
     borderWidth: 1,
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    marginBottom: 15,
+    borderRadius: wp('2%'),
+    paddingHorizontal: wp('4%'),
+    marginBottom: hp('2%'), 
     backgroundColor: '#fff',
+    fontSize: wp('4%'),
   },
   passwordContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     borderColor: '#ddd',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: wp('2%'),
     backgroundColor: '#fff',
-    paddingHorizontal: 10,
-    marginBottom: 15,
+    paddingHorizontal: wp('4%'),
+    marginBottom: hp('2%'), 
   },
   passwordInput: {
     flex: 1,
-    height: 50,
+    height: hp('6%'), 
+    fontSize: wp('4%'), 
   },
   eyeIcon: {
-    paddingHorizontal: 8,
+    paddingHorizontal: wp('2%'),
   },
   error: {
     color: 'red',
-    fontSize: 14,
-    marginBottom: 10,
+    fontSize: wp('3.5%'), 
+    marginBottom: hp('1%'), 
     textAlign: 'center',
   },
 });
