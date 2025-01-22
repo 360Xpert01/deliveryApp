@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { useLogin } from '../../api/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from '../../Redux/slices/authSlice';
 import { useNavigation } from '@react-navigation/native';
+import Icon from 'react-native-vector-icons/FontAwesome';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { mutate: login, isLoading, error } = useLogin({
-    onSuccess: (data) => {
-      console.log('Login successful:', data);
-      navigation.navigate('Home');
-    },
-  });
+  const { isLoading, error } = useSelector((state) => state.auth);
 
   const handleLogin = () => {
-    login({ email, password });
+    dispatch(loginUser({ email, password })).then((action) => {
+      if (action.meta.requestStatus === 'fulfilled') {
+        navigation.navigate('Home'); 
+      }
+    });
   };
 
   return (
@@ -44,13 +45,13 @@ const LoginScreen = () => {
         <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
           <Icon
             name={isPasswordVisible ? 'eye' : 'eye-slash'}
-            size={wp('6%')} 
+            size={wp('6%')}
             color="grey"
             style={styles.eyeIcon}
           />
         </TouchableOpacity>
       </View>
-      {error ? <Text style={styles.error}>{error.message}</Text> : null}
+      {error ? <Text style={styles.error}>{error}</Text> : null}
       <Button
         title={isLoading ? "Logging in..." : "Login"}
         onPress={handleLogin}

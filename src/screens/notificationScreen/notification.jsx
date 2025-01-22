@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
-import { useNotifications } from '../../api/notificationAPI';
+import { useNotifications } from '../../Redux/slices/notificationSlice';
 
 const NotificationScreen = () => {
   const { data: notifications, isLoading, error } = useNotifications();
@@ -16,7 +16,7 @@ const NotificationScreen = () => {
   if (error) {
     return (
       <View style={styles.centered}>
-        <Text>Error loading notifications</Text>
+        <Text>Error loading notifications: {error}</Text>
       </View>
     );
   }
@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     borderRadius: 8,
     elevation: 2,
-    shadowColor: '#000', 
+    shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
