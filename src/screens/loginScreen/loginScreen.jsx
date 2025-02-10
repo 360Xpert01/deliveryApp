@@ -1,107 +1,147 @@
-import React, { useState } from 'react';
-import { View, TextInput, Button, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/authSlice';
-import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../../theme/themeContext'; 
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const dispatch = useDispatch();
+  const { isLoading, error, token } = useSelector((state) => state.auth);
   const navigation = useNavigation();
+  const { theme } = useTheme(); 
 
-  const { isLoading, error } = useSelector((state) => state.auth);
+  useEffect(() => {
+    if (token) {
+      navigation.replace('Home');
+    }
+  }, [token]);
 
   const handleLogin = () => {
-    dispatch(loginUser({ email, password })).then((action) => {
-      if (action.meta.requestStatus === 'fulfilled') {
-        navigation.navigate('Home'); 
-      }
-    });
+    if (email.trim() === '' || password.trim() === '') {
+      alert('Please enter email and password');
+      return;
+    }
+    dispatch(loginUser({ email, password }));
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
+      {/* WhatsApp Floating Button */}
+      <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
+        <Icon name="whatsapp" size={30} color={theme.text.onPrimary} />
+      </TouchableOpacity>
+
+      {/* LOGO */}
+      <Text style={[styles.logo, { color: theme.logo }]}>LOGO</Text>
+
+      {/* Sign-in Text (Left Aligned) */}
+      <View style={styles.signInContainer}>
+        <Text style={[styles.title, { color: theme.text.primary }]}>
+          Sign in to <Text style={{ color: theme.primary, fontWeight: 'bold' }}>[App Name]</Text>
+        </Text>
+        <Text style={[styles.subtitle, { color: theme.text.secondary }]}>
+          Welcome back to your home for help. Please enter your account details below to sign in.
+        </Text>
+      </View>
+
+      {/* Input Fields */}
       <TextInput
-        style={styles.input}
-        placeholder="Email"
+        style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
+        placeholder="Mobile Number"
+        placeholderTextColor={theme.text.light}
         value={email}
         onChangeText={setEmail}
-        autoCapitalize="none"
-        editable={!isLoading}
       />
-      <View style={styles.passwordContainer}>
-        <TextInput
-          style={styles.passwordInput}
-          placeholder="Password"
-          value={password}
-          onChangeText={setPassword}
-          secureTextEntry={!isPasswordVisible}
-          editable={!isLoading}
-        />
-        <TouchableOpacity onPress={() => setIsPasswordVisible(!isPasswordVisible)}>
-          <Icon
-            name={isPasswordVisible ? 'eye' : 'eye-slash'}
-            size={wp('6%')}
-            color="grey"
-            style={styles.eyeIcon}
-          />
-        </TouchableOpacity>
-      </View>
-      {error ? <Text style={styles.error}>{error}</Text> : null}
-      <Button
-        title={isLoading ? "Logging in..." : "Login"}
-        onPress={handleLogin}
-        disabled={isLoading}
+      <TextInput
+        style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
+        placeholder="Password"
+        placeholderTextColor={theme.text.light}
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
       />
+
+      {/* Error Message */}
+      {error && <Text style={[styles.errorText, { color: theme.error }]}>{error}</Text>}
+
+      {/* Sign-in Button */}
+      <TouchableOpacity style={[styles.button, { backgroundColor: theme.primary }]} onPress={handleLogin} disabled={isLoading}>
+        {isLoading ? <ActivityIndicator color={theme.text.onPrimary} /> : <Text style={[styles.buttonText, { color: theme.text.onPrimary }]}>Sign in</Text>}
+      </TouchableOpacity>
     </View>
   );
 };
 
-export default LoginScreen;
-
+// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: wp('5%'),
-    backgroundColor: '#f8f9fa',
+    paddingHorizontal: 20,
+  },
+  whatsappButton: {
+    position: 'absolute',
+    top: 40,
+    right: 20,
+    padding: 12,
+    borderRadius: 50,
+    elevation: 5,
+    shadowColor: '#000',
+    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 2 },
+  },
+  logo: {
+    fontSize: 40,
+    fontWeight: 'bold',
+    marginBottom: 50,
+  },
+  signInContainer: {
+    width: '100%',
+    alignItems: 'flex-start',
+    marginBottom: 20,
+  },
+  title: {
+    fontSize: 25,
+    fontWeight: '500',
+  },
+  subtitle: {
+    fontSize: 14,
+    textAlign: 'left',
+    marginTop: 5,
+    paddingRight: 20,
   },
   input: {
-    height: hp('6%'),
-    borderColor: '#ddd',
+    width: '100%',
+    height: 50,
+    borderRadius: 25,
+    paddingHorizontal: 20,
+    marginVertical: 10,
+    fontSize: 16,
     borderWidth: 1,
-    borderRadius: wp('2%'),
-    paddingHorizontal: wp('4%'),
-    marginBottom: hp('2%'), 
-    backgroundColor: '#fff',
-    fontSize: wp('4%'),
   },
-  passwordContainer: {
-    flexDirection: 'row',
+  errorText: {
+    fontSize: 14,
+    marginVertical: 5,
+    textAlign: 'left',
+    width: '100%',
+  },
+  button: {
+    width: '100%',
+    paddingVertical: 15,
+    borderRadius: 25,
+    marginTop: 10,
     alignItems: 'center',
-    borderColor: '#ddd',
-    borderWidth: 1,
-    borderRadius: wp('2%'),
-    backgroundColor: '#fff',
-    paddingHorizontal: wp('4%'),
-    marginBottom: hp('2%'), 
+    justifyContent: 'center',
   },
-  passwordInput: {
-    flex: 1,
-    height: hp('6%'), 
-    fontSize: wp('4%'), 
-  },
-  eyeIcon: {
-    paddingHorizontal: wp('2%'),
-  },
-  error: {
-    color: 'red',
-    fontSize: wp('3.5%'), 
-    marginBottom: hp('1%'), 
-    textAlign: 'center',
+  buttonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
   },
 });
+
+export default LoginScreen;
