@@ -1,76 +1,46 @@
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text, FlatList } from "react-native";
-import { useNavigation } from "@react-navigation/native"; // Import the hook to control navigation
-import OrderCard from "../../components/ordercard";
+import { useState ,useEffect} from "react";
+import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text,FlatList } from "react-native";
+import OrderCard from "../../components/orderCard"; 
 const SideBarImage = require("../../../assets/sidebar.png");
+import dayjs from "dayjs";
+
 
 const HomeScreen = () => {
-  const navigation = useNavigation(); // Initialize the navigation hook
+   
+   const [time,setTime] = useState (dayjs());
+   useEffect(()=>{
+      setInterval(()=>{
+        const interval = setTime(dayjs())
+      },1000);
+        return ()=> clearInterval(interval);
 
-  const users = [
-    {
-      codID: "11, 999",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "9,800",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "1,999",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "4,295",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "1,800",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "5,208",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "5,208",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-    {
-      codID: "5,208",
-      location: "Huzaifa-e-Jauhor",
-      Id: "KHI 123545689713",
-    },
-  ];
+   },[])
+
+
+   const users = [
+    { codID: "11,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "9,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "1,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "4,295", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "1,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "5,208", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "5,208", location: "Huzaifa-e-Jauhor", Id: "KHI 123545689713" },
+  ]
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navtime}>
-        {/* Add an onPress event to the Image to open the drawer */}
-        <Image
-          source={SideBarImage}
-          style={styles.img}
-          onTouchEnd={() => navigation.openDrawer()} // This will open the drawer when clicked
-        />
-        <Text style={styles.time}>00:26:40</Text>
+        <Image source={SideBarImage} style={styles.img} />
+        <Text style={styles.time}>{time.format("hh:mm:ss")}</Text>
       </View>
       <View style={styles.main}>
         <View>
           <FlatList
-            data={users}
-            renderItem={({ item }) => (
-              <OrderCard codId={item.codID} location={item.location} orderId={item.Id} />
-            )}
+          data  = {users}
+          renderItem={({item})=><OrderCard codId={item.codID} location={item.location} orderId={item.Id}/>}
           />
         </View>
-      </View>
+      </View> 
     </SafeAreaView>
   );
 };
@@ -80,8 +50,9 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     flex: 1,
     backgroundColor: "#fff",
+    
   },
-
+  
   img: {
     height: 58,
     width: 58,
@@ -94,9 +65,10 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingTop: 21,
-    paddingBottom: 100,
+    paddingBottom:100,
   },
   time: {
+    // width: 177,
     height: 45,
     fontSize: 32,
     fontWeight: "bold",
@@ -110,7 +82,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-  },
+
+  }
 });
 
 export default HomeScreen;
