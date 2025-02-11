@@ -1,15 +1,19 @@
 import React from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text, StyleSheet,Image } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
+const dish = require("../../assets/dish.png")
+const ellipse = require("../../assets/Ellipse.png")
+const location = require("../../assets/location.png")
 
-const OrderCard = ({ codId,location }) => {
+const OrderCard = ({ codId,location ,orderId}) => {
   return (
     <View style={styles.card}>
       {/* Header */}
       <View style={styles.header}>
         <View style={styles.row}>
-          <Icon name="restaurant" size={20} color="#000" />
-          <Text style={styles.orderId}>KHI 123545689713</Text>
+          {/* <Icon name="restaurant" size={20} color="#000" /> */}
+          <Image source={dish} style={{width:22,height:22}}/>
+          <Text style={styles.orderId}>{orderId}</Text>
         </View>
         <Text style={styles.cod}>COD { codId }</Text>
         <View style={styles.tag}>
@@ -20,13 +24,15 @@ const OrderCard = ({ codId,location }) => {
       {/* Address List */}
       <View style={styles.addressContainer}>
         <View style={styles.addressRow}>
-          <Icon name="radio-button-unchecked" size={16} color="#FFA500" />
+          {/* <Icon name="radio-button-unchecked" size={16} color="#FFA500" /> */}
+          <Image source={ellipse} style={styles.ellipse}/>
           <Text style={styles.addressText}>
             14th Street Pizza Co. Block-7, Gulshan-e-Iqbal
           </Text>
         </View>
         <View style={styles.addressRow}>
-          <Icon name="location-on" size={16} color="#2E8B57" />
+          <Icon name="location-on" size={18} color="#0BAD5E" />
+          {/* <Image source={location} style={{height:10,width:10,}}/> */}
           <Text style={styles.addressText}>
             B 121 Block 2, Gulshan-e-Iqbal, Karachi
           </Text>
@@ -58,16 +64,20 @@ const styles = StyleSheet.create({
     
   },
   orderId: {
-    fontSize: 11,
+    fontSize: 9.5,
     fontWeight: 700,
     marginLeft: 5,
     // width:123,
+    
   },
   cod: {
-    fontSize: 20,
+    fontSize: 17,
     fontWeight: 700,
     color: "#00AA2F",
     // width:102,
+    lineHeight: 28.22, // Adjusted line height
+    letterSpacing: 0.22,
+    
   },
   tag: {
     backgroundColor: "#E0F7FA",
@@ -75,6 +85,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
     borderRadius: 10,
     // width:58,
+    
   },
   tagText: {
     fontSize: 12,
@@ -98,6 +109,10 @@ const styles = StyleSheet.create({
     fontWeight:400,
     color: "#333",
   },
+  ellipse:{
+    width:13,
+    height:13,
+  }
 });
 
 export default OrderCard;

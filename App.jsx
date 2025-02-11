@@ -1,54 +1,93 @@
 // import React, { useState } from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text } from "react-native";
-import OrderCard from "./src/components/ordercard"; // Importing the component
+import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text,FlatList } from "react-native";
+import OrderCard from "./src/components/ordercard"; 
 const SideBarImage = require("./assets/sidebar.png");
 
 
 
 const App = () => {
-  
+  const users = [
+    {
+      codID: "11, 999",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "9,800",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "1,999",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "4,295",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "1,800",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "5,208",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "5,208",
+      location: "Gulistan-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+    {
+      codID: "5,208",
+      location: "Huzaifa-e-Jauhor",
+      Id:"KHI 123545689713",
+    },
+  ]
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navtime}>
         <Image source={SideBarImage} style={styles.img} />
-        <Text style={styles.time}>00:26:23</Text>
+        <Text style={styles.time}>00:26:40</Text>
       </View>
       <View style={styles.main}>
-        <ScrollView contentContainerStyle={styles.scrollView}>
-          <OrderCard codId="11,999" location="Gulshan-e-Iqbal" />
-          <OrderCard codId="9,800" location="DHA" />
-          <OrderCard codId="1,999" location="North Nazimabad" />
-          <OrderCard codId="4,295" location="Nazimabad" />
-          <OrderCard codId="1,800" location="PECHS" />
-          <OrderCard codId="5,208" location="Gulshan Iqbal" />
-        </ScrollView>
-      </View>
+        <View>
+          <FlatList
+          data  = {users}
+          renderItem={({item})=><OrderCard codId={item.codID} location={item.location} orderId={item.Id}/>}
+          />
+        </View>
+      </View> 
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 20,
+    paddingTop: 14,
     flex: 1,
-    backgroundColor: "#FAFAFA",
+    backgroundColor: "#fff",
     
   },
-  scrollView: {
-    paddingBottom: 100,
-  },
+  
   img: {
     height: 58,
     width: 58,
     paddingTop: 51,
     paddingBottom: 21,
+    paddingLeft: 15,
   },
   main: {
     backgroundColor: "#F9F9F9",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingTop: 19,
+    paddingTop: 21,
+    paddingBottom:100,
   },
   time: {
     // width: 177,
@@ -59,8 +98,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     textAlignVertical: "center",
     color: "#00AA2F",
+    paddingRight: 20,
   },
-  navtime:{
+  navtime: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
