@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity, StyleSheet,
+  ActivityIndicator, Platform, Image
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/authSlice';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../../theme/themeContext'; 
+import { useTheme } from '../../theme/themeContext';
+import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -12,8 +15,7 @@ const LoginScreen = () => {
   const dispatch = useDispatch();
   const { isLoading, error, token } = useSelector((state) => state.auth);
   const navigation = useNavigation();
-  const { theme } = useTheme(); 
-
+  const { theme } = useTheme();
   useEffect(() => {
     if (token) {
       navigation.replace('Home');
@@ -30,9 +32,8 @@ const LoginScreen = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      {/* WhatsApp Floating Button */}
       <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
-        <Icon name="whatsapp" size={30} color={theme.text.onPrimary} />
+        <WhatsAppIcon width={35} height={35} />
       </TouchableOpacity>
 
       {/* LOGO */}
@@ -88,12 +89,20 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     right: 20,
-    padding: 12,
-    borderRadius: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 999, 
+    alignItems: 'center',
+    justifyContent: 'center',
     elevation: 5,
     shadowColor: '#000',
     shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 2 },
+  },
+  whatsappLogo: {
+    width: 35,
+    height: 35,
+    resizeMode: 'contain',
   },
   logo: {
     fontSize: 40,
