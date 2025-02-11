@@ -16,7 +16,7 @@ const LoginScreen = () => {
 
   useEffect(() => {
     if (token) {
-      navigation.replace('Home');
+      navigation.replace('drawer');
     }
   }, [token]);
 
