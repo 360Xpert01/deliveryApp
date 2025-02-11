@@ -5,11 +5,14 @@ export const themes = {
     secondary: '#fff',
     background: '#fff',
     surface: '#fff',
+    locationlogo:"#0BAD5E",
+    addressrowcolor:"#F9F9F9",
     text: {
       primary: '#333333',
       secondary: '#757575',
       light: '#bbb',
       onPrimary: '#ffffff',
+      codColor:"#00AA2F"
     },
     input: {
       background: '#F7F7F7',

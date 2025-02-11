@@ -1,59 +1,37 @@
-// import React, { useState } from "react";
+import { useState ,useEffect} from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text,FlatList } from "react-native";
 import OrderCard from "./src/components/ordercard"; 
 const SideBarImage = require("./assets/sidebar.png");
-
+import dayjs from "dayjs";
 
 
 const App = () => {
-  const users = [
-    {
-      codID: "11, 999",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "9,800",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "1,999",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "4,295",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "1,800",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "5,208",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "5,208",
-      location: "Gulistan-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
-    {
-      codID: "5,208",
-      location: "Huzaifa-e-Jauhor",
-      Id:"KHI 123545689713",
-    },
+   
+   const [time,setTime] = useState (dayjs());
+   useEffect(()=>{
+      setInterval(()=>{
+        const interval = setTime(dayjs())
+      },1000);
+        return ()=> clearInterval(interval);
+
+   },[])
+
+
+   const users = [
+    { codID: "11,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "9,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "1,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "4,295", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "1,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "5,208", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "5,208", location: "Huzaifa-e-Jauhor", Id: "KHI 123545689713" },
   ]
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navtime}>
         <Image source={SideBarImage} style={styles.img} />
-        <Text style={styles.time}>00:26:40</Text>
+        <Text style={styles.time}>{time.format("hh:mm:ss")}</Text>
       </View>
       <View style={styles.main}>
         <View>
