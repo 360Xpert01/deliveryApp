@@ -4,12 +4,13 @@ import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@rea
 import BookingHistory from '../screens/bookingScreen/bookingHistory';
 import Wallet from '../screens/walletScreen/wallet';
 import Contact from '../screens/contact/contact';
+import HomeScreen from '../screens/homeScreen/home';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = (props) => {
   const [isEnglish, setIsEnglish] = useState(true);
-  const [activeItem, setActiveItem] = useState('Home'); // Default active item
+  const [activeItem, setActiveItem] = useState('Home'); 
 
   return (
     <DrawerContentScrollView {...props}>
@@ -55,10 +56,7 @@ const CustomDrawerContent = (props) => {
   );
 };
 
-const HomeScreen = () => <View style={styles.screen}><Text>Home Screen</Text></View>;
-// const BookingHistoryScreen = () => <View style={styles.screen}><Text>Booking History</Text></View>;
-const WalletScreen = () => <View style={styles.screen}><Text>Wallet Screen</Text></View>;
-const ContactScreen = () => <View style={styles.screen}><Text>Contact Us</Text></View>;
+
 
 export default function DrawerNavigator() {
   return (
