@@ -35,11 +35,7 @@ const LoginScreen = () => {
       <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
         <WhatsAppIcon width={35} height={35} />
       </TouchableOpacity>
-
-      {/* LOGO */}
       <Text style={[styles.logo, { color: theme.logo }]}>LOGO</Text>
-
-      {/* Sign-in Text (Left Aligned) */}
       <View style={styles.signInContainer}>
         <Text style={[styles.title, { color: theme.text.primary }]}>
           Sign in to <Text style={{ color: theme.primary, fontWeight: 'bold' }}>[App Name]</Text>
@@ -48,8 +44,6 @@ const LoginScreen = () => {
           Welcome back to your home for help. Please enter your account details below to sign in.
         </Text>
       </View>
-
-      {/* Input Fields */}
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
         placeholder="Mobile Number"
@@ -65,11 +59,7 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-
-      {/* Error Message */}
       {error && <Text style={[styles.errorText, { color: theme.error }]}>{error}</Text>}
-
-      {/* Sign-in Button */}
       <TouchableOpacity style={[styles.button, { backgroundColor: theme.primary }]} onPress={handleLogin} disabled={isLoading}>
         {isLoading ? <ActivityIndicator color={theme.text.onPrimary} /> : <Text style={[styles.buttonText, { color: theme.text.onPrimary }]}>Sign in</Text>}
       </TouchableOpacity>
@@ -77,7 +67,6 @@ const LoginScreen = () => {
   );
 };
 
-// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
