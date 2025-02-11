@@ -3,6 +3,7 @@
  */
 
 import React from 'react';
+import 'react-native-gesture-handler'; 
 import { AppRegistry } from 'react-native';
 import { Provider } from 'react-redux';
 import store from './src/Redux/store'; // Import your Redux store
