@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, Image, Switch, TouchableOpacity, StyleSheet } from 'react-native';
 import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import BookingHistory from '../screens/bookingScreen/bookingHistory';
+import Wallet from '../screens/walletScreen/wallet';
+import Contact from '../screens/contact/contact';
 
 const Drawer = createDrawerNavigator();
 
@@ -53,7 +56,7 @@ const CustomDrawerContent = (props) => {
 };
 
 const HomeScreen = () => <View style={styles.screen}><Text>Home Screen</Text></View>;
-const BookingHistoryScreen = () => <View style={styles.screen}><Text>Booking History</Text></View>;
+// const BookingHistoryScreen = () => <View style={styles.screen}><Text>Booking History</Text></View>;
 const WalletScreen = () => <View style={styles.screen}><Text>Wallet Screen</Text></View>;
 const ContactScreen = () => <View style={styles.screen}><Text>Contact Us</Text></View>;
 
@@ -63,9 +66,9 @@ export default function DrawerNavigator() {
       drawerContent={(props) => <CustomDrawerContent {...props} />} 
       screenOptions={{ drawerStyle: { width: '70%' } }}>
       <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Booking History" component={BookingHistoryScreen} />
-      <Drawer.Screen name="Wallet" component={WalletScreen} />
-      <Drawer.Screen name="Contact Us" component={ContactScreen} />
+      <Drawer.Screen name="Booking History" component={BookingHistory} />
+      <Drawer.Screen name="Wallet" component={Wallet} />
+      <Drawer.Screen name="Contact Us" component={Contact} />
     </Drawer.Navigator>
   );
 }
