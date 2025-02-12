@@ -1,23 +1,23 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
-import { useTheme } from '../../theme/themeContext';
 import { useNavigation } from '@react-navigation/native';
+import { useTheme } from '../../theme/themeContext';
 
-const ArrivedButton = () => {
+const ArriveButton = () => {
   const { theme } = useTheme();
   const navigation = useNavigation(); 
 
-  const handleArrived = () => {
-    navigation.navigate('Pick'); 
+  const handleArrive = () => {
+    navigation.navigate('Arrived'); 
   };
 
   return (
     <View>
       <TouchableOpacity 
         style={[styles.btn, { backgroundColor: theme.button }]} 
-        onPress={handleArrived} 
+        onPress={handleArrive} 
       >
-        <Text style={styles.btnText}>Arrived</Text>
+        <Text style={styles.btnText}>Arrive</Text>
       </TouchableOpacity>
     </View>
   );
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: 18,
     textAlign: 'center',
-    fontWeight: '600', 
+    fontWeight: '600',
   },
 });
 
-export default ArrivedButton;
+export default ArriveButton;

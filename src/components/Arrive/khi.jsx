@@ -13,7 +13,7 @@ const KHI = () => {
         <Text style={styles.orderText}>KHI 123545689713</Text>
       </View>
       <View style={styles.iconContainer}>
-       
+
       </View>
     </View>
   );
@@ -21,9 +21,9 @@ const KHI = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: 'row', 
+    flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between', 
+    justifyContent: 'space-between',
     padding: 10,
   },
   foodContainer: {
@@ -33,11 +33,11 @@ const styles = StyleSheet.create({
   foodImage: {
     width: 40,
     height: 40,
-    borderRadius: 20, // Makes it circular if needed
+    borderRadius: 20,
     marginRight: 10,
   },
   orderText: {
-    fontSize: 14,
+    fontSize: 15,
     fontWeight: 'bold',
   },
   iconContainer: {

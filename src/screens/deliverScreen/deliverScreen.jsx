@@ -13,8 +13,10 @@ import Locate from '../../components/Pick/locate';
 import { useNavigation } from '@react-navigation/native';
 import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import ReturnButton from '../../components/Deliver/returnButton';
+import Deliver from '../../components/Deliver/deliverButton';
 
-const PickScreen = () => {
+const DeliverScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
@@ -41,8 +43,8 @@ const PickScreen = () => {
           <View style={styles.line} />
           <COD />
           <View style={styles.btnRow}>
-            <CancelButton onPress={() => navigation.navigate('Arrived')} />
-            <Pick onPress={() => navigation.navigate('Delivered')}/>
+            <ReturnButton onPress={() => navigation.navigate('Pick')}/>
+                <Deliver/>
           </View>
         </View>
       </ImageBackground>
@@ -110,4 +112,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PickScreen;
+export default DeliverScreen;

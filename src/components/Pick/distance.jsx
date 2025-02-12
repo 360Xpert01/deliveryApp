@@ -13,7 +13,7 @@ const Distance = () => {
 
 const styles= StyleSheet.create({
     text: {
-        marginVertical: 10,
+        marginVertical: 15,
         
     }
 })

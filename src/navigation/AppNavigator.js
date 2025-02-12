@@ -11,6 +11,8 @@ import withLoading from '../components/withLoading';
 import ArrivingScreen from '../screens/arrivingScreen/arriving';
 import PickScreen from '../screens/pickScreen/pickedScreen';
 import Arrived from '../screens/arrivedScreen/arrived';
+import DeliverScreen from '../screens/deliverScreen/deliverScreen';
+import ArriveButton from '../components/Arrive/arriveButton';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -22,7 +24,9 @@ const AppNavigator = () => (
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Arriving" component={ArrivingScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Pick" component={PickScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Arrive" component={ArriveButton} options={{ headerShown: false }} />
       <Stack.Screen name="Arrived" component={Arrived} options={{ headerShown: false }} />
+      <Stack.Screen name="Delivered" component={DeliverScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="Home"
         component={HomeScreen}

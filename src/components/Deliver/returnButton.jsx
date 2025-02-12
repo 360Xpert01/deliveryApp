@@ -1,10 +1,10 @@
 import React from 'react'
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
 
-const ReturnButton = () => {
+const ReturnButton = ({ onPress }) => {
     return (
         <View>
-            <TouchableOpacity style={styles.btn}>
+            <TouchableOpacity style={styles.btn} onPress={onPress}>
                 <Text style={styles.btnText}>
                     Returned
                 </Text>
@@ -19,14 +19,14 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         width: 100,
         paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingVertical: 8,
         borderRadius: 50
     },
     btnText: {
         color: "#CD2222",
-        fontSize: 10,
+        fontSize: 18,
         textAlign: "center",
-        fontWeight: 500,
+        fontWeight: 600,
     }
 })
 

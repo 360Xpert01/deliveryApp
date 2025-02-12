@@ -9,11 +9,12 @@ import CancelButton from '../../components/Arrive/cancelButton';
 import ArrivedButton from '../../components/Arrive/arrivedButton';
 import { useNavigation } from '@react-navigation/native';
 import imagew from '../../assest/image.png';
+import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const Arrived = () => {
     const navigation = useNavigation();
-  return (
-    <View style={styles.container}>
+    return (
+        <View style={styles.container}>
             <ImageBackground source={imagew} style={styles.imageBackground}>
                 <View style={styles.section}>
                     <PickButton />
@@ -21,21 +22,26 @@ const Arrived = () => {
                 </View>
 
                 <View style={styles.bottomContainer}>
-                    <Order />
+                    <View style={styles.orderSec}>
+                        <Order />
+                        <View style={styles.wahtsapp} >
+                            <WhatsAppIcon />
+                        </View>
+
+                    </View>
                     <View style={styles.line} />
                     <Location />
                     <View style={styles.line} />
                     <COD />
                     <View style={styles.btnRow}>
-                        <CancelButton onPress={() => navigation.navigate('Arriving')}/>
-                        <ArrivedButton onPress={() => navigation.navigate('Pick')} />
+                        <CancelButton onPress={() => navigation.navigate('Arriving')} />
+                        <ArrivedButton />
                     </View>
                 </View>
             </ImageBackground>
         </View>
-  )
+    )
 }
-
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
     },
     btnRow: {
         flexDirection: 'row',
+        justifyContent: "space-between",
         gap: 20,
         marginTop: 10,
     },
@@ -62,11 +69,23 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'black',
     },
+    orderSec: {
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "space-between",
+
+    },
     line: {
         marginVertical: 20,
         height: 1,
         backgroundColor: '#E4E4E4',
         width: '100%',
+    },
+    wahtsapp: {
+        padding: 10,
+        backgroundColor: "white",
+        borderRadius: 50,
+        elevation: 5,
     },
     section: {
         flexDirection: 'row',
