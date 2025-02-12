@@ -9,8 +9,8 @@ const HomeScreen = ({navigation}) => {
    
    const [time,setTime] = useState (dayjs());
    useEffect(()=>{
-      setInterval(()=>{
-        const interval = setTime(dayjs())
+       const interval =setInterval(()=>{
+        setTime(dayjs())
       },1000);
         return ()=> clearInterval(interval);
 
