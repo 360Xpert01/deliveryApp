@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './src/Redux/store'; // Import your Redux store
 import App from './App'; // Import your main App component
 import { name as appName } from './app.json';
+import Delivered from './src/screens/deliveredScreen/delivered';
 
 // Wrap the App with the Redux Provider
 const Root = () => (
@@ -17,4 +18,5 @@ const Root = () => (
   </Provider>
 );
 
-AppRegistry.registerComponent(appName, () => Root);
+// AppRegistry.registerComponent(appName, () => Root);
+AppRegistry.registerComponent(appName, () => Delivered);
