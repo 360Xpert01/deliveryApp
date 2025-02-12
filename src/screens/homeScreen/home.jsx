@@ -1,46 +1,89 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useState ,useEffect} from "react";
+import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text,FlatList } from "react-native";
+import OrderCard from "../../components/orderCard"; 
+const SideBarImage = require("../../../assets/sidebar.png");
+import dayjs from "dayjs";
+
 
 const HomeScreen = () => {
-  const navigation = useNavigation();
+   
+   const [time,setTime] = useState (dayjs());
+   useEffect(()=>{
+      setInterval(()=>{
+        const interval = setTime(dayjs())
+      },1000);
+        return ()=> clearInterval(interval);
+
+   },[])
+
+
+   const users = [
+    { codID: "11,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "9,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "1,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "4,295", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "1,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "5,208", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "5,208", location: "Huzaifa-e-Jauhor", Id: "KHI 123545689713" },
+  ]
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>Welcome to Home Screen</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.navtime}>
+        <Image source={SideBarImage} style={styles.img} />
+        <Text style={styles.time}>{time.format("hh:mm:ss")}</Text>
+      </View>
+      <View style={styles.main}>
+        <View>
+          <FlatList
+          data  = {users}
+          renderItem={({item})=><OrderCard codId={item.codID} location={item.location} orderId={item.Id}/>}
+          />
+        </View>
+      </View> 
+    </SafeAreaView>
   );
 };
 
-HomeScreen.options = ({ navigation }) => ({
-  title: 'Home',
-  headerRight: () => (
-    <Icon
-      name="bell"
-      size={wp('6%')} 
-      color="black"
-      onPress={() => navigation.navigate('Notifications')}
-      style={styles.icon}
-    />
-  ),
-});
-
 const styles = StyleSheet.create({
   container: {
+    paddingTop: 14,
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: wp('5%'), 
+    backgroundColor: "#fff",
+    
   },
-  text: {
-    fontSize: wp('6%'),
-    textAlign: 'center',
+  
+  img: {
+    height: 58,
+    width: 58,
+    paddingTop: 51,
+    paddingBottom: 21,
+    paddingLeft: 15,
   },
-  icon: {
-    marginRight: wp('2.5%'),
+  main: {
+    backgroundColor: "#F9F9F9",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    paddingTop: 21,
+    paddingBottom:100,
   },
+  time: {
+    // width: 177,
+    height: 45,
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "white",
+    textAlign: "center",
+    textAlignVertical: "center",
+    color: "#00AA2F",
+    paddingRight: 20,
+  },
+  navtime: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+
+  }
 });
 
 export default HomeScreen;
