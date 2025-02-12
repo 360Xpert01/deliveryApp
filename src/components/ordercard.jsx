@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const dish = require("../../assets/dish.png")
 const ellipse = require("../../assets/Ellipse.png")
 const location = require("../../assets/location.png")
-import themes from "../theme/theme";
 
 const OrderCard = ({ codId, location, orderId }) => {
     return (
@@ -47,8 +46,7 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         padding: 10,
         margin: 10,
-        // color:themes.greenLight.locationLogo,
-        color:"#0BAD5E"
+        color:"#0BAD5E",
     },
     header: {
         flexDirection: "row",
@@ -97,7 +95,6 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginVertical: 4,
-        backgroundColor:themes.greenLight.addressrowcolor,
         backgroundColor:"#F9F9F9",
         borderRadius: 6,
         padding: 5,

@@ -1,24 +1,25 @@
-import { useState ,useEffect} from "react";
+// import { useState ,useEffect} from "react";
+import { useState,useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text,FlatList, TouchableOpacity } from "react-native";
-import OrderCard from "../../components/orderCard"; 
-const SideBarImage = require("../../../assets/sidebar.png");
+import OrderCard from "../../components/ordercard";
+const SideBarImage = require("../../../assets/sidebar.png")
 import dayjs from "dayjs";
 
 
 const HomeScreen = ({navigation}) => {
    
    const [time,setTime] = useState (dayjs());
-   useEffect(()=>{
-      setInterval(()=>{
-        const interval = setTime(dayjs())
-      },1000);
-        return ()=> clearInterval(interval);
-
-   },[])
+   useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(dayjs()); 
+    }, 1000);
+  
+    return () => clearInterval(interval); 
+  }, []);
 
 
    const users = [
-    { codID: "11,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
+    { codID: "11,999", location: "Gulistan-e-Jauhur", Id: "KHI 123545689713" },
     { codID: "9,800", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
     { codID: "1,999", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
     { codID: "4,295", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713" },
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     flex: 1,
     backgroundColor: "#fff",
-    
+    // elevation:10,
   },
   
   img: {
