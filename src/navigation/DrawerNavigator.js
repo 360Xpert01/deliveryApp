@@ -1,6 +1,17 @@
-import React, { useState } from 'react';
-import { View, Text, Image, Switch, TouchableOpacity, StyleSheet } from 'react-native';
-import { createDrawerNavigator, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
+import React, {useState} from 'react';
+import {
+  View,
+  Text,
+  Image,
+  Switch,
+  TouchableOpacity,
+  StyleSheet,
+} from 'react-native';
+import {
+  createDrawerNavigator,
+  DrawerContentScrollView,
+  DrawerItem,
+} from '@react-navigation/drawer';
 import BookingHistory from '../screens/bookingScreen/bookingHistory';
 import Wallet from '../screens/walletScreen/wallet';
 import Contact from '../screens/contact/contact';
@@ -8,15 +19,15 @@ import HomeScreen from '../screens/homeScreen/home';
 
 const Drawer = createDrawerNavigator();
 
-const CustomDrawerContent = (props) => {
+const CustomDrawerContent = props => {
   const [isEnglish, setIsEnglish] = useState(true);
-  const [activeItem, setActiveItem] = useState('Home'); 
+  const [activeItem, setActiveItem] = useState('Home');
 
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.header}>
         <Image
-          source={{ uri: 'https://randomuser.me/api/portraits/men/1.jpg' }}
+          source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
           style={styles.profileImage}
         />
         <Text style={styles.riderName}>Rider Name</Text>
@@ -25,7 +36,9 @@ const CustomDrawerContent = (props) => {
       {props.state.routes.map((route, index) => {
         const isActive = activeItem === route.name;
         return (
-          <View key={index} style={[styles.drawerItemContainer, isActive && styles.activeItem]}>
+          <View
+            key={index}
+            style={[styles.drawerItemContainer, isActive && styles.activeItem]}>
             <DrawerItem
               label={route.name}
               onPress={() => {
@@ -39,30 +52,36 @@ const CustomDrawerContent = (props) => {
       })}
 
       <View style={styles.languageToggle}>
-        <Text style={{ fontWeight: 'bold', color: isEnglish ? 'green' : 'black' }}>Eng</Text>
+        <Text
+          style={{fontWeight: 'bold', color: isEnglish ? 'green' : 'black'}}>
+          Eng
+        </Text>
         <Switch
           value={isEnglish}
           onValueChange={() => setIsEnglish(!isEnglish)}
-          trackColor={{ false: "#ccc", true: "green" }}
-          thumbColor={isEnglish ? "#fff" : "#fff"}
+          trackColor={{false: '#ccc', true: 'green'}}
+          thumbColor={isEnglish ? '#fff' : '#fff'}
         />
-        <Text style={{ fontWeight: 'bold', color: isEnglish ? 'black' : 'green' }}>اردو</Text>
+        <Text
+          style={{fontWeight: 'bold', color: isEnglish ? 'black' : 'green'}}>
+          اردو
+        </Text>
       </View>
 
-      <TouchableOpacity style={styles.logoutButton} onPress={() => alert('Logging out')}>
+      <TouchableOpacity
+        style={styles.logoutButton}
+        onPress={() => alert('Logging out')}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </DrawerContentScrollView>
   );
 };
 
-
-
 export default function DrawerNavigator() {
   return (
-    <Drawer.Navigator 
-      drawerContent={(props) => <CustomDrawerContent {...props} />} 
-      screenOptions={{ drawerStyle: { width: '70%' } }}>
+    <Drawer.Navigator
+      drawerContent={props => <CustomDrawerContent {...props} />}
+      screenOptions={{drawerStyle: {width: '70%'},headerShown:false}}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Booking History" component={BookingHistory} />
       <Drawer.Screen name="Wallet" component={Wallet} />
@@ -78,7 +97,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     flexDirection: 'row',
     justifyContent: 'center',
-    gap: 20
+    gap: 20,
   },
   profileImage: {
     width: 60,
@@ -115,13 +134,11 @@ const styles = StyleSheet.create({
   logoutButton: {
     backgroundColor: '#CD2222',
     padding: 12,
-    justifyContent:'center',
-    flex:1,
+    justifyContent: 'center',
+    flex: 1,
     borderRadius: 30,
     alignItems: 'center',
     margin: 20,
-
-
   },
   logoutText: {
     color: 'white',
