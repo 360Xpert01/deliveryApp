@@ -8,6 +8,7 @@ import NotificationScreen from '../screens/notificationScreen/notification';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import withAuth from '../components/withAuth';
 import withLoading from '../components/withLoading';
+import LoadDetailsScreen from '../screens/LoadDetailScreen/loadDetail';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -17,6 +18,7 @@ const AppNavigator = () => (
     <Stack.Navigator initialRouteName="Splash">
       <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="LoadDetail" component={LoadDetailsScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="Home"
         component={HomeScreen}
