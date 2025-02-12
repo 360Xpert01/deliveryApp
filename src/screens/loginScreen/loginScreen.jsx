@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  ActivityIndicator, Platform, Image
+  ActivityIndicator, Platform, Alert
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/authSlice';
@@ -10,24 +10,34 @@ import { useTheme } from '../../theme/themeContext';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const { isLoading, error, token } = useSelector((state) => state.auth);
   const navigation = useNavigation();
   const { theme } = useTheme();
+
   useEffect(() => {
     if (token) {
       navigation.replace('drawer');
     }
   }, [token]);
 
+  const validateMobileNumber = (number) => {
+    const regex = /^[0-9]{10,15}$/; // Allows only 10-15 digit numbers
+    return regex.test(number);
+  };
+
   const handleLogin = () => {
-    if (email.trim() === '' || password.trim() === '') {
-      alert('Please enter email and password');
+    if (!validateMobileNumber(mobileNumber)) {
+      Alert.alert('Invalid Mobile Number', 'Please enter a valid mobile number (10-15 digits).');
       return;
     }
-    dispatch(loginUser({ email, password }));
+    if (password.trim() === '') {
+      Alert.alert('Invalid Password', 'Password cannot be empty.');
+      return;
+    }
+    dispatch(loginUser({ mobileNumber, password }));
   };
 
   return (
@@ -41,15 +51,17 @@ const LoginScreen = () => {
           Sign in to <Text style={{ color: theme.primary, fontWeight: 'bold' }}>[App Name]</Text>
         </Text>
         <Text style={[styles.subtitle, { color: theme.text.secondary }]}>
-          Welcome back to your home for help. Please enter your account details below to sign in.
+          Welcome back! Please enter your account details below to sign in.
         </Text>
       </View>
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
         placeholder="Mobile Number"
         placeholderTextColor={theme.text.light}
-        value={email}
-        onChangeText={setEmail}
+        value={mobileNumber}
+        onChangeText={setMobileNumber}
+        keyboardType="numeric"
+        maxLength={15}
       />
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
@@ -80,18 +92,13 @@ const styles = StyleSheet.create({
     right: 20,
     width: 60,
     height: 60,
-    borderRadius: 999, 
+    borderRadius: 999,
     alignItems: 'center',
     justifyContent: 'center',
     elevation: 5,
     shadowColor: '#000',
     shadowOpacity: 0.3,
     shadowOffset: { width: 0, height: 2 },
-  },
-  whatsappLogo: {
-    width: 35,
-    height: 35,
-    resizeMode: 'contain',
   },
   logo: {
     fontSize: 40,
