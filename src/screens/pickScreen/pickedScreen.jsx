@@ -1,7 +1,7 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
+import Map from '../../components/Map'; // Import the Map component
 import CancelButton from '../../components/Arrive/cancelButton';
-import imagew from '../../assest/image.png';
 import PickButton from '../../components/Arrive/pickButton';
 import Arrow from '../../components/Arrive/arrow';
 import COD from '../../components/Arrive/cash';
@@ -16,21 +16,24 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const PickScreen = () => {
   const navigation = useNavigation();
+
   return (
     <View style={styles.container}>
-      <ImageBackground source={imagew} style={styles.imageBackground}>
+      <Map />
+      <View style={styles.overlay}>
         <View style={styles.section}>
           <PickButton />
           <Arrow />
         </View>
+
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
             <Order />
-            <View style={styles.wahtsapp} >
+            <View style={styles.whatsapp}>
               <WhatsAppIcon />
             </View>
-
           </View>
+
           <View style={styles.line} />
           <Location />
           <View style={styles.verticle} />
@@ -42,10 +45,10 @@ const PickScreen = () => {
           <COD />
           <View style={styles.btnRow}>
             <CancelButton onPress={() => navigation.navigate('Arrived')} />
-            <Pick onPress={() => navigation.navigate('Delivered')}/>
+            <Pick onPress={() => navigation.navigate('Delivered')} />
           </View>
         </View>
-      </ImageBackground>
+      </View>
     </View>
   );
 };
@@ -54,17 +57,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  imageBackground: {
-    flex: 1,
-    resizeMode: 'cover',
-    justifyContent: 'flex-end',
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    justifyContent: "flex-end",
   },
   bottomContainer: {
-    width: '100%',
     backgroundColor: 'white',
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     padding: 20,
+    elevation: 10,
   },
   verticle: {
     height: 30,
@@ -94,9 +100,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-
   },
-  wahtsapp: {
+  whatsapp: {
     padding: 10,
     backgroundColor: "white",
     borderRadius: 50,

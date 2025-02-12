@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: "white",
-    fontSize: 18,
+    fontSize: 17,
     fontWeight: 600,
   }
 })

@@ -1,16 +1,20 @@
-import React from 'react'
-import { TouchableOpacity, StyleSheet, Text, View } from 'react-native'
+import React from 'react';
+import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../theme/themeContext';
 
 const Deliver = ({ onPress }) => {
-    const { theme } = useTheme();
+  const { theme } = useTheme();
+
   return (
     <View>
-      <TouchableOpacity style={[styles.btn, { backgroundColor: theme.button }, onPress={onPress}]}>
+      <TouchableOpacity
+        style={[styles.btn, { backgroundColor: theme.button }]}
+        onPress={onPress}
+      >
         <Text style={styles.btnText}>Delivered</Text>
       </TouchableOpacity>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -24,7 +28,8 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     textAlign: "center",
-    fontWeight: 600,
+    fontWeight: "600",
   }
-})
-export default Deliver
+});
+
+export default Deliver;

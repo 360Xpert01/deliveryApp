@@ -5,6 +5,7 @@ import Arrow from '../../components/Arrive/arrow';
 import Order from '../../components/Arrive/order';
 import Location from '../../components/Arrive/location';
 import COD from '../../components/Arrive/cash';
+import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import ArrivedButton from '../../components/Arrive/arrivedButton';
 import { useNavigation } from '@react-navigation/native';
@@ -15,7 +16,7 @@ const Arrived = () => {
     const navigation = useNavigation();
     return (
         <View style={styles.container}>
-            <ImageBackground source={imagew} style={styles.imageBackground}>
+            <Map />
                 <View style={styles.section}>
                     <PickButton />
                     <Arrow />
@@ -38,7 +39,6 @@ const Arrived = () => {
                         <ArrivedButton />
                     </View>
                 </View>
-            </ImageBackground>
         </View>
     )
 }

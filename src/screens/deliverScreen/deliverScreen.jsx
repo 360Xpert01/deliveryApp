@@ -15,12 +15,13 @@ import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import ReturnButton from '../../components/Deliver/returnButton';
 import Deliver from '../../components/Deliver/deliverButton';
+import Map from '../../components/Map';
 
 const DeliverScreen = () => {
   const navigation = useNavigation();
   return (
     <View style={styles.container}>
-      <ImageBackground source={imagew} style={styles.imageBackground}>
+      <Map/>
         <View style={styles.section}>
           <PickButton />
           <Arrow />
@@ -43,11 +44,10 @@ const DeliverScreen = () => {
           <View style={styles.line} />
           <COD />
           <View style={styles.btnRow}>
-            <ReturnButton onPress={() => navigation.navigate('Pick')}/>
-                <Deliver/>
+            <ReturnButton onPress={() => navigation.navigate('Pick')} />
+            <Deliver onPress={() => navigation.navigate('DeliveredScreen')} />
           </View>
         </View>
-      </ImageBackground>
     </View>
   );
 };
