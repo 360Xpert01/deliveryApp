@@ -4,7 +4,7 @@ import themes from './theme';
 const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(themes.greenLight); // Default theme
+  const [theme, setTheme] = useState(themes.greenLight); 
 
   const switchTheme = (themeName) => {
     setTheme(themes[themeName] || themes.greenLight);
