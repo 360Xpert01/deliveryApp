@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, FlatList, ActivityIndicator, StyleSheet } from 'react-native';
 import { useNotifications } from '../../Redux/slices/notificationSlice';
 
+
 const NotificationScreen = () => {
   const { data: notifications, isLoading, error } = useNotifications();
 

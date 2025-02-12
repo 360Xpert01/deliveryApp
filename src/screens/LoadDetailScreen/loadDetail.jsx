@@ -3,9 +3,13 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Map from "../../components/Map";
 import { useTheme } from "../../theme/themeContext"; 
 import themes from "../../theme/theme"; 
+import { useNavigation } from '@react-navigation/native';
+
 
 const LoadDetailsScreen = () => {
   const { theme } = useTheme();
+  const navigation = useNavigation();
+
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.mapContainer}>
@@ -38,9 +42,15 @@ const LoadDetailsScreen = () => {
         <Text style={[styles.priceText, { color: theme.text.primary }]}>
           COD: <Text style={{ color: theme.primary }}>11,999</Text>
         </Text>
-        <TouchableOpacity style={[styles.acceptButton, { backgroundColor: theme.primary }]}>
-          <Text style={[styles.acceptButtonText, { color: theme.text.onPrimary }]}>Accept Request</Text>
+        <TouchableOpacity
+          style={[styles.acceptButton, { backgroundColor: theme.primary }]}
+          onPress={() => navigation.navigate("Arriving")}
+        >
+          <Text style={[styles.acceptButtonText, { color: theme.text.onPrimary }]}>
+            Accept Request
+          </Text>
         </TouchableOpacity>
+
       </View>
     </View>
   );

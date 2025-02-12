@@ -67,7 +67,7 @@ const BookingHistory = () => {
           <FlatList
             data={users}
             renderItem={({ item }) => (
-              <OrderCard codId={item.codID} location={item.location} orderId={item.Id} />
+              <OrderCard codId={item.codID} location={item.location} orderId={item.Id} navigation={navigation} />
             )}
           />
         </View>

@@ -20,6 +20,7 @@ export const themes = {
     logo: '#999',
     shadow: '#000',
     mode: 'light',
+    button: '#00AA2F'
   },
 
   // Green Theme - Dark Mode
