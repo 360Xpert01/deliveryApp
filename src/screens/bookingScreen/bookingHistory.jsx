@@ -1,7 +1,7 @@
 import React from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text, FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native"; // Import the hook to control navigation
-import OrderCard from "../../components/ordercard";
+import OrderCard from "../../components/orderCard";
 import themes from "../../theme/theme";
 const SideBarImage = require("../../../assets/sidebar.png");
 
