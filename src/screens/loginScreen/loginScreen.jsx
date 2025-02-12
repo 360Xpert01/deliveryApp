@@ -18,7 +18,7 @@ const LoginScreen = () => {
   const { theme } = useTheme();
   useEffect(() => {
     if (token) {
-      navigation.replace('LoadDetail');
+      navigation.navigate('drawer', { screen: 'Home' });
     }
   }, [token]);
 
