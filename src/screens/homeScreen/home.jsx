@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
@@ -10,6 +10,9 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Welcome to Home Screen</Text>
+      <Button 
+      title='buttons'
+      onPress={() => navigation.navigate('Arriving')}></Button>
     </View>
   );
 };
@@ -25,6 +28,7 @@ HomeScreen.options = ({ navigation }) => ({
       style={styles.icon}
     />
   ),
+
 });
 
 const styles = StyleSheet.create({
