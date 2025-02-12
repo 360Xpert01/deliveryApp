@@ -9,6 +9,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import withAuth from '../components/withAuth';
 import withLoading from '../components/withLoading';
 import LoadDetailsScreen from '../screens/LoadDetailScreen/loadDetail';
+import DrawerNavigatior from './DrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -20,10 +21,11 @@ const AppNavigator = () => (
       <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
       <Stack.Screen name="LoadDetail" component={LoadDetailsScreen} options={{ headerShown: false }} />
       <Stack.Screen
-        name="Home"
-        component={HomeScreen}
+        name="drawer"
+        component={DrawerNavigatior}
         options={({ navigation }) => ({
           title: 'Home',
+          headerShown:false,
           headerRight: () => (
             <Icon
               name="bell"
