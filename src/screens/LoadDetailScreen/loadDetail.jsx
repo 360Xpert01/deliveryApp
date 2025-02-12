@@ -1,8 +1,8 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Map from "../../components/Map";
-import { useTheme } from "../theme/themeContext"; 
-import themes from "../theme/theme"; 
+import { useTheme } from "../../theme/themeContext"; 
+import themes from "../../theme/theme"; 
 
 const LoadDetailsScreen = () => {
   const { theme } = useTheme();
@@ -83,3 +83,5 @@ const styles = StyleSheet.create({
   },
   acceptButtonText: { fontSize: 16, fontWeight: "bold" },
 });
+
+export default LoadDetailsScreen;

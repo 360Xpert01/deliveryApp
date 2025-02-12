@@ -6,7 +6,7 @@ const ellipse = require("../../assets/Ellipse.png")
 const location = require("../../assets/location.png")
 import themes from "../theme/theme";
 
-const OrderCard = ({ codId, location, orderId }) => {
+const OrderCard = ({ codId, location, orderId, navigation }) => {
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate("LoadDetail", { orderId, codId, location })}
