@@ -39,7 +39,7 @@ const HomeScreen = ({navigation}) => {
         <View>
           <FlatList
           data  = {users}
-          renderItem={({item})=><OrderCard codId={item.codID} location={item.location} orderId={item.Id}/>}
+            renderItem={({ item }) => <OrderCard codId={item.codID} location={item.location} orderId={item.Id} navigation={navigation} />}
           />
         </View>
       </View> 
