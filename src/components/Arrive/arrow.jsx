@@ -1,9 +1,10 @@
 import React from 'react'
 import arrow from '../../assest/Vector.png'
 import { Image, StyleSheet, View } from 'react-native'
+import themes from '../../theme/theme'
 const Arrow = () => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {shadowColor: themes.greenLight.shadow}]}>
       <Image source={arrow} style={styles.image} />
     </View>
   )
@@ -11,19 +12,18 @@ const Arrow = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 40, // Circle size
+    width: 40, 
     height: 40,
-    borderRadius: 20, // Makes it circular
+    borderRadius: 20, 
     backgroundColor: 'white',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#000', // Optional: Adds a slight shadow
     shadowOpacity: 0.1,
     shadowRadius: 5,
-    elevation: 3, // For Android shadow
+    elevation: 3, 
   },
   image: {
-    width: 20, // Adjust based on your icon size
+    width: 20, 
     height: 20,
     resizeMode: 'contain',
   },

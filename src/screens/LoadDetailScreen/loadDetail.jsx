@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import Map from '../../components/Map';
 import {useTheme} from '../../theme/themeContext';
