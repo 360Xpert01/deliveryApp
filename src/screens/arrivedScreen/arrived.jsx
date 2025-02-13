@@ -9,7 +9,7 @@ import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import ArrivedButton from '../../components/Arrive/arrivedButton';
 import { useNavigation } from '@react-navigation/native';
-import imagew from '../../assest/image.png';
+
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const Arrived = () => {

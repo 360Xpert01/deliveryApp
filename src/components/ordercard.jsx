@@ -2,9 +2,9 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-const dish = require("../../assets/dish.png");
-const ellipse = require("../../assets/Ellipse.png");
-const locationIcon = require("../../assets/location.png");
+const dish = require("../../assets/dish.png");;
+const ellipse = require("../../assets/Ellipse.png");;
+import LocationIcon from '../assest/location.png'
 
 const OrderCard = ({ codId, location, orderId, navigation }) => {
     return (
@@ -12,11 +12,10 @@ const OrderCard = ({ codId, location, orderId, navigation }) => {
             onPress={() => navigation.navigate("LoadDetail", { orderId, codId, location })}
             style={styles.card}
         >
-            <View>
-                {/* Header */}
+            <View style={styles.cardContent}>
                 <View style={styles.header}>
                     <View style={styles.row}>
-                        <Image source={dish} style={styles.icon} />
+                        <Image source={dish} style={{ width: 20, height: 20 }} />
                         <Text style={styles.orderId}>{orderId}</Text>
                     </View>
                     <Text style={styles.cod}>COD {codId}</Text>
@@ -24,8 +23,6 @@ const OrderCard = ({ codId, location, orderId, navigation }) => {
                         <Text style={styles.tagText}>{location}</Text>
                     </View>
                 </View>
-
-                {/* Address List */}
                 <View style={styles.addressContainer}>
                     <View style={styles.addressRow}>
                         <Image source={ellipse} style={styles.ellipse} />
@@ -34,7 +31,7 @@ const OrderCard = ({ codId, location, orderId, navigation }) => {
                         </Text>
                     </View>
                     <View style={styles.addressRow}>
-                        <Image source={locationIcon} style={styles.icon} />
+                        <Image source={LocationIcon} style={{ width: 18, height: 18 }}/>
                         <Text style={styles.addressText}>
                             B 121 Block 2, Gulshan-e-Iqbal, Karachi
                         </Text>
@@ -47,18 +44,20 @@ const OrderCard = ({ codId, location, orderId, navigation }) => {
 
 const styles = StyleSheet.create({
     card: {
-        borderWidth: 0,
-        borderRadius: wp("3%"),
-        padding: wp("3%"),
-        marginVertical: hp("1%"),
-        marginHorizontal: wp("5%"),
-        backgroundColor: "#fff",
+        backgroundColor: "#FFFFFF",
+        borderRadius: 14,
+        padding: 5,
+        margin: 10,
         shadowColor: "#000",
         shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.15,
+        shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 5,
-        width: wp("90%"),
+        elevation: 10,
+    },
+    cardContent: {
+        backgroundColor: "#FFFFFF",
+        borderRadius: 14,
+        padding: 10,
     },
     header: {
         flexDirection: "row",
@@ -68,6 +67,7 @@ const styles = StyleSheet.create({
     },
     row: {
         flexDirection: "row",
+        gap: 5,
         alignItems: "center",
     },
     icon: {

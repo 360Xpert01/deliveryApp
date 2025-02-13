@@ -1,11 +1,12 @@
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import themes from '../../theme/theme'
 
 const COD = () => {
   return (
     <View style={styles.cash}>
       <Text style={styles.label}>COD:</Text>
-      <Text style={styles.amount}>11,999</Text>
+      <Text style={[styles.amount, {color: themes.greenLight.cash}]}>11,999</Text>
     </View>
   )
 }
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
   },
   amount: {
     fontSize: 20,
-    color: '#00AA2F',
+    // color: '#00AA2F',
     fontWeight: 'bold',
   },
 })
