@@ -7,14 +7,15 @@ import dayjs from "dayjs";
 
 const HomeScreen = ({navigation}) => {
    
-   const [time,setTime] = useState (dayjs());
-   useEffect(()=>{
-      setInterval(()=>{
-        const interval = setTime(dayjs())
-      },1000);
-        return ()=> clearInterval(interval);
+  const [time, setTime] = useState(dayjs());
 
-   },[])
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(dayjs()); // Update state every second
+    }, 1000);
+  
+    return () => clearInterval(interval); // Cleanup on unmount
+  }, []);
 
 
    const users = [
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 14,
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "",
     
   },
   
