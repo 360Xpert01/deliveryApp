@@ -6,6 +6,7 @@ import {
   Switch,
   TouchableOpacity,
   StyleSheet,
+  Linking,
 } from 'react-native';
 import {
   createDrawerNavigator,
@@ -22,6 +23,15 @@ const Drawer = createDrawerNavigator();
 const CustomDrawerContent = props => {
   const [isEnglish, setIsEnglish] = useState(true);
   const [activeItem, setActiveItem] = useState('Home');
+
+  const openWhatsApp = () => {
+    const phoneNumber = "+923253588091"; 
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+
+    Linking.openURL(url).catch(() => {
+      alert("WhatsApp is not installed on this device.");
+    });
+  };
 
   return (
     <DrawerContentScrollView {...props}>
@@ -43,7 +53,11 @@ const CustomDrawerContent = props => {
               label={route.name}
               onPress={() => {
                 setActiveItem(route.name);
-                props.navigation.navigate(route.name);
+                if (route.name === "Contact Us") {
+                  openWhatsApp();
+                } else {
+                  props.navigation.navigate(route.name);
+                }
               }}
               labelStyle={[styles.drawerLabel, isActive && styles.activeLabel]}
             />
