@@ -20,6 +20,7 @@ export const themes = {
     logo: '#999',
     shadow: '#000',
     mode: 'light',
+    success: '#00AA2F',
     button: '#00AA2F'
   },
 

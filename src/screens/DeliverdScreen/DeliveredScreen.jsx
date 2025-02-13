@@ -53,7 +53,7 @@ const DeliveredScreen = () => {
         ))}
       </View>
 
-      <TouchableOpacity style={styles.submitButton} onPress={() => navigation.goBack()}>
+      <TouchableOpacity style={styles.submitButton} onPress={() => navigation.navigate("drawer")}>
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
     </View>
