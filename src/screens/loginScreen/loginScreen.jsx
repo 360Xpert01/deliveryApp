@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import {
+  View, Text, TextInput, TouchableOpacity, StyleSheet,
+  ActivityIndicator, Platform, Alert
+} from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/authSlice';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import { useNavigation } from '@react-navigation/native';
-import { useTheme } from '../../theme/themeContext'; 
+import { useTheme } from '../../theme/themeContext';
+import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
+  const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
   const { isLoading, error, token } = useSelector((state) => state.auth);
   const navigation = useNavigation();
-  const { theme } = useTheme(); 
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (token) {
@@ -20,41 +23,45 @@ const LoginScreen = () => {
     }
   }, [token]);
 
+  const validateMobileNumber = (number) => {
+    const regex = /^[0-9]{10,15}$/; // Allows only 10-15 digit numbers
+    return regex.test(number);
+  };
+
   const handleLogin = () => {
-    if (email.trim() === '' || password.trim() === '') {
-      alert('Please enter email and password');
+    if (!validateMobileNumber(mobileNumber)) {
+      Alert.alert('Invalid Mobile Number', 'Please enter a valid mobile number (10-15 digits).');
       return;
     }
-    dispatch(loginUser({ email, password }));
+    if (password.trim() === '') {
+      Alert.alert('Invalid Password', 'Password cannot be empty.');
+      return;
+    }
+    dispatch(loginUser({ mobileNumber, password }));
   };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      {/* WhatsApp Floating Button */}
       <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
-        <Icon name="whatsapp" size={30} color={theme.text.onPrimary} />
+        <WhatsAppIcon width={35} height={35} />
       </TouchableOpacity>
-
-      {/* LOGO */}
       <Text style={[styles.logo, { color: theme.logo }]}>LOGO</Text>
-
-      {/* Sign-in Text (Left Aligned) */}
       <View style={styles.signInContainer}>
         <Text style={[styles.title, { color: theme.text.primary }]}>
           Sign in to <Text style={{ color: theme.primary, fontWeight: 'bold' }}>[App Name]</Text>
         </Text>
         <Text style={[styles.subtitle, { color: theme.text.secondary }]}>
-          Welcome back to your home for help. Please enter your account details below to sign in.
+          Welcome back! Please enter your account details below to sign in.
         </Text>
       </View>
-
-      {/* Input Fields */}
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
         placeholder="Mobile Number"
         placeholderTextColor={theme.text.light}
-        value={email}
-        onChangeText={setEmail}
+        value={mobileNumber}
+        onChangeText={setMobileNumber}
+        keyboardType="numeric"
+        maxLength={15}
       />
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
@@ -64,11 +71,7 @@ const LoginScreen = () => {
         value={password}
         onChangeText={setPassword}
       />
-
-      {/* Error Message */}
       {error && <Text style={[styles.errorText, { color: theme.error }]}>{error}</Text>}
-
-      {/* Sign-in Button */}
       <TouchableOpacity style={[styles.button, { backgroundColor: theme.primary }]} onPress={handleLogin} disabled={isLoading}>
         {isLoading ? <ActivityIndicator color={theme.text.onPrimary} /> : <Text style={[styles.buttonText, { color: theme.text.onPrimary }]}>Sign in</Text>}
       </TouchableOpacity>
@@ -76,7 +79,6 @@ const LoginScreen = () => {
   );
 };
 
-// Styles
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -88,8 +90,11 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 40,
     right: 20,
-    padding: 12,
-    borderRadius: 50,
+    width: 60,
+    height: 60,
+    borderRadius: 999,
+    alignItems: 'center',
+    justifyContent: 'center',
     elevation: 5,
     shadowColor: '#000',
     shadowOpacity: 0.3,

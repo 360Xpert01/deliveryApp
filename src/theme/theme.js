@@ -15,11 +15,12 @@ export const themes = {
       background: '#F7F7F7',
       border: '#E0E0E0',
     },
-    whatsapp: '#25D366',
+    whatsapp: '#F7F7F7',
     error: '#D32F2F',
     logo: '#999',
     shadow: '#000',
     mode: 'light',
+    button: '#00AA2F'
   },
 
   // Green Theme - Dark Mode

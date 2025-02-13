@@ -1,8 +1,8 @@
 // import { useState ,useEffect} from "react";
 import { useState,useEffect } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text,FlatList, TouchableOpacity } from "react-native";
-import OrderCard from "../../components/ordercard";
-const SideBarImage = require("../../../assets/sidebar.png")
+import OrderCard from "../../components/ordercard"; 
+const SideBarImage = require("../../../assets/sidebar.png");
 import dayjs from "dayjs";
 
 
@@ -40,7 +40,7 @@ const HomeScreen = ({navigation}) => {
         <View>
           <FlatList
           data  = {users}
-          renderItem={({item})=><OrderCard codId={item.codID} location={item.location} orderId={item.Id}/>}
+            renderItem={({ item }) => <OrderCard codId={item.codID} location={item.location} orderId={item.Id} navigation={navigation} />}
           />
         </View>
       </View> 

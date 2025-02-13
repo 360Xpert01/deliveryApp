@@ -1,42 +1,47 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 const dish = require("../../assets/dish.png")
 const ellipse = require("../../assets/Ellipse.png")
 const location = require("../../assets/location.png")
 
-const OrderCard = ({ codId, location, orderId }) => {
+const OrderCard = ({ codId, location, orderId, navigation }) => {
     return (
-        <View style={styles.card}>
-            {/* Header */}
-            <View style={styles.header}>
-                <View style={styles.row}>
-                    <Image source={dish} style={{ width: 22, height: 22 }} />
-                    <Text style={styles.orderId}>{orderId}</Text>
+        <TouchableOpacity
+            onPress={() => navigation.navigate("LoadDetail", { orderId, codId, location })}
+            style={styles.card}
+        >
+            <View style={styles.card}>
+                {/* Header */}
+                <View style={styles.header}>
+                    <View style={styles.row}>
+                        <Image source={dish} style={{ width: 22, height: 22 }} />
+                        <Text style={styles.orderId}>{orderId}</Text>
+                    </View>
+                    <Text style={styles.cod}>COD {codId}</Text>
+                    <View style={styles.tag}>
+                        <Text style={styles.tagText}>{location}</Text>
+                    </View>
                 </View>
-                <Text style={styles.cod}>COD {codId}</Text>
-                <View style={styles.tag}>
-                    <Text style={styles.tagText}>{location}</Text>
+
+                {/* Address List */}
+                <View style={styles.addressContainer}>
+                    <View style={styles.addressRow}>
+
+                        <Image source={ellipse} style={styles.ellipse} />
+                        <Text style={styles.addressText}>
+                            14th Street Pizza Co. Block-7, Gulshan-e-Iqbal
+                        </Text>
+                    </View>
+                    <View style={styles.addressRow}>
+                        <Icon name="location-on" size={18} style={styles.locationIcon} />
+                        <Text style={styles.addressText}>
+                            B 121 Block 2, Gulshan-e-Iqbal, Karachi
+                        </Text>
+                    </View>
                 </View>
             </View>
-
-            {/* Address List */}
-            <View style={styles.addressContainer}>
-                <View style={styles.addressRow}>
-
-                    <Image source={ellipse} style={styles.ellipse} />
-                    <Text style={styles.addressText}>
-                        14th Street Pizza Co. Block-7, Gulshan-e-Iqbal
-                    </Text>
-                </View>
-                <View style={styles.addressRow}>
-                    <Icon name="location-on" size={18} style={styles.locationIcon} />
-                    <Text style={styles.addressText}>
-                        B 121 Block 2, Gulshan-e-Iqbal, Karachi
-                    </Text>
-                </View>
-            </View>
-        </View>
+        </TouchableOpacity>
     );
 };
 
@@ -46,7 +51,8 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         padding: 10,
         margin: 10,
-        color:"#0BAD5E",
+        // color:themes.greenLight.locationLogo,
+        color: "#0BAD5E"
     },
     header: {
         flexDirection: "row",
@@ -64,15 +70,15 @@ const styles = StyleSheet.create({
         fontSize: 9.5,
         fontWeight: 700,
         marginLeft: 5,
-        
+
 
     },
     cod: {
         fontSize: 15,
         fontWeight: 700,
         // color:themes.greenLight.text.codColor,
-        color:"#00AA2F",
-        lineHeight: 28.22, 
+        color: "#00AA2F",
+        lineHeight: 28.22,
         letterSpacing: 0.22,
 
     },
@@ -95,7 +101,8 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         alignItems: "center",
         marginVertical: 4,
-        backgroundColor:"#F9F9F9",
+        backgroundColor: themes.greenLight.addressrowcolor,
+        backgroundColor: "#F9F9F9",
         borderRadius: 6,
         padding: 5,
         alignSelf: "flex-start",
@@ -110,8 +117,8 @@ const styles = StyleSheet.create({
         width: 13,
         height: 13,
     },
-    locationIcon:{
-        color:'#0BAD5E'
+    locationIcon: {
+        color: '#0BAD5E'
     }
 });
 
