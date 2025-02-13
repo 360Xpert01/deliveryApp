@@ -9,6 +9,7 @@ const backButton = require('../../../assets/backbutton.png');
 const LoadDetailsScreen = () => {
   const {theme} = useTheme();
   const navigation = useNavigation();
+  const [animate, setAnimate] = useState(false);
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
@@ -20,7 +21,7 @@ const LoadDetailsScreen = () => {
       </TouchableOpacity>
 
       <View style={styles.mapContainer}>
-        <Map />
+        <Map showHelmet={false} animate={animate} setAnimate={setAnimate} />
       </View>
 
       <View style={[styles.detailsContainer, {backgroundColor: theme.surface}]}>
@@ -65,10 +66,13 @@ const LoadDetailsScreen = () => {
           COD: <Text style={{color: theme.primary}}>11,999</Text>
         </Text>
         <TouchableOpacity
-          style={[styles.acceptButton, {backgroundColor: theme.primary}]}
-          onPress={() => navigation.navigate('Arriving')}>
-          <Text
-            style={[styles.acceptButtonText, {color: theme.text.onPrimary}]}>
+          style={[styles.acceptButton, { backgroundColor: theme.primary }]}
+          onPress={() => {
+            setAnimate(true); // Start animation when button is pressed
+            navigation.navigate("Arriving");
+          }}
+        >
+          <Text style={[styles.acceptButtonText, { color: theme.text.onPrimary }]}>
             Accept Request
           </Text>
         </TouchableOpacity>
