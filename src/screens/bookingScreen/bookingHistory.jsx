@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     // textAlignVertical: "center",
     color: themes.primary,
-    paddingRight: 20,
+    // paddingRight: 20,
   },
   navtime: {
     flexDirection: "row",

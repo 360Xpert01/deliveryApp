@@ -4,7 +4,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 const dish = require("../../assets/dish.png")
 const ellipse = require("../../assets/Ellipse.png")
 const location = require("../../assets/location.png")
-import themes from "../theme/theme";
 
 const OrderCard = ({ codId, location, orderId, navigation }) => {
     return (
