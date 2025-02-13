@@ -3,7 +3,9 @@ import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text, FlatList } fro
 import { useNavigation } from "@react-navigation/native"; 
 import OrderCard from "../../components/ordercard";
 import themes from "../../theme/theme";
+import HistoryCard from "../../components/historyCard";
 const SideBarImage = require("../../../assets/sidebar.png");
+
 
 const BookingHistory = () => {
   const navigation = useNavigation(); 
@@ -13,41 +15,57 @@ const BookingHistory = () => {
       codID: "11, 999",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Delivered',
+      distance:1.6 
     },
     {
       codID: "9,800",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Returned',
+      distance:1.6 
     },
     {
       codID: "1,999",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Delivered',
+      distance:1.6 
     },
     {
       codID: "4,295",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Returned',
+      distance:1.6 
     },
     {
       codID: "1,800",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Delivered',
+      distance:1.6 
     },
     {
       codID: "5,208",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Returned',
+      distance:1.6 
     },
     {
       codID: "5,208",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Delivered',
+      distance:1.6 
     },
     {
       codID: "5,208",
       location: "Huzaifa-e-Jauhor",
       Id: "KHI 123545689713",
+      status:'Returned',
+      distance:1.6 
     },
   ];
 
@@ -67,7 +85,7 @@ const BookingHistory = () => {
           <FlatList
             data={users}
             renderItem={({ item }) => (
-              <OrderCard codId={item.codID} location={item.location} orderId={item.Id} navigation={navigation} />
+              <HistoryCard codId={item.codID} location={item.location} orderId={item.Id} distance={item.distance} status={item.status} navigation={navigation} />
             )}
           />
         </View>
@@ -94,7 +112,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F9F9F9",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    paddingTop: 21,
+    paddingTop: 2,
     paddingBottom: 100,
   },
   time: {
