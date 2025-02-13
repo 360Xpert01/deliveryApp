@@ -49,7 +49,7 @@ const AnotherOrder = ({ navigation }) => {
         
       </View> 
       <View>
-        {/* <NewOrder/> */}
+        <NewOrder/>
       </View>
     </SafeAreaView>
   );

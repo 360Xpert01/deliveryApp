@@ -23,7 +23,6 @@ export const themes = {
     button: '#00AA2F',
     btnRed: '#CD2222',
     locationBackground: '#F9F9F9',
-    cash: '#00AA2F',
     black: '#252525',
   },
 

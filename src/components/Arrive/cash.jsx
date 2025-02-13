@@ -6,7 +6,7 @@ const COD = () => {
   return (
     <View style={styles.cash}>
       <Text style={styles.label}>COD:</Text>
-      <Text style={[styles.amount, {color: themes.greenLight.cash}]}>11,999</Text>
+      <Text style={[styles.amount, {color: themes.greenLight.button}]}>11,999</Text>
     </View>
   )
 }
