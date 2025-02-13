@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Image, StyleSheet, Text } from 'react-native'
 import Bullet from '../../assest/bullet.png'
+import themes from '../../theme/theme'
 
 const Location = () => {
   return (
-    <View style={styles.box}>
+    <View style={[styles.box, {backgroundColor: themes.greenLight.locationBackground}]}>
       <Image source={Bullet} />
       <Text>14th Street Pizza Co, Block-7, Gulshan-e-Iqbal</Text>
     </View>
@@ -13,7 +14,7 @@ const Location = () => {
 
 const styles = StyleSheet.create({
   box: {
-    backgroundColor: "#F9F9F9",
+    // backgroundColor: "#F9F9F9",
     flexDirection: "row",
     gap: 8,
     paddingVertical: 10,

@@ -20,7 +20,11 @@ export const themes = {
     logo: '#999',
     shadow: '#000',
     mode: 'light',
-    button: '#00AA2F'
+    button: '#00AA2F',
+    btnRed: '#CD2222',
+    locationBackground: '#F9F9F9',
+    cash: '#00AA2F',
+    black: '#252525',
   },
 
   // Green Theme - Dark Mode

@@ -1,6 +1,7 @@
 import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { useTheme } from '../../theme/themeContext';
+import { useNavigation } from '@react-navigation/native';
 
 const Pick = ({ onPress }) => {
   const { theme } = useTheme();
@@ -19,7 +20,6 @@ const Pick = ({ onPress }) => {
 
 const styles = StyleSheet.create({
   btn: {
-    backgroundColor: '#00AA2F',
     width: 180,
     paddingHorizontal: 10,
     paddingVertical: 8,

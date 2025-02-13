@@ -30,7 +30,7 @@ const ArrivingScreen = () => {
                 <View style={styles.line} />
                 <COD />
                 <View style={styles.btnRow}>
-                    <CancelButton onPress={() => navigation.navigate('Home')} />
+                    <CancelButton onPress={() => navigation.navigate('LoadDetail')} />
                     <ArriveButton />
                 </View>
             </View>
