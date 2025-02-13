@@ -1,32 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Map from "../../components/Map";
-import { useTheme } from "../../theme/themeContext"; 
-import themes from "../../theme/theme"; 
+import { useTheme } from "../../theme/themeContext";
 import { useNavigation } from '@react-navigation/native';
-
 
 const LoadDetailsScreen = () => {
   const { theme } = useTheme();
   const navigation = useNavigation();
+  const [animate, setAnimate] = useState(false);
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       <View style={styles.mapContainer}>
-        <Map />
+        <Map showHelmet={false} animate={animate} setAnimate={setAnimate} />
       </View>
       <View style={[styles.detailsContainer, { backgroundColor: theme.surface }]}>
         <View style={styles.headerRow}>
-          <Image
-            source={{ uri: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" }}
-            style={styles.foodIcon}
-          />
+          <Image source={{ uri: "https://cdn-icons-png.flaticon.com/512/3075/3075977.png" }} style={styles.foodIcon} />
           <Text style={[styles.orderId, { color: theme.text.primary }]}>ORD-2023-4578</Text>
           <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
-            <Image
-              source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" }}
-              style={styles.whatsappIcon}
-            />
+            <Image source={{ uri: "https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" }} style={styles.whatsappIcon} />
           </TouchableOpacity>
         </View>
         <View style={styles.locationRow}>
@@ -44,13 +37,15 @@ const LoadDetailsScreen = () => {
         </Text>
         <TouchableOpacity
           style={[styles.acceptButton, { backgroundColor: theme.primary }]}
-          onPress={() => navigation.navigate("Arriving")}
+          onPress={() => {
+            setAnimate(true); // Start animation when button is pressed
+            navigation.navigate("Arriving");
+          }}
         >
           <Text style={[styles.acceptButtonText, { color: theme.text.onPrimary }]}>
             Accept Request
           </Text>
         </TouchableOpacity>
-
       </View>
     </View>
   );
