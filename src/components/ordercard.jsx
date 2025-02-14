@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: wp("1%"),
         marginBottom: hp("1%"),
+        justifyContent:'space-between'
     },
     row: {
         flexDirection: "row",
