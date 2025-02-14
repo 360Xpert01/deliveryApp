@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  ActivityIndicator, Platform, Alert
+  ActivityIndicator, Alert, Linking, I18nManager
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../theme/themeContext';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import { useTranslation } from 'react-i18next';
 
 const LoginScreen = () => {
+
+  const { t } = useTranslation();
   const [mobileNumber, setMobileNumber] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
@@ -23,18 +26,27 @@ const LoginScreen = () => {
     }
   }, [token]);
 
+  const openWhatsApp = () => {
+    const phoneNumber = "+923253588091";
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+
+    Linking.openURL(url).catch(() => {
+      alert("WhatsApp is not installed on this device.");
+    });
+  };
+
   const validateMobileNumber = (number) => {
-    const regex = /^[0-9]{10,15}$/; // Allows only 10-15 digit numbers
+    const regex = /^[0-9]{10,15}$/;
     return regex.test(number);
   };
 
   const handleLogin = () => {
     if (!validateMobileNumber(mobileNumber)) {
-      Alert.alert('Invalid Mobile Number', 'Please enter a valid mobile number (10-15 digits).');
+      Alert.alert(t('invalidMobile'), t('invalidMobileMessage'));
       return;
     }
     if (password.trim() === '') {
-      Alert.alert('Invalid Password', 'Password cannot be empty.');
+      Alert.alert(t('invalidPassword'), t('passwordEmpty'));
       return;
     }
     dispatch(loginUser({ mobileNumber, password }));
@@ -42,21 +54,21 @@ const LoginScreen = () => {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-      <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
+      <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]} onPress={openWhatsApp}>
         <WhatsAppIcon width={35} height={35} />
       </TouchableOpacity>
       <Text style={[styles.logo, { color: theme.logo }]}>LOGO</Text>
       <View style={styles.signInContainer}>
-        <Text style={[styles.title, { color: theme.text.primary }]}>
-          Sign in to <Text style={{ color: theme.primary, fontWeight: 'bold' }}>[App Name]</Text>
+        <Text style={[styles.title, { color: theme.text.primary, textAlign: I18nManager.isRTL ? 'right' : 'left' }]}>
+          {t('signInTo')} <Text style={{ color: theme.primary, fontWeight: 'bold' }}>{t("appName")}</Text>
         </Text>
-        <Text style={[styles.subtitle, { color: theme.text.secondary }]}>
-          Welcome back! Please enter your account details below to sign in.
+        <Text style={[styles.subtitle, { color: theme.text.secondary, textAlign: I18nManager.isRTL ? 'right' : 'left' }]}>
+          {t('welcomeBack')}
         </Text>
       </View>
       <TextInput
-        style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
-        placeholder="Mobile Number"
+        style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border, textAlign: I18nManager.isRTL ? 'right' : 'left' }]}
+        placeholder={t('mobileNumber')}
         placeholderTextColor={theme.text.light}
         value={mobileNumber}
         onChangeText={setMobileNumber}
@@ -64,16 +76,16 @@ const LoginScreen = () => {
         maxLength={15}
       />
       <TextInput
-        style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
-        placeholder="Password"
+        style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border, textAlign: I18nManager.isRTL ? 'right' : 'left' }]}
+        placeholder={t('password')}
         placeholderTextColor={theme.text.light}
         secureTextEntry
         value={password}
         onChangeText={setPassword}
       />
-      {error && <Text style={[styles.errorText, { color: theme.error }]}>{error}</Text>}
+      {error && <Text style={[styles.errorText, { color: theme.error, textAlign: I18nManager.isRTL ? 'right' : 'left' }]}>{error}</Text>}
       <TouchableOpacity style={[styles.button, { backgroundColor: theme.primary }]} onPress={handleLogin} disabled={isLoading}>
-        {isLoading ? <ActivityIndicator color={theme.text.onPrimary} /> : <Text style={[styles.buttonText, { color: theme.text.onPrimary }]}>Sign in</Text>}
+        {isLoading ? <ActivityIndicator color={theme.text.onPrimary} /> : <Text style={[styles.buttonText, { color: theme.text.onPrimary }]}>{t('signIn')}</Text>}
       </TouchableOpacity>
     </View>
   );
@@ -116,7 +128,6 @@ const styles = StyleSheet.create({
   },
   subtitle: {
     fontSize: 14,
-    textAlign: 'left',
     marginTop: 5,
     paddingRight: 20,
   },
@@ -132,7 +143,6 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 14,
     marginVertical: 5,
-    textAlign: 'left',
     width: '100%',
   },
   button: {

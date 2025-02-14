@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, Linking } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import Map from '../../components/Map';
 import ArriveButton from '../../components/Arrive/arriveButton';
@@ -13,15 +13,24 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 const ArrivingScreen = () => {
     const navigation = useNavigation();
     const route = useRoute();
-    const [animate, setAnimate] = useState(false); 
+    const [animate, setAnimate] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            setAnimate(true); 
+            setAnimate(true);
         }, 2000);
 
-        return () => clearTimeout(timer); 
+        return () => clearTimeout(timer);
     }, []);
+
+    const openWhatsApp = () => {
+        const phoneNumber = "+923253588091";
+        const url = `whatsapp://send?phone=${phoneNumber}`;
+
+        Linking.openURL(url).catch(() => {
+            alert("WhatsApp is not installed on this device.");
+        });
+    };
 
     return (
         <View style={styles.container}>
@@ -29,9 +38,9 @@ const ArrivingScreen = () => {
             <View style={styles.bottomContainer}>
                 <View style={styles.orderSec}>
                     <KHI />
-                    <View style={styles.whatsapp}>
+                    <TouchableOpacity style={styles.whatsapp} onPress={openWhatsApp}>
                         <WhatsAppIcon />
-                    </View>
+                    </TouchableOpacity>
                 </View>
 
                 <View style={styles.line} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { ImageBackground, StyleSheet, Text, TouchableOpacity, View, Linking } from 'react-native';
 import CancelButton from '../../components/Arrive/cancelButton';
 import imagew from '../../assest/image.png';
 import PickButton from '../../components/Arrive/pickButton';
@@ -19,35 +19,45 @@ import Map from '../../components/Map';
 
 const DeliverScreen = () => {
   const navigation = useNavigation();
+
+  const openWhatsApp = () => {
+    const phoneNumber = "+923253588091";
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+
+    Linking.openURL(url).catch(() => {
+      alert("WhatsApp is not installed on this device.");
+    });
+  };
+
   return (
     <View style={styles.container}>
-      <Map/>
-        <View style={styles.section}>
-          <PickButton />
-          <Arrow />
-        </View>
-        <View style={styles.bottomContainer}>
-          <View style={styles.orderSec}>
-            <Order />
-            <View style={styles.wahtsapp} >
-              <WhatsAppIcon />
-            </View>
+      <Map />
+      <View style={styles.section}>
+        <PickButton />
+        <Arrow />
+      </View>
+      <View style={styles.bottomContainer}>
+        <View style={styles.orderSec}>
+          <Order />
+          <TouchableOpacity style={styles.wahtsapp} onPress={openWhatsApp}>
+            <WhatsAppIcon />
+          </TouchableOpacity>
 
-          </View>
-          <View style={styles.line} />
-          <Location />
-          <View style={styles.verticle} />
-          <Locate />
-          <Distance />
-          <View style={styles.line} />
-          <Customer />
-          <View style={styles.line} />
-          <COD />
-          <View style={styles.btnRow}>
-            <ReturnButton onPress={() => navigation.navigate('Pick')} />
-            <Deliver onPress={() => navigation.navigate('DeliveredScreen')} />
-          </View>
         </View>
+        <View style={styles.line} />
+        <Location />
+        <View style={styles.verticle} />
+        <Locate />
+        <Distance />
+        <View style={styles.line} />
+        <Customer />
+        <View style={styles.line} />
+        <COD />
+        <View style={styles.btnRow}>
+          <ReturnButton onPress={() => navigation.navigate('Pick')} />
+          <Deliver onPress={() => navigation.navigate('DeliveredScreen')} />
+        </View>
+      </View>
     </View>
   );
 };

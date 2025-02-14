@@ -11,6 +11,8 @@ const ArriveButton = () => {
     navigation.navigate('Arrived'); 
   };
 
+  
+
   return (
     <View>
       <TouchableOpacity 

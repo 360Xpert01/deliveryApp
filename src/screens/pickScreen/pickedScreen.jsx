@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View, Linking } from 'react-native';
 import Map from '../../components/Map'; // Import the Map component
 import CancelButton from '../../components/Arrive/cancelButton';
 import PickButton from '../../components/Arrive/pickButton';
@@ -17,6 +17,15 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 const PickScreen = () => {
   const navigation = useNavigation();
 
+  const openWhatsApp = () => {
+    const phoneNumber = "+923253588091";
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+
+    Linking.openURL(url).catch(() => {
+      alert("WhatsApp is not installed on this device.");
+    });
+  };
+
   return (
     <View style={styles.container}>
       <Map />
@@ -29,9 +38,9 @@ const PickScreen = () => {
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
             <Order />
-            <View style={styles.whatsapp}>
+            <TouchableOpacity style={styles.whatsapp} onPress={openWhatsApp}>
               <WhatsAppIcon />
-            </View>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.line} />

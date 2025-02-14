@@ -1,5 +1,5 @@
 import React from 'react'
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import { ImageBackground, StyleSheet, TouchableOpacity, View, Linking } from 'react-native';
 import PickButton from '../../components/Arrive/pickButton';
 import Arrow from '../../components/Arrive/arrow';
 import Order from '../../components/Arrive/order';
@@ -14,31 +14,40 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const Arrived = () => {
     const navigation = useNavigation();
+
+    const openWhatsApp = () => {
+        const phoneNumber = "+923253588091";
+        const url = `whatsapp://send?phone=${phoneNumber}`;
+
+        Linking.openURL(url).catch(() => {
+            alert("WhatsApp is not installed on this device.");
+        });
+    };
     return (
         <View style={styles.container}>
             <Map />
-                <View style={styles.section}>
-                    <PickButton />
-                    <Arrow />
-                </View>
+            <View style={styles.section}>
+                <PickButton />
+                <Arrow />
+            </View>
 
-                <View style={styles.bottomContainer}>
-                    <View style={styles.orderSec}>
-                        <Order />
-                        <View style={styles.wahtsapp} >
-                            <WhatsAppIcon />
-                        </View>
+            <View style={styles.bottomContainer}>
+                <View style={styles.orderSec}>
+                    <Order />
+                    <TouchableOpacity style={styles.wahtsapp} onPress={openWhatsApp} >
+                        <WhatsAppIcon />
+                    </TouchableOpacity>
 
-                    </View>
-                    <View style={styles.line} />
-                    <Location />
-                    <View style={styles.line} />
-                    <COD />
-                    <View style={styles.btnRow}>
-                        <CancelButton onPress={() => navigation.navigate('Arriving')} />
-                        <ArrivedButton />
-                    </View>
                 </View>
+                <View style={styles.line} />
+                <Location />
+                <View style={styles.line} />
+                <COD />
+                <View style={styles.btnRow}>
+                    <CancelButton onPress={() => navigation.navigate('Arriving')} />
+                    <ArrivedButton />
+                </View>
+            </View>
         </View>
     )
 }
