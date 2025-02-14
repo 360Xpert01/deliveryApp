@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     height: 18,
     width: 21,
   },
-  transferImg: {
+  transferImg: {  
     height: 26,
     width: 26,
   },

@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import Map from '../../components/Map';
 import {useTheme} from '../../theme/themeContext';
 import {useNavigation} from '@react-navigation/native';
+const food = require("../../assest/food.png")
+import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const backButton = require('../../../assets/backbutton.png');
 
@@ -27,9 +29,7 @@ const LoadDetailsScreen = () => {
       <View style={[styles.detailsContainer, {backgroundColor: theme.surface}]}>
         <View style={styles.headerRow}>
           <Image
-            source={{
-              uri: 'https://cdn-icons-png.flaticon.com/512/3075/3075977.png',
-            }}
+            source={food}
             style={styles.foodIcon}
           />
           <Text style={[styles.orderId, {color: theme.text.primary}]}>
@@ -37,12 +37,15 @@ const LoadDetailsScreen = () => {
           </Text>
           <TouchableOpacity
             style={[styles.whatsappButton, {backgroundColor: theme.whatsapp}]}>
-            <Image
+            {/* <Image
               source={{
                 uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
               }}
-              style={styles.whatsappIcon}
-            />
+              
+            /> */}
+            <View style={styles.whatsappIcon}>
+               <WhatsAppIcon />
+            </View>
           </TouchableOpacity>
         </View>
 
@@ -60,7 +63,7 @@ const LoadDetailsScreen = () => {
           Distance: 1.6 Kms
         </Text>
         <Text style={[styles.description, {color: theme.text.light}]}>
-          Figma ipsum component variant mask connection slice underline rotate.
+        Figma ipsum component variant main layer. Mask connection slice underline rotate. Vertical editor effect arrow union font. Font hand pixel library select figjam share. Line duplicate ipsum arrange slice invite thumbnail figma.
         </Text>
         <Text style={[styles.priceText, {color: theme.text.primary}]}>
           COD: <Text style={{color: theme.primary}}>11,999</Text>
@@ -105,26 +108,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    marginBottom:5,
   },
   foodIcon: {width: 40, height: 40},
-  orderId: {fontSize: 18, fontWeight: 'bold'},
+  orderId: {fontSize: 18, fontWeight: 'bold',paddingRight:70,},
   whatsappButton: {
     padding: 8,
     borderRadius: 50,
   },
   whatsappIcon: {width: 24, height: 24, tintColor: 'white'},
   locationRow: {flexDirection: 'row', alignItems: 'center', marginTop: 10},
-  locationText: {marginLeft: 10, fontSize: 14},
-  distanceText: {marginTop: 10, fontWeight: 'bold'},
+  locationText: {marginLeft: 10, fontSize: 14,marginBottom:20,backgroundColor:"#F9F9F9",paddingTop:5,paddingBottom:5,},
+  distanceText: {marginTop: 10, fontWeight: 'bold',marginBottom:10,},
   description: {fontSize: 12, marginTop: 5},
-  priceText: {fontSize: 16, fontWeight: 'bold', marginTop: 10},
+  priceText: {fontSize: 20, fontWeight: 'bold', marginTop: 10},
   acceptButton: {
     padding: 15,
-    borderRadius: 10,
+    borderRadius: 42,
     alignItems: 'center',
     marginTop: 15,
   },
-  acceptButtonText: {fontSize: 16, fontWeight: 'bold'},
+  acceptButtonText: {fontSize: 16, fontWeight: 'bold',},
 });
 
 export default LoadDetailsScreen;
