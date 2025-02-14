@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline, AnimatedRegion } from "react-native-maps";
+import HelmetIcon from "./HelmetIcon";
+
 
 
 const Map = ({ showHelmet = true, showLine = true }) => {
@@ -42,13 +44,13 @@ const Map = ({ showHelmet = true, showLine = true }) => {
 
   const curvedPolyline = generateCurve(origin, destination);
 
-  // 🔥 Use AnimatedRegion for smooth movement
+  //  Use AnimatedRegion for smooth movement
   const helmetPosition = useRef(
     new AnimatedRegion({
       latitude: origin.latitude,
       longitude: origin.longitude,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
+      latitude: origin.latitude + 0.001, // Move slightly ahead
+  longitude: origin.longitude,
     })
   ).current;
 
@@ -77,11 +79,9 @@ const Map = ({ showHelmet = true, showLine = true }) => {
       >
         {/* Helmet with Smooth Animation */}
         {showHelmet && (
-          <Marker.Animated
-            coordinate={helmetPosition}
-            title="Helmet Rider"
-            pinColor="blue"
-          />
+          <Marker.Animated coordinate={helmetPosition} title="Helmet Rider">
+          <HelmetIcon width={37} height={37} />
+        </Marker.Animated>
         )}
 
         {/* Curved Path */}
