@@ -37,6 +37,7 @@ export const themes = {
       secondary: '#B0B0B0',
       light: '#757575',
       onPrimary: '#ffffff',
+      darkGreen:'green'
     },
     input: {
       background: '#2C2C2C',
@@ -44,6 +45,7 @@ export const themes = {
     },
     whatsapp: '#25D366',
     error: '#EF5350',
+    success:'lightgreen',
     logo: '#777',
     shadow: '#000',
     mode: 'dark',

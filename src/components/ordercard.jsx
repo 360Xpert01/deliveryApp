@@ -1,10 +1,10 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import Icon from "react-native-vector-icons/MaterialIcons";
-const dish = require("../../assets/dish.png");
-const ellipse = require("../../assets/Ellipse.png");
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+
+const dish = require("../../assets/dish.png");;
+const ellipse = require("../../assets/Ellipse.png");;
 import LocationIcon from '../assest/location.png'
-import themes from "../theme/theme";
 
 const OrderCard = ({ codId, location, orderId, navigation }) => {
     return (
@@ -61,60 +61,63 @@ const styles = StyleSheet.create({
     },
     header: {
         flexDirection: "row",
-        justifyContent: "space-between",
         alignItems: "center",
+        gap: wp("1%"),
+        marginBottom: hp("1%"),
+        justifyContent:'space-between'
     },
     row: {
         flexDirection: "row",
         gap: 5,
         alignItems: "center",
     },
+    icon: {
+        width: wp("4%"),
+        height: wp("4%"),
+    },
     orderId: {
-        fontSize: 10,
+        fontSize: wp("3%"),
         fontWeight: "700",
+        marginLeft: wp("1%"),
     },
     cod: {
-        fontSize: 15,
+        fontSize: wp("4%"),
         fontWeight: "700",
         color: "#00AA2F",
-        lineHeight: 28.22,
+        lineHeight: hp("3%"),
         letterSpacing: 0.22,
     },
     tag: {
         backgroundColor: "#E0F7FA",
-        paddingHorizontal: 10,
-        paddingVertical: 4,
-        borderRadius: 10,
+        paddingHorizontal: wp("3%"),
+        paddingVertical: hp("0.5%"),
+        borderRadius: wp("2%"),
     },
     tagText: {
-        fontSize: 10,
+        fontSize: wp("3%"),
         color: "#00AA2F",
     },
     addressContainer: {
-        marginTop: 2,
+        marginTop: hp("0.5%"),
     },
     addressRow: {
         flexDirection: "row",
         alignItems: "center",
-        marginVertical: 4,
-        backgroundColor: "#F9F9F9",
-        borderRadius: 6,
-        padding: 5,
+        marginVertical: hp("0.5%"),
+        borderRadius: wp("2%"),
+        padding: wp("2%"),
         alignSelf: "flex-start",
     },
     addressText: {
-        marginLeft: 5,
-        fontSize: 12,
+        marginLeft: wp("1.5%"),
+        fontSize: wp("3%"),
         fontWeight: "400",
         color: "#333",
     },
     ellipse: {
-        width: 13,
-        height: 13,
+        width: wp("3%"),
+        height: wp("3%"),
     },
-    locationIcon: {
-        color: '#0BAD5E'
-    }
 });
 
 export default OrderCard;

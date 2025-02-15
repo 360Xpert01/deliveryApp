@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
-import Map from '../../components/Map';  
+import { useRoute } from '@react-navigation/native';
+import Map from '../../components/Map';
 import ArriveButton from '../../components/Arrive/arriveButton';
 import CancelButton from '../../components/Arrive/cancelButton';
-import PickButton from '../../components/Arrive/pickButton';
-import Arrow from '../../components/Arrive/arrow';
 import COD from '../../components/Arrive/cash';
 import Location from '../../components/Arrive/location';
 import { useNavigation } from '@react-navigation/native';
@@ -13,10 +12,20 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const ArrivingScreen = () => {
     const navigation = useNavigation();
+    const route = useRoute();
+    const [animate, setAnimate] = useState(false); 
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setAnimate(true); 
+        }, 2000);
+
+        return () => clearTimeout(timer); 
+    }, []);
 
     return (
         <View style={styles.container}>
-            <Map />
+            <Map showHelmet={true} animate={animate} setAnimate={setAnimate} />
             <View style={styles.bottomContainer}>
                 <View style={styles.orderSec}>
                     <KHI />
@@ -30,7 +39,7 @@ const ArrivingScreen = () => {
                 <View style={styles.line} />
                 <COD />
                 <View style={styles.btnRow}>
-                    <CancelButton onPress={() => navigation.navigate('LoadDetail')} />
+                    <CancelButton onPress={() => navigation.navigate('drawer')} />
                     <ArriveButton />
                 </View>
             </View>
@@ -39,9 +48,7 @@ const ArrivingScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-    },
+    container: { flex: 1 },
     bottomContainer: {
         position: "absolute",
         bottom: 0,

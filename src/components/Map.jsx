@@ -1,48 +1,59 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, ActivityIndicator } from "react-native";
-import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import MapViewDirections from "react-native-maps-directions";
-// import { API_KEY } from "@env";
-
+import MapView, { Marker, PROVIDER_GOOGLE, Polyline } from "react-native-maps";
 
 const Map = () => {
-  const [region, setRegion] = useState(null);
-  console.log("Loaded API Key in App.jsx:", process.env.API_KEY)
+  // Pickup and Drop-off Coordinates
+  const origin = { latitude: 24.926844, longitude: 67.101119 };  
+  const destination = { latitude: 24.923499, longitude: 67.097865 }; 
 
-  const origin = { latitude: 24.926294, longitude: 67.112903 };
-  const destination = { latitude: 24.930351, longitude: 67.115456 };
+  // *Generate Curved Path Using Quadratic Bézier Curve*
+  const generateCurve = (start, end) => {
+    let curvePoints = [];
+    const midPoint = {
+      latitude: (start.latitude + end.latitude) / 2 + 0.002,  // Adjust upward for curve
+      longitude: (start.longitude + end.longitude) / 2,
+    };
 
-  useEffect(() => {
-    setRegion({
-      latitude: (origin.latitude + destination.latitude) / 2,
-      longitude: (origin.longitude + destination.longitude) / 2,
-      latitudeDelta: 0.01,
-      longitudeDelta: 0.01,
-    });
-  }, []);
+    for (let t = 0; t <= 1; t += 0.1) {
+      const lat = (1 - t) * (1 - t) * start.latitude +
+                  2 * (1 - t) * t * midPoint.latitude +
+                  t * t * end.latitude;
+
+      const lng = (1 - t) * (1 - t) * start.longitude +
+                  2 * (1 - t) * t * midPoint.longitude +
+                  t * t * end.longitude;
+
+      curvePoints.push({ latitude: lat, longitude: lng });
+    }
+    return curvePoints;
+  };
+
+  const curvedPolyline = generateCurve(origin, destination);
 
   return (
     <View style={styles.container}>
-      {region ? (
-        <MapView
-          style={styles.map}
-          provider={PROVIDER_GOOGLE}
-          initialRegion={region}
-        >
-          <MapViewDirections
-            origin={origin}
-            destination={destination}
-            apikey={process.env.API_KEY}
-            strokeWidth={4}
-            strokeColor="green"
-          />
+      <MapView 
+        style={styles.map} 
+        provider={PROVIDER_GOOGLE} 
+        initialRegion={{
+          latitude: (origin.latitude + destination.latitude) / 2,
+          longitude: (origin.longitude + destination.longitude) / 2,
+          latitudeDelta: 0.01,
+          longitudeDelta: 0.01,
+        }}
+      >
+        {/* Curved Polyline */}
+        <Polyline 
+          coordinates={curvedPolyline} 
+          strokeWidth={5} 
+          strokeColor="green" 
+        />
 
-          <Marker coordinate={origin} title="Pickup Location" />
-          <Marker coordinate={destination} title="Dropoff Location" />
-        </MapView>
-      ) : (
-        <ActivityIndicator size="large" color="green" />
-      )}
+        {/* Markers */}
+        <Marker coordinate={origin} title="Pickup: 14th Street Pizza Co" />
+        <Marker coordinate={destination} title="Drop-off: 360Xpert Solutions" />
+      </MapView>
     </View>
   );
 };

@@ -13,6 +13,7 @@ import Locate from '../../components/Pick/locate';
 import { useNavigation } from '@react-navigation/native';
 import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import NewOrder from '../../components/multipleOrder/ordersCard';
 
 const PickScreen = () => {
   const navigation = useNavigation();
@@ -25,7 +26,7 @@ const PickScreen = () => {
           <PickButton />
           <Arrow />
         </View>
-
+        <NewOrder/>
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
             <Order />

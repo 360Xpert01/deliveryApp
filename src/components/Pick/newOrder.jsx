@@ -4,7 +4,7 @@ import themes from '../../theme/theme';
 
 const NewOrder = () => {
   return (
-    <View style={[styles.container, {backgroundColor:themes.greenLight.primary}]}>
+    <View style={[styles.container, {backgroundColor:themes.greenLight.button}]}>
       <View style={styles.orderNumContainer}>
         <Text style={styles.orderNum}>01</Text>
       </View>

@@ -9,8 +9,9 @@ import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import ArrivedButton from '../../components/Arrive/arrivedButton';
 import { useNavigation } from '@react-navigation/native';
-
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import NewOrder from '../../components/multipleOrder/ordersCard';
+
 
 const Arrived = () => {
     const navigation = useNavigation();
@@ -21,7 +22,7 @@ const Arrived = () => {
                     <PickButton />
                     <Arrow />
                 </View>
-
+                <NewOrder/>
                 <View style={styles.bottomContainer}>
                     <View style={styles.orderSec}>
                         <Order />
