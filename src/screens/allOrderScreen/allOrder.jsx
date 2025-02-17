@@ -5,6 +5,7 @@ import OrderCard from "../../components/ordercard";
 import themes from "../../theme/theme";
 import HistoryCard from "../../components/historyCard";
 import AllOrderCard from "../../components/AllOrderCard";
+import FilterOrder from "../../components/filterOrder";
 const SideBarImage = require("../../../assets/sidebar.png");
 
 
@@ -14,6 +15,7 @@ const AllOrder = () => {
   const users = [
     {
       codID: "PRE PAID",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Delivered',
@@ -21,6 +23,7 @@ const AllOrder = () => {
     },
     {
       codID: "9,800",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Returned',
@@ -28,6 +31,7 @@ const AllOrder = () => {
     },
     {
       codID: "1,999",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Delivered',
@@ -35,6 +39,7 @@ const AllOrder = () => {
     },
     {
       codID: "4,295",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Returned',
@@ -42,6 +47,7 @@ const AllOrder = () => {
     },
     {
       codID: "1,800",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Delivered',
@@ -49,6 +55,7 @@ const AllOrder = () => {
     },
     {
       codID: "5,208",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Returned',
@@ -56,6 +63,7 @@ const AllOrder = () => {
     },
     {
       codID: "5,208",
+      area:"DHA",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Delivered',
@@ -63,6 +71,7 @@ const AllOrder = () => {
     },
     {
       codID: "5,208",
+      area:"DHA",
       location: "Huzaifa-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Returned',
@@ -81,12 +90,15 @@ const AllOrder = () => {
         />
         <Text style={styles.time}>All Order</Text>
       </View>
+        <View>
+          <FilterOrder/>
+        </View>
       <View style={styles.main}>
         <View>
           <FlatList
             data={users}
             renderItem={({ item }) => (
-              <AllOrderCard codId={item.codID} location={item.location} orderId={item.Id} riderName={item.riderName} status={item.status} navigation={navigation} />
+              <AllOrderCard area={item.area} codId={item.codID} location={item.location} orderId={item.Id} riderName={item.riderName} status={item.status} navigation={navigation} />
             )}
           />
         </View>
