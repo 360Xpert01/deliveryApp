@@ -36,6 +36,7 @@ const AppNavigator = () => (
       <Stack.Screen name="DeliveredScreen" component={DeliveredScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AnotherOrder" component={AnotherOrder} options={{ headerShown: false }} />
       <Stack.Screen name="ActiveLoads" component={ActiveLoads} options={{ headerShown: false }} />
+      
       <Stack.Screen
         name="drawer"
         component={DrawerNavigatior}

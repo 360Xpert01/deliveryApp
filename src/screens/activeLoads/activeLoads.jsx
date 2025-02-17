@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Text, View, TouchableOpacity, Image, StyleSheet, SafeAreaView } from 'react-native';
+import { Text, View, TouchableOpacity, Image, StyleSheet, SafeAreaView, FlatList } from 'react-native';
 import OrderCard from '../../components/ordercard';
 
 const backButton = require('../../../assets/backbutton.png');
@@ -11,7 +11,6 @@ const ActiveLoads = () => {
   const users = [
     { codID: '11,999', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' },
     { codID: '9,900', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' },
-    { codID: '9,900', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' }
   ];
   return (
     <SafeAreaView>

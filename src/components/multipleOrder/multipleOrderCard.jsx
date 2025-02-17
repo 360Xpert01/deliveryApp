@@ -7,7 +7,7 @@ const orders = [
   { id: '02', orderId: 'KHI 646543218798', address: 'Gohar Heaven, Block-6, Gulshan-E-Iqbal', cod: 'COD 1,000' }
 ];
 
-const NewOrder = () => {
+const MultipleOrder = () => {
   const navigation = useNavigation();
   const [selectedOrder, setSelectedOrder] = useState(orders[0]);
 
@@ -92,4 +92,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default NewOrder;
+export default MultipleOrder;
