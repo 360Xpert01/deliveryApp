@@ -6,11 +6,12 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await apiClient.post('/c/78fc-1522-40ed-a637', { email, password });
+      const response = await apiClient.post('/v1/login', { email, password });
+      console.log(response);
       const token = response.data.token;
 
       if (token) {
-        await StorageService.store('authToken', token); // Store token in AsyncStorage
+        await StorageService.store('authToken', token); // Token AsyncStorage me store karo
         return { token };
       } else {
         return rejectWithValue('No token found in API response');
@@ -31,7 +32,10 @@ const authSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.token = null;
-      StorageService.store('authToken', null); // Clear token from AsyncStorage
+      StorageService.store('authToken', null); // AsyncStorage se bhi hatao
+    },
+    setToken: (state, action) => {
+      state.token = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -51,6 +55,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setToken } = authSlice.actions;
 
 export default authSlice.reducer;

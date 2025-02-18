@@ -37,12 +37,7 @@ const LoadDetailsScreen = () => {
           </Text>
           <TouchableOpacity
             style={[styles.whatsappButton, {backgroundColor: theme.whatsapp}]}>
-            {/* <Image
-              source={{
-                uri: 'https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg',
-              }}
-              
-            /> */}
+
             <View style={styles.whatsappIcon}>
                <WhatsAppIcon />
             </View>

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import apiClient from "../client";
 
+
 // Async thunk to fetch all orders
 export const fetchOrders = createAsyncThunk("orders/fetchOrders", async () => {
     const response = await apiClient.get("/orders");

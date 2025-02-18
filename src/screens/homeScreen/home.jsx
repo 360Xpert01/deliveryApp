@@ -22,6 +22,7 @@ const HomeScreen = ({ navigation }) => {
   const [error, setError] = useState(null); // Error handling
 
   // 🕒 Time update karne ke liye useEffect
+  // console.log("asfhwgsfhkg",orders)
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(dayjs());
@@ -33,7 +34,7 @@ const HomeScreen = ({ navigation }) => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await apiClient.get("/c/5a12-e55b-4f41-95d4"); // API se data fetch karo
+        const response = await apiClient.get("/c/db1b-70b6-49ed-bf20"); // API se data fetch karo
         setOrders(response.data); // Orders state update karo
       } catch (err) {
         setError("Failed to fetch orders"); // Error message set karo
@@ -69,7 +70,10 @@ const HomeScreen = ({ navigation }) => {
                 codId={item.cod} 
                 location={item.location} 
                 orderId={item.id} 
+                drop={item.drop}
+                pickUp={item.pickUp}
                 navigation={navigation} 
+                item={item}
               />
             )}
           />

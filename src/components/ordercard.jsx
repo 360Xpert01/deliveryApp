@@ -6,10 +6,15 @@ const dish = require("../../assets/dish.png");;
 const ellipse = require("../../assets/Ellipse.png");;
 import LocationIcon from '../assest/location.png'
 
-const OrderCard = ({ codId, location, orderId, navigation }) => {
+const OrderCard = ({ codId, location, orderId, navigation ,pickUp,drop , item,order}) => {
+
+    console.log("asdhfgvjash",item)
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate("LoadDetail", { orderId, codId, location })}
+            // onPress={()=> {
+            //     navigation.navigate("Location" , {item})
+            // }} 
             style={styles.card}
         >
             <View style={styles.cardContent}>
@@ -26,15 +31,11 @@ const OrderCard = ({ codId, location, orderId, navigation }) => {
                 <View style={styles.addressContainer}>
                     <View style={styles.addressRow}>
                         <Image source={ellipse} style={styles.ellipse} />
-                        <Text style={styles.addressText}>
-                            14th Street Pizza Co. Block-7, Gulshan-e-Iqbal
-                        </Text>
+                        <Text style={styles.addressText}>{pickUp}</Text>
                     </View>
                     <View style={styles.addressRow}>
-                        <Image source={LocationIcon} style={{ width: 18, height: 18 }}/>
-                        <Text style={styles.addressText}>
-                            B 121 Block 2, Gulshan-e-Iqbal, Karachi
-                        </Text>
+                        <Image source={LocationIcon} style={{ width: 18, height: 18 }} />
+                        <Text style={styles.addressText}>{drop}</Text>
                     </View>
                 </View>
             </View>
