@@ -24,6 +24,7 @@ export const themes = {
     btnRed: '#CD2222',
     locationBackground: '#F9F9F9',
     black: '#252525',
+    gray: '#A3A3A3',
   },
 
   // Green Theme - Dark Mode

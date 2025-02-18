@@ -22,6 +22,7 @@
     "axios": "^1.7.7",
     "dayjs": "^1.11.13",
     "i18n-js": "^4.5.1",
+    "lucide-react-native": "^0.475.0",
     "react": "18.3.1",
     "react-native": "0.76.1",
     "react-native-dotenv": "^3.4.11",

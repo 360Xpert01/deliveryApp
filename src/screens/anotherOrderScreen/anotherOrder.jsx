@@ -19,7 +19,6 @@ const AnotherOrder = () => {
   const users = [
     { codID: '11,999', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' },
     { codID: '9,900', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' },
-    { codID: '9,900', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' }
   ];
 
   return (

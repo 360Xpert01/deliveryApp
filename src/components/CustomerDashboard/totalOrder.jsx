@@ -22,16 +22,15 @@ const TotalOrder = () => {
 
 const styles = StyleSheet.create({
     box: {
-        width: '100%',
         backgroundColor: 'white',
         padding: 15,
-        borderRadius: 15,
+        borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 5,
-        alignItems: 'center',
+        elevation: 10,
+        alignItems: 'flex-start',
     },
     number: {
         fontSize: 48,
@@ -39,8 +38,8 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     title: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 18,
+        fontWeight: '700',
         color: '#000',
         marginBottom: 4,
     },

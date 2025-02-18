@@ -26,16 +26,15 @@ const ReturnOrder = () => {
 
 const styles = StyleSheet.create({
     box: {
-        width: '92%',
         backgroundColor: 'white',
-        paddingVertical: 10,
+        paddingVertical: 5,
         paddingHorizontal: 30,
-        borderRadius: 15,
+        borderRadius: 12,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 4,
-        elevation: 5,
+        elevation: 10,
         alignItems: 'center',
         flexDirection: "row",
         gap: 30,
@@ -47,13 +46,13 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     title: {
-        fontSize: 20,
-        fontWeight: '600',
+        fontSize: 18,
+        fontWeight: '700',
         color: '#000',
         marginBottom: 4,
     },
     text: {
-        fontSize: 10,
+        fontSize: 12,
         color: '#7D7D7D',
     },
 })
