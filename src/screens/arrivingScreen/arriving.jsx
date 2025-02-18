@@ -9,6 +9,7 @@ import Location from '../../components/Arrive/location';
 import { useNavigation } from '@react-navigation/native';
 import KHI from '../../components/Arrive/khi';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 
 const ArrivingScreen = () => {
     const navigation = useNavigation();
