@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import store from './src/Redux/store'; // Import your Redux store
 import App from './App'; // Import your main App component
 import { name as appName } from './app.json';
+import StatusOrder from './src/components/statusOrder';
 
 // Wrap the App with the Redux Provider
 const Root = () => (

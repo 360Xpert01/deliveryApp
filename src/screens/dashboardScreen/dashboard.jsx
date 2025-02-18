@@ -14,6 +14,7 @@ import apiClient from '../../Redux/client';
 import dayjs from 'dayjs';
 import FilterOrder from '../../components/filterOrder';
 import themes from '../../theme/theme';
+import CustomerCard from '../../components/customerCard';
 
 const SideBarImage = require('../../../assets/sidebar.png');
 
@@ -96,7 +97,7 @@ const Dashboard = ({navigation}) => {
             data={orders}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
-              <OrderCard
+              <CustomerCard
                 codId={item.cod}
                 location={item.location}
                 orderId={item.id}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  ActivityIndicator, Platform, Alert
+  ActivityIndicator, Alert
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from '../../Redux/slices/authSlice';
@@ -10,34 +10,38 @@ import { useTheme } from '../../theme/themeContext';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 
 const LoginScreen = () => {
-  const [mobileNumber, setMobileNumber] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
-  const { isLoading, error, token } = useSelector((state) => state.auth);
+  const { isLoading, error, token, user_type } = useSelector((state) => state.auth);
   const navigation = useNavigation();
   const { theme } = useTheme();
 
   useEffect(() => {
-    if (token) {
-      navigation.replace('drawer');
+    if (token && user_type) {
+      if (user_type === 'driver') {
+        navigation.replace('RiderDrawer');
+      } else {
+        navigation.replace('CustomerDrawer');
+      }
     }
-  }, [token]);
+  }, [token, user_type]);
 
-  const validateMobileNumber = (number) => {
-    const regex = /^[0-9]{10,15}$/; // Allows only 10-15 digit numbers
-    return regex.test(number);
+  const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
+    return regex.test(email);
   };
 
   const handleLogin = () => {
-    if (!validateMobileNumber(mobileNumber)) {
-      Alert.alert('Invalid Mobile Number', 'Please enter a valid mobile number (10-15 digits).');
+    if (!validateEmail(email)) {
+      Alert.alert('Invalid Email', 'Please enter a valid email address.');
       return;
     }
     if (password.trim() === '') {
       Alert.alert('Invalid Password', 'Password cannot be empty.');
       return;
     }
-    dispatch(loginUser({ mobileNumber, password }));
+    dispatch(loginUser({ email, password }));
   };
 
   return (
@@ -56,12 +60,12 @@ const LoginScreen = () => {
       </View>
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}
-        placeholder="Mobile Number"
+        placeholder="Email Address"
         placeholderTextColor={theme.text.light}
-        value={mobileNumber}
-        onChangeText={setMobileNumber}
-        keyboardType="numeric"
-        maxLength={15}
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
       />
       <TextInput
         style={[styles.input, { backgroundColor: theme.input.background, borderColor: theme.input.border }]}

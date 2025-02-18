@@ -18,6 +18,8 @@ import RiderDrawerNavigatior from './RiderDrawerNavigator';
 import DeliveredScreen from '../screens/DeliverdScreen/DeliveredScreen';
 import AnotherOrder from '../screens/anotherOrderScreen/anotherOrder';
 import CustomerDrawerNavigator from './CustomerDrawerNavigator';
+import CustomerDetailsScreen from '../screens/customerDetailScreen/customerDetail';
+import RiderDrawerNavigator from './RiderDrawerNavigator';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -33,30 +35,12 @@ const AppNavigator = () => (
       <Stack.Screen name="Arrived" component={Arrived} options={{ headerShown: false }} />
       <Stack.Screen name="Delivered" component={DeliverScreen} options={{ headerShown: false }} />
       <Stack.Screen name="LoadDetail" component={LoadDetailsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="CustomerDetail" component={CustomerDetailsScreen} options={{ headerShown: false }} />
       <Stack.Screen name="DeliveredScreen" component={DeliveredScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AnotherOrder" component={AnotherOrder} options={{ headerShown: false }} />
-      <Stack.Screen
-        name="drawer"
-        component={CustomerDrawerNavigator}
-        options={({ navigation }) => ({
-          title: 'Home',
-          headerShown:false,
-          headerRight: () => (
-            <Icon
-              name="bell"
-              size={24}
-              color="black"
-              onPress={() => navigation.navigate('Notifications')}
-              style={{ marginRight: 10 }}
-            />
-          ),
-        })}
-      />
-      <Stack.Screen
-        name="Notifications"
-        component={NotificationScreen}
-        options={{ title: 'Notifications' }}
-      />
+      <Stack.Screen name="CustomerDrawer" component={CustomerDrawerNavigator} options={{headerShown:false}}/>
+      <Stack.Screen name="RiderDrawer" component={RiderDrawerNavigator} options={{headerShown:false}}/>
+     
     </Stack.Navigator>
   </NavigationContainer>
 );

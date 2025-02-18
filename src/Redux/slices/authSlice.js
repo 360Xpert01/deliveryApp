@@ -6,17 +6,25 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await apiClient.post('/c/78fc-1522-40ed-a637', { email, password });
-      const token = response.data.token;
+      const response = await apiClient.post('https://delivery.360xpertsolutions.com/v1/login', { email, password });
 
-      if (token) {
-        await StorageService.store('authToken', token); // Store token in AsyncStorage
-        return { token };
+      if (response.data.success) {
+        const { token, data } = response.data;
+
+        if (token && data?.user_type) {
+          await StorageService.store('authToken', token); // Store token
+          await StorageService.store('userType', data.user_type); // Store user type
+          await StorageService.store('userData', JSON.stringify(data)); // Store full user data
+
+          return { token, user_type: data.user_type, user: data };
+        } else {
+          return rejectWithValue('Invalid response: Missing token or user type');
+        }
       } else {
-        return rejectWithValue('No token found in API response');
+        return rejectWithValue(response.data.message || 'Login failed');
       }
     } catch (error) {
-      return rejectWithValue(error.response?.data || 'Login failed');
+      return rejectWithValue(error.response?.data?.message || 'Login failed');
     }
   }
 );
@@ -25,13 +33,19 @@ const authSlice = createSlice({
   name: 'auth',
   initialState: {
     token: null,
+    user_type: null, 
+    user: null,
     isLoading: false,
     error: null,
   },
   reducers: {
     logout: (state) => {
       state.token = null;
-      StorageService.store('authToken', null); // Clear token from AsyncStorage
+      state.user_type = null;
+      state.user = null;
+      StorageService.remove('authToken'); 
+      StorageService.remove('userType'); 
+      StorageService.remove('userData'); 
     },
   },
   extraReducers: (builder) => {
@@ -43,6 +57,8 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.isLoading = false;
         state.token = action.payload.token;
+        state.user_type = action.payload.user_type; // Save user type
+        state.user = action.payload.user; // Save full user data
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.isLoading = false;
@@ -52,5 +68,4 @@ const authSlice = createSlice({
 });
 
 export const { logout } = authSlice.actions;
-
 export default authSlice.reducer;
