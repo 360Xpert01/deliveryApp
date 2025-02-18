@@ -18,8 +18,12 @@ import RiderDrawerNavigatior from './RiderDrawerNavigator';
 import DeliveredScreen from '../screens/DeliverdScreen/DeliveredScreen';
 import AnotherOrder from '../screens/anotherOrderScreen/anotherOrder';
 import CustomerDrawerNavigator from './CustomerDrawerNavigator';
+<<<<<<< HEAD
 import CustomerDetailsScreen from '../screens/customerDetailScreen/customerDetail';
 import RiderDrawerNavigator from './RiderDrawerNavigator';
+=======
+import NewOrderScreen from '../screens/newOrder/newOrder';
+>>>>>>> 6c58ad0a64f5c5acd14ca816ec172c54d454095c
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -38,9 +42,35 @@ const AppNavigator = () => (
       <Stack.Screen name="CustomerDetail" component={CustomerDetailsScreen} options={{ headerShown: false }} />
       <Stack.Screen name="DeliveredScreen" component={DeliveredScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AnotherOrder" component={AnotherOrder} options={{ headerShown: false }} />
+<<<<<<< HEAD
       <Stack.Screen name="CustomerDrawer" component={CustomerDrawerNavigator} options={{headerShown:false}}/>
       <Stack.Screen name="RiderDrawer" component={RiderDrawerNavigator} options={{headerShown:false}}/>
      
+=======
+      <Stack.Screen name="NewOrderScreen" component={NewOrderScreen} options={{ headerShown: false }} />
+      <Stack.Screen
+        name="drawer"
+        component={RiderDrawerNavigatior}
+        options={({ navigation }) => ({
+          title: 'Home',
+          headerShown:false,
+          headerRight: () => (
+            <Icon
+              name="bell"
+              size={24}
+              color="black"
+              onPress={() => navigation.navigate('Notifications')}
+              style={{ marginRight: 10 }}
+            />
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Notifications"
+        component={NotificationScreen}
+        options={{ title: 'Notifications' }}
+      />
+>>>>>>> 6c58ad0a64f5c5acd14ca816ec172c54d454095c
     </Stack.Navigator>
   </NavigationContainer>
 );

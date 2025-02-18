@@ -17,6 +17,7 @@ import ReturnButton from '../../components/Deliver/returnButton';
 import Deliver from '../../components/Deliver/deliverButton';
 import Map from '../../components/Map';
 
+
 const DeliverScreen = () => {
   const navigation = useNavigation();
   return (
@@ -27,6 +28,7 @@ const DeliverScreen = () => {
           <Arrow />
         </View>
         <View style={styles.bottomContainer}>
+          
           <View style={styles.orderSec}>
             <Order />
             <View style={styles.wahtsapp} >
@@ -81,11 +83,14 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 10,
   },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
+  card: {
+    position: "absolute",
   },
+  // text: {
+  //   fontSize: 16,
+  //   fontWeight: 'bold',
+  //   color: 'black',
+  // },
   line: {
     marginVertical: 5,
     height: 1,

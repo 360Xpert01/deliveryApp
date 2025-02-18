@@ -25,7 +25,6 @@ const PickScreen = () => {
           <PickButton />
           <Arrow />
         </View>
-
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
             <Order />
