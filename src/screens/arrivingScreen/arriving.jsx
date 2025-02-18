@@ -25,7 +25,8 @@ const ArrivingScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Map showHelmet={true} animate={animate} setAnimate={setAnimate} />
+            <Map showHelmet={true} showLine={false} />
+
             <View style={styles.bottomContainer}>
                 <View style={styles.orderSec}>
                     <KHI />
