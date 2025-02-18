@@ -19,6 +19,7 @@ import DeliveredScreen from '../screens/DeliverdScreen/DeliveredScreen';
 import AnotherOrder from '../screens/anotherOrderScreen/anotherOrder';
 import CustomerDrawerNavigator from './CustomerDrawerNavigator';
 import NewOrderScreen from '../screens/newOrder/newOrder';
+import CustomerDetailsScreen from '../screens/customerDetailScreen/customerDetail';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -38,7 +39,7 @@ const AppNavigator = () => (
       <Stack.Screen name="DeliveredScreen" component={DeliveredScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AnotherOrder" component={AnotherOrder} options={{ headerShown: false }} />
       <Stack.Screen name="CustomerDrawer" component={CustomerDrawerNavigator} options={{headerShown:false}}/>
-      <Stack.Screen name="RiderDrawer" component={RiderDrawerNavigator} options={{headerShown:false}}/>
+      <Stack.Screen name="RiderDrawer" component={RiderDrawerNavigatior} options={{headerShown:false}}/>
       <Stack.Screen
         name="Notifications"
         component={NotificationScreen}
