@@ -17,6 +17,9 @@ import BookingHistory from '../screens/bookingScreen/bookingHistory';
 import Wallet from '../screens/walletScreen/wallet';
 import Contact from '../screens/contact/contact';
 import HomeScreen from '../screens/homeScreen/home';
+import Dashboard from '../screens/dashboardScreen/dashboard';
+import AllOrder from '../screens/allOrderScreen/allOrder';
+import OrderHistory from '../screens/orderHistoryScreen/orderHistory';
 
 const Drawer = createDrawerNavigator();
 
@@ -40,7 +43,7 @@ const CustomDrawerContent = props => {
           source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
           style={styles.profileImage}
         />
-        <Text style={styles.riderName}>Rider Name</Text>
+        <Text style={styles.riderName}>Customer</Text>
       </View>
 
       {props.state.routes.map((route, index) => {
@@ -91,14 +94,14 @@ const CustomDrawerContent = props => {
   );
 };
 
-export default function DrawerNavigator() {
+export default function CustomerDrawerNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
       screenOptions={{drawerStyle: {width: '70%'},headerShown:false}}>
-      <Drawer.Screen name="Home" component={HomeScreen} />
-      <Drawer.Screen name="Booking History" component={BookingHistory} />
-      <Drawer.Screen name="Wallet" component={Wallet} />
+      <Drawer.Screen name="Dashboard" component={Dashboard} />
+      <Drawer.Screen name="All Order" component={AllOrder} />
+      <Drawer.Screen name="Order History" component={OrderHistory} />
       <Drawer.Screen name="Contact Us" component={Contact} />
     </Drawer.Navigator>
   );
