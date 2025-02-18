@@ -39,7 +39,7 @@ const AppNavigator = () => (
       <Stack.Screen name="NewOrderScreen" component={NewOrderScreen} options={{ headerShown: false }} />
       <Stack.Screen
         name="drawer"
-        component={CustomerDrawerNavigator}
+        component={RiderDrawerNavigatior}
         options={({ navigation }) => ({
           title: 'Home',
           headerShown:false,
