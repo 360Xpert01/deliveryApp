@@ -98,7 +98,7 @@ export default function CustomerDrawerNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
-      screenOptions={{drawerStyle: {width: '70%'},headerShown:true}}>
+      screenOptions={{drawerStyle: {width: '70%'},headerShown:false}}>
       <Drawer.Screen name="Dashboard" component={Dashboard} />
       <Drawer.Screen name="All Order" component={AllOrder} />
       <Drawer.Screen name="Order History" component={OrderHistory} />
