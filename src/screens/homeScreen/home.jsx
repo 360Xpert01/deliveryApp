@@ -12,6 +12,7 @@ import {
 import OrderCard from "../../components/ordercard"; 
 import apiClient from "../../Redux/client"; // API Client import karo
 import dayjs from "dayjs";
+import { getToken } from "../../service/storageService";
 
 const SideBarImage = require("../../../assets/sidebar.png");
 
@@ -30,6 +31,11 @@ const HomeScreen = ({ navigation }) => {
   }, []);
 
   // 📦 API se Orders Fetch karna
+  const fetchToken  = async ()=>{
+   const token = await getToken()
+   console.log("slguhsduil",token)
+
+  }
   useEffect(() => {
     const fetchOrders = async () => {
       try {
@@ -43,6 +49,7 @@ const HomeScreen = ({ navigation }) => {
     };
 
     fetchOrders();
+    fetchToken()
   }, []);
 
   return (

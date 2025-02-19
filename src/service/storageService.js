@@ -37,3 +37,29 @@ const StorageService = (() => {
 })();
 
 export default StorageService;
+
+
+export const StoreToken = async (token) => {
+  try {
+      await AsyncStorage.setItem('token', token);
+      console.log('token stored successfully!');
+  } catch (error) {
+      console.error('Error storing token:', error);
+  }
+};
+
+export const getToken = async () => {
+  try {
+      const token = await AsyncStorage.getItem('token');
+      if (token !== null) {
+          console.log('Retrieved token:', token);
+          return token;
+      } else {
+          console.log('No token found.');
+          return null;
+      }
+  } catch (error) {
+      console.error('Error retrieving token:', error);
+      return null;
+  }
+};
