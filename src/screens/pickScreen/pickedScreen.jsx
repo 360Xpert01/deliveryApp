@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import Map from '../../components/Map'; // Import the Map component
+import { StyleSheet, View } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { useOrder } from '../../CountContext/orderContext'; // Import context
+import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import PickButton from '../../components/Arrive/pickButton';
 import Arrow from '../../components/Arrive/arrow';
@@ -10,16 +12,26 @@ import Order from '../../components/Arrive/order';
 import Pick from '../../components/Arrive/pick';
 import Customer from '../../components/Pick/customer';
 import Locate from '../../components/Pick/locate';
-import { useNavigation } from '@react-navigation/native';
 import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
+import { useOrderContext } from '../../CountContext/newOrderContext';
 
 const PickScreen = () => {
   const navigation = useNavigation();
+  const { count } = useOrderContext(); // Get count from context
+  console.log("count" + count);
 
   return (
     <View style={styles.container}>
       <Map />
+
+      {count > 1 && (
+        <View style={styles.multiCard}>
+          <MultipleOrder />
+        </View>
+      )}
+
       <View style={styles.overlay}>
         <View style={styles.section}>
           <PickButton />
@@ -53,9 +65,7 @@ const PickScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1 },
   overlay: {
     position: "absolute",
     top: 0,
@@ -84,11 +94,6 @@ const styles = StyleSheet.create({
     gap: 20,
     marginTop: 10,
   },
-  text: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
-  },
   line: {
     marginVertical: 5,
     height: 1,
@@ -109,8 +114,15 @@ const styles = StyleSheet.create({
   section: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 30,
+    paddingVertical: 80,
     paddingHorizontal: 20,
+  },
+  multiCard: {
+    position: "absolute",
+    alignItems: "center",
+    width: "100%",
+    top: "30%",
+    zIndex: 10,
   },
 });
 

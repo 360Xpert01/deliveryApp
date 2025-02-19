@@ -1,43 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Map from '../../components/Map';
 import ArriveButton from '../../components/Arrive/arriveButton';
 import CancelButton from '../../components/Arrive/cancelButton';
 import COD from '../../components/Arrive/cash';
 import Location from '../../components/Arrive/location';
-import { useNavigation } from '@react-navigation/native';
 import KHI from '../../components/Arrive/khi';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
+import { useOrderContext } from '../../CountContext/newOrderContext';
 
 const ArrivingScreen = () => {
+    const { count } = useOrderContext();
+    console.log("count" + count);
+    
     const navigation = useNavigation();
-    const route = useRoute();
-    const [animate, setAnimate] = useState(false); 
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setAnimate(true); 
-        }, 2000);
-
-        return () => clearTimeout(timer); 
-    }, []);
 
     return (
         <View style={styles.container}>
             <Map showHelmet={true} showLine={false} />
-
+            {count > 1 && <View style={styles.multiCard}><MultipleOrder /></View>}
             <View style={styles.bottomContainer}>
                 <View style={styles.orderSec}>
                     <KHI />
-                    <View style={styles.whatsapp}>
-                        <WhatsAppIcon />
-                    </View>
+                    <View style={styles.whatsapp}><WhatsAppIcon /></View>
                 </View>
-
                 <View style={styles.line} />
-                <Location style={styles.location} />
+                <Location />
                 <View style={styles.line} />
                 <COD />
                 <View style={styles.btnRow}>
@@ -50,7 +40,9 @@ const ArrivingScreen = () => {
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
+    container: { 
+        flex: 1,
+    },
     bottomContainer: {
         position: "absolute",
         bottom: 0,
@@ -83,6 +75,13 @@ const styles = StyleSheet.create({
         borderRadius: 50,
         elevation: 5,
     },
+    multiCard: {
+        position: "absolute",
+        alignItems: "center",
+        width: "100%",
+        bottom: "40%",
+        zIndex:10,
+    }
 });
 
 export default ArrivingScreen;

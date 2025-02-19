@@ -22,11 +22,6 @@ const AnotherOrder = () => {
     { codID: '9,900', location: 'Gulistan-e-Jauhor', Id: 'KHI 123545689713' },
   ];
 
-  const handleSelectCard = () => {
-    setCount(2);
-    navigation.navigate('Arrived', { count: 2 });
-  };
-
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: themes.greenLight.locationBackground }]}>
       <View style={styles.navtime}>
@@ -41,7 +36,7 @@ const AnotherOrder = () => {
           data={users}
           keyExtractor={(item, index) => index.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={handleSelectCard}>
+            <TouchableOpacity >
               <OrderCard {...item} />
             </TouchableOpacity>
           )}
@@ -54,10 +49,7 @@ const AnotherOrder = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    paddingVertical: 20, 
-    flex: 1 
-  },
+  container: { paddingVertical: 20, flex: 1 },
   main: {
     backgroundColor: '#F9F9F9',
     borderTopLeftRadius: 30,
