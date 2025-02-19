@@ -1,5 +1,5 @@
-import React from 'react'
-import { ImageBackground, StyleSheet, View } from 'react-native';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 import PickButton from '../../components/Arrive/pickButton';
 import Arrow from '../../components/Arrive/arrow';
 import Order from '../../components/Arrive/order';
@@ -8,48 +8,49 @@ import COD from '../../components/Arrive/cash';
 import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import ArrivedButton from '../../components/Arrive/arrivedButton';
-import { useNavigation } from '@react-navigation/native';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
-
+import MultiOrder from '../../components/multipleOrder/multipleOrderCard';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 const Arrived = () => {
+    const route = useRoute();  
+    const { count } = route.params || {};  
     const navigation = useNavigation();
+
     return (
         <View style={styles.container}>
             <Map />
-                <View style={styles.section}>
-                    <PickButton />
-                    <Arrow />
-                </View>
+            <View style={styles.section}>
+                <PickButton />
+                <Arrow />
+            </View>
 
-                <View style={styles.bottomContainer}>
-                    <View style={styles.orderSec}>
-                        <Order />
-                        <View style={styles.wahtsapp} >
-                            <WhatsAppIcon />
-                        </View>
+            
+            {count === 2 && <MultiOrder />}
 
-                    </View>
-                    <View style={styles.line} />
-                    <Location />
-                    <View style={styles.line} />
-                    <COD />
-                    <View style={styles.btnRow}>
-                        <CancelButton onPress={() => navigation.navigate('Arriving')} />
-                        <ArrivedButton />
+            <View style={styles.bottomContainer}>
+                <View style={styles.orderSec}>
+                    <Order />
+                    <View style={styles.whatsapp}>
+                        <WhatsAppIcon />
                     </View>
                 </View>
+                <View style={styles.line} />
+                <Location />
+                <View style={styles.line} />
+                <COD />
+                <View style={styles.btnRow}>
+                    <CancelButton onPress={() => navigation.navigate('Arriving')} />
+                    <ArrivedButton />
+                </View>
+            </View>
         </View>
-    )
-}
+    );
+};
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-    },
-    imageBackground: {
-        flex: 1,
-        resizeMode: 'cover',
-        justifyContent: 'flex-end',
     },
     bottomContainer: {
         width: '100%',
@@ -64,16 +65,10 @@ const styles = StyleSheet.create({
         gap: 20,
         marginTop: 10,
     },
-    text: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: 'black',
-    },
     orderSec: {
         flexDirection: "row",
         alignItems: "center",
         justifyContent: "space-between",
-
     },
     line: {
         marginVertical: 20,
@@ -81,7 +76,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#E4E4E4',
         width: '100%',
     },
-    wahtsapp: {
+    whatsapp: {
         padding: 10,
         backgroundColor: "white",
         borderRadius: 50,
@@ -95,4 +90,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Arrived
+export default Arrived;
