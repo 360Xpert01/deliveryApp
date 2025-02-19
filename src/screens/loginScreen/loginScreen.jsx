@@ -16,7 +16,7 @@ const LoginScreen = () => {
   const { isLoading, error, token, user_type } = useSelector((state) => state.auth);
   const navigation = useNavigation();
   const { theme } = useTheme();
-
+  console.log("sdhfbj",user_type)
   useEffect(() => {
     if (token && user_type) {
       if (user_type === 'driver') {
