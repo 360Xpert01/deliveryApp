@@ -13,16 +13,27 @@ import OrderCard from "../../components/ordercard";
 import apiClient from "../../Redux/client"; // API Client import karo
 import dayjs from "dayjs";
 import { getToken } from "../../service/storageService";
+import { useDispatch , useSelector } from "react-redux";
+import { getOrders } from "../../Redux/slices/orders/getOrders";
 
 const SideBarImage = require("../../../assets/sidebar.png");
 
 const HomeScreen = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [time, setTime] = useState(dayjs());
   const [orders, setOrders] = useState([]); // Orders ko yahan store karenge
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error handling
-
+  const waiz = useSelector((state) => state.getOrders?.getOrders);
   // 🕒 Time update karne ke liye useEffect
+  console.log("sdfuysdtgfvsd",waiz)
+  const apiFetch  = async()=>{
+    const res = await dispatch(getOrders()).unwrap();
+    console.log("gfghfghdsfgsdfgj",res)
+  }
+  useEffect(() => {
+    apiFetch()
+  }, [])
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(dayjs());

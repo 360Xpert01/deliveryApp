@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+export const baseUrl = "https://delivery.360xpertsolutions.com"
 const StorageService = (() => {
   const store = async (key, value) => {
     try {
