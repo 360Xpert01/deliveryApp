@@ -1,13 +1,14 @@
 import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import { View, StyleSheet, Animated, Image } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline, AnimatedRegion } from "react-native-maps";
 import HelmetIcon from "./HelmetIcon";
 import helmetMarker from "../assest/marker1.png";
-import { Image } from "react-native";
 
 const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
   const origin = { latitude: 24.910402, longitude: 67.092132 }; // 360 Xpert
   const destination = { latitude: 24.867326, longitude: 67.056164 }; // McDonald's Tariq Road
+
+  const routePoints = [origin, ...pickupPoints, destination];
 
   const generateCurve = (start, end) => {
     let curvePoints = [];
@@ -42,26 +43,35 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
     return curvePoints;
   };
 
-  const curvedPolyline = generateCurve(origin, destination);
+  const curvedPolyline = routePoints.reduce((acc, point, index, array) => {
+    if (index < array.length - 1) {
+      acc.push(...generateCurve(point, array[index + 1]));
+    }
+    return acc;
+  }, []);
 
-  //  Use AnimatedRegion for smooth movement
-  const helmetPosition = useRef(
-    new AnimatedRegion({
-      latitude: origin.latitude,
-      longitude: origin.longitude,
-    })
-  ).current;
+  const helmetPosition = useRef(new AnimatedRegion(routePoints[0])).current;
 
   useEffect(() => {
-    if (showHelmet) {
-      helmetPosition.timing({
-        latitude: destination.latitude,
-        longitude: destination.longitude,
-        duration: 5000, // Smooth animation in 5 seconds
-        useNativeDriver: false,
-      }).start();
+    if (showHelmet && routePoints.length > 1) {
+      animateHelmet(0);
     }
   }, [showHelmet]);
+
+  const animateHelmet = (index) => {
+    if (index >= routePoints.length - 1) return;
+
+    helmetPosition.timing({
+      latitude: routePoints[index + 1].latitude,
+      longitude: routePoints[index + 1].longitude,
+      duration: 3000, 
+      useNativeDriver: false,
+    }).start(() => {
+      setTimeout(() => {
+        animateHelmet(index + 1);
+      }, Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000); 
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -83,7 +93,13 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
         )}
 
         {/* Curved Path */}
-        {showLine && <Polyline coordinates={curvedPolyline} strokeWidth={5} strokeColor="green" />}
+        {showLine && (
+          <Polyline
+            coordinates={curvedPolyline}
+            strokeWidth={5}
+            strokeColor="green"
+          />
+        )}
 
         {/* Pickup & Drop-off Markers */}
         <Marker coordinate={origin} title="Pickup: 360 Xpert" />
@@ -91,8 +107,13 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
 
         {/* Additional Pickup Points */}
         {pickupPoints.map((point, index) => (
-          <Marker key={index} style={styles.marker} coordinate={point} title={`Pickup Point ${index + 1}`} >
-                <Image source={helmetMarker} style={{ width: 40, height: 40 }} />
+          <Marker
+            key={index}
+            style={styles.marker}
+            coordinate={point}
+            title={`Pickup Point ${index + 1}`}
+          >
+            <Image source={helmetMarker} style={styles.helmetmarker} />
           </Marker>
         ))}
       </MapView>
@@ -103,7 +124,8 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { flex: 1 },
-  marker:{height:50,width:50}
+  marker: { height: 50, width: 50 },
+  helmetmarker:{ width: 30, height: 30 }
 });
 
 export default Map;
