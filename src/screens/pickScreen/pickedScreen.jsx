@@ -14,13 +14,20 @@ import { useNavigation } from '@react-navigation/native';
 import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 
+const pickupPoints = [
+  { latitude: 24.897345, longitude: 67.081231 }, // Example Pickup Point 1
+  { latitude: 24.882123, longitude: 67.065432 }, // Example Pickup Point 2
+  { latitude: 24.875678, longitude: 67.072345 }, // Example Pickup Point 3
+];
+
+
 const PickScreen = () => {
   const navigation = useNavigation();
 
   return (
     <View style={styles.container}>
-      <Map />
-      <View style={styles.overlay}>
+<Map showHelmet={true} showLine={false} pickupPoints={pickupPoints} />
+<View style={styles.overlay}>
         <View style={styles.section}>
           <PickButton />
           <Arrow />

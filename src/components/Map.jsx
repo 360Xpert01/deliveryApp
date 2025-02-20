@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline, AnimatedRegion } from "react-native-maps";
 import HelmetIcon from "./HelmetIcon";
+import helmetMarker from "../assest/marker1.png";
+import { Image } from "react-native";
 
-
-
-const Map = ({ showHelmet = true, showLine = true }) => {
+const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
   const origin = { latitude: 24.910402, longitude: 67.092132 }; // 360 Xpert
-  const destination = { latitude: 24.867326, longitude: 67.056167 }; // McDonald's Tariq Road
+  const destination = { latitude: 24.867326, longitude: 67.056164 }; // McDonald's Tariq Road
 
   const generateCurve = (start, end) => {
     let curvePoints = [];
@@ -49,8 +49,6 @@ const Map = ({ showHelmet = true, showLine = true }) => {
     new AnimatedRegion({
       latitude: origin.latitude,
       longitude: origin.longitude,
-      latitude: origin.latitude + 0.001, // Move slightly ahead
-  longitude: origin.longitude,
     })
   ).current;
 
@@ -80,8 +78,8 @@ const Map = ({ showHelmet = true, showLine = true }) => {
         {/* Helmet with Smooth Animation */}
         {showHelmet && (
           <Marker.Animated coordinate={helmetPosition} title="Helmet Rider">
-          <HelmetIcon width={37} height={37} />
-        </Marker.Animated>
+            <HelmetIcon width={30} height={30} />
+          </Marker.Animated>
         )}
 
         {/* Curved Path */}
@@ -90,6 +88,13 @@ const Map = ({ showHelmet = true, showLine = true }) => {
         {/* Pickup & Drop-off Markers */}
         <Marker coordinate={origin} title="Pickup: 360 Xpert" />
         <Marker coordinate={destination} title="Drop-off: McDonald's Tariq Road" />
+
+        {/* Additional Pickup Points */}
+        {pickupPoints.map((point, index) => (
+          <Marker key={index} style={styles.marker} coordinate={point} title={`Pickup Point ${index + 1}`} >
+                <Image source={helmetMarker} style={{ width: 40, height: 40 }} />
+          </Marker>
+        ))}
       </MapView>
     </View>
   );
@@ -98,15 +103,7 @@ const Map = ({ showHelmet = true, showLine = true }) => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { flex: 1 },
+  marker:{height:50,width:50}
 });
 
 export default Map;
-
-
-
-
-
-
-
-
-
