@@ -8,6 +8,7 @@ import { loginUser } from '../../Redux/slices/authSlice';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../theme/themeContext';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import { StoreToken } from '../../service/storageService';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -17,7 +18,11 @@ const LoginScreen = () => {
   const navigation = useNavigation();
   const { theme } = useTheme();
   console.log("sdhfbj",user_type)
+  const storeTokens = async()=>{
+    await StoreToken(token);
+  }
   useEffect(() => {
+    storeTokens()
     if (token && user_type) {
       if (user_type === 'driver') {
         navigation.replace('RiderDrawer');

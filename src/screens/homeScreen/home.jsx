@@ -26,10 +26,10 @@ const HomeScreen = ({ navigation }) => {
   const [error, setError] = useState(null); // Error handling
   const waiz = useSelector((state) => state.getOrders?.getOrders);
   // 🕒 Time update karne ke liye useEffect
-  //console.log("sdfuysdtgfvsd",waiz)
+  // console.log("sdfuysdtgfvsd",waiz)
   const apiFetch  = async()=>{
     const res = await dispatch(getOrders()).unwrap();
-    //console.log("gfghfghdsfgsdfgj",res)
+    // console.log("gfghfghdsfgsdfgj",res)
   }
   useEffect(() => {
     apiFetch()
