@@ -23,7 +23,6 @@ const pickupPoints = [
   { latitude: 24.875678, longitude: 67.072345 }, // Example Pickup Point 3
 ];
 
-
 const PickScreen = () => {
   const navigation = useNavigation();
   const { count } = useOrderContext(); // Get count from context
@@ -40,30 +39,36 @@ const PickScreen = () => {
       )}
 
       <View style={styles.overlay}>
-        <View style={styles.section}>
-          <PickButton />
-          <Arrow />
-        </View>
-        <View style={styles.bottomContainer}>
-          <View style={styles.orderSec}>
-            <Order />
-            <View style={styles.whatsapp}>
-              <WhatsAppIcon />
-            </View>
+        <Map showHelmet={true} showLine={false} pickupPoints={pickupPoints} />
+
+       
+        <View style={styles.overlay}>
+          <View style={styles.section}>
+            <PickButton />
+            <Arrow />
           </View>
 
-          <View style={styles.line} />
-          <Location />
-          <View style={styles.verticle} />
-          <Locate />
-          <Distance />
-          <View style={styles.line} />
-          <Customer />
-          <View style={styles.line} />
-          <COD />
-          <View style={styles.btnRow}>
-            <CancelButton onPress={() => navigation.navigate('Arrived')} />
-            <Pick onPress={() => navigation.navigate('Delivered')} />
+          <View style={styles.bottomContainer}>
+            <View style={styles.orderSec}>
+              <Order />
+              <View style={styles.whatsapp}>
+                <WhatsAppIcon />
+              </View>
+            </View>
+
+            <View style={styles.line} />
+            <Location />
+            <View style={styles.verticle} />
+            <Locate />
+            <Distance />
+            <View style={styles.line} />
+            <Customer />
+            <View style={styles.line} />
+            <COD />
+            <View style={styles.btnRow}>
+              <CancelButton onPress={() => navigation.navigate('Arrived')} />
+              <Pick onPress={() => navigation.navigate('Delivered')} />
+            </View>
           </View>
         </View>
       </View>
