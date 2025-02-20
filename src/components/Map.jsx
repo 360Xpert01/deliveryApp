@@ -1,13 +1,17 @@
-import React, { useEffect, useRef } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import React, { useEffect, useRef, useState } from "react";
+import { View, StyleSheet, Animated, Image } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE, Polyline, AnimatedRegion } from "react-native-maps";
 import HelmetIcon from "./HelmetIcon";
 import helmetMarker from "../assest/marker1.png";
-import { Image } from "react-native";
 
 const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
   const origin = { latitude: 24.910402, longitude: 67.092132 }; // 360 Xpert
   const destination = { latitude: 24.867326, longitude: 67.056164 }; // McDonald's Tariq Road
+
+  const routePoints = [origin, ...pickupPoints, destination];
+
+  const [activeMarkerIndex, setActiveMarkerIndex] = useState(null);
+  const markerScales = useRef(pickupPoints.map(() => new Animated.Value(1))).current; // Animated scale values for markers
 
   const generateCurve = (start, end) => {
     let curvePoints = [];
@@ -42,26 +46,70 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
     return curvePoints;
   };
 
-  const curvedPolyline = generateCurve(origin, destination);
+  const curvedPolyline = routePoints.reduce((acc, point, index, array) => {
+    if (index < array.length - 1) {
+      acc.push(...generateCurve(point, array[index + 1]));
+    }
+    return acc;
+  }, []);
 
-  //  Use AnimatedRegion for smooth movement
-  const helmetPosition = useRef(
-    new AnimatedRegion({
-      latitude: origin.latitude,
-      longitude: origin.longitude,
-    })
-  ).current;
+  const helmetPosition = useRef(new AnimatedRegion(routePoints[0])).current;
 
   useEffect(() => {
-    if (showHelmet) {
-      helmetPosition.timing({
-        latitude: destination.latitude,
-        longitude: destination.longitude,
-        duration: 5000, // Smooth animation in 5 seconds
-        useNativeDriver: false,
-      }).start();
+    if (showHelmet && routePoints.length > 1) {
+      animateHelmet(0);
     }
   }, [showHelmet]);
+
+  const animateHelmet = (index) => {
+    if (index >= routePoints.length - 1) return;
+
+    const nextPoint = routePoints[index + 1];
+
+    helmetPosition.timing({
+      latitude: nextPoint.latitude,
+      longitude: nextPoint.longitude,
+      duration: 3000,
+      useNativeDriver: false,
+    }).start(() => {
+      setActiveMarkerIndex(index + 1); // Set the active marker index
+      zoomMarker(index); // Zoom in the marker
+
+      if (pickupPoints.some((p) => p.latitude === nextPoint.latitude && p.longitude === nextPoint.longitude)) {
+        setTimeout(() => {
+          animateHelmet(index + 1);
+          resetMarkerZoom(index); // Reset marker zoom
+        }, 4000);
+      } else {
+        setTimeout(() => {
+          animateHelmet(index + 1);
+          resetMarkerZoom(index); // Reset marker zoom
+        }, Math.floor(Math.random() * (10000 - 5000 + 1)) + 5000);
+      }
+    });
+  };
+
+  // Function to zoom the marker (increase scale)
+  const zoomMarker = (index) => {
+    if (index > 0 && index <= pickupPoints.length) {
+      Animated.timing(markerScales[index - 1], {
+        toValue: 1.5, // Increase size
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
+
+  // Function to reset marker zoom (restore original size)
+  const resetMarkerZoom = (index) => {
+    if (index > 0 && index <= pickupPoints.length) {
+      Animated.timing(markerScales[index - 1], {
+        toValue: 1, // Restore original size
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
+    }
+  };
 
   return (
     <View style={styles.container}>
@@ -78,21 +126,32 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
         {/* Helmet with Smooth Animation */}
         {showHelmet && (
           <Marker.Animated coordinate={helmetPosition} title="Helmet Rider">
-            <HelmetIcon width={30} height={30} />
+            <HelmetIcon width={20} height={20} />
           </Marker.Animated>
         )}
 
         {/* Curved Path */}
-        {showLine && <Polyline coordinates={curvedPolyline} strokeWidth={5} strokeColor="green" />}
+        {showLine && (
+          <Polyline coordinates={curvedPolyline} strokeWidth={5} strokeColor="green" />
+        )}
 
         {/* Pickup & Drop-off Markers */}
         <Marker coordinate={origin} title="Pickup: 360 Xpert" />
         <Marker coordinate={destination} title="Drop-off: McDonald's Tariq Road" />
 
-        {/* Additional Pickup Points */}
+        {/* Additional Pickup Points with Zoom Effect */}
         {pickupPoints.map((point, index) => (
-          <Marker key={index} style={styles.marker} coordinate={point} title={`Pickup Point ${index + 1}`} >
-                <Image source={helmetMarker} style={{ width: 40, height: 40 }} />
+          <Marker key={index} coordinate={point} title={`Pickup Point ${index + 1}`}>
+            <Animated.View
+              style={[
+                styles.markerContainer,
+                { transform: [{ scale: markerScales[index] }] }, // Apply scaling
+              ]}
+            >
+              {/* White Halo Effect */}
+              {activeMarkerIndex === index + 1 && <View style={styles.halo} />}
+              <Image source={helmetMarker} style={[styles.helmetMarker, { zIndex: 10 }]} />
+            </Animated.View>
           </Marker>
         ))}
       </MapView>
@@ -103,7 +162,19 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
 const styles = StyleSheet.create({
   container: { flex: 1 },
   map: { flex: 1 },
-  marker:{height:50,width:50}
+  markerContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  halo: {
+    position: "absolute",
+    width: 50,
+    height: 50,
+    borderRadius: 25,
+    backgroundColor: "rgba(255, 255, 255, 0.5)",
+    zIndex: -1,
+  },
+  helmetMarker: { width: 30, height: 30 },
 });
 
 export default Map;

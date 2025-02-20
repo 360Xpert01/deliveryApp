@@ -40,7 +40,7 @@ const PickScreen = () => {
       )}
 
       <View style={styles.overlay}>
-<Map showHelmet={true} showLine={false} pickupPoints={pickupPoints} />
+<Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
 <View style={styles.overlay}>
         <View style={styles.section}>
           <PickButton />
