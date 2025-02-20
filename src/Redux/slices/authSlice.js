@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../client';
-import StorageService from '../../service/storageService';
+import StorageService, { StoreToken } from '../../service/storageService';
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
@@ -12,6 +12,7 @@ export const loginUser = createAsyncThunk(
         const { token, data } = response.data;
 
         if (token && data?.user_type) {
+          await StoreToken(token);
           await StorageService.store('authToken', token); // Store token
           await StorageService.store('userType', data.user_type); // Store user type
           await StorageService.store('userData', JSON.stringify(data)); // Store full user data

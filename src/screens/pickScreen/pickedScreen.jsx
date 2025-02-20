@@ -17,6 +17,13 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import { useOrderContext } from '../../CountContext/newOrderContext';
 
+const pickupPoints = [
+  { latitude: 24.897345, longitude: 67.081231 }, // Example Pickup Point 1
+  { latitude: 24.882123, longitude: 67.065432 }, // Example Pickup Point 2
+  { latitude: 24.875678, longitude: 67.072345 }, // Example Pickup Point 3
+];
+
+
 const PickScreen = () => {
   const navigation = useNavigation();
   const { count } = useOrderContext(); // Get count from context
