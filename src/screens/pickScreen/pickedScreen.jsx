@@ -41,7 +41,7 @@ const PickScreen = () => {
 
       <View style={styles.overlay}>
 <Map showHelmet={true} showLine={false} pickupPoints={pickupPoints} />
-<View style={styles.overlay}
+<View style={styles.overlay}>
         <View style={styles.section}>
           <PickButton />
           <Arrow />
@@ -68,6 +68,7 @@ const PickScreen = () => {
             <Pick onPress={() => navigation.navigate('Delivered')} />
           </View>
         </View>
+      </View>
       </View>
     </View>
   );
