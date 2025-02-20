@@ -1,12 +1,15 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native"; 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
-const dish = require("../../assets/dish.png");;
-const ellipse = require("../../assets/Ellipse.png");;
-import LocationIcon from '../assest/location.png'
+const dish = require("../../assets/dish.png");
+const ellipse = require("../../assets/Ellipse.png");
+const LocationIcon = require('../assest/location.png');
 
-const OrderCard = ({ codId, location, orderId, navigation }) => {
+const OrderCard = ({ codId, location, orderId }) => {
+    const navigation = useNavigation();  
+
     return (
         <TouchableOpacity
             onPress={() => navigation.navigate("LoadDetail", { orderId, codId, location })}
@@ -31,7 +34,7 @@ const OrderCard = ({ codId, location, orderId, navigation }) => {
                         </Text>
                     </View>
                     <View style={styles.addressRow}>
-                        <Image source={LocationIcon} style={{ width: 18, height: 18 }}/>
+                        <Image source={LocationIcon} style={{ width: 18, height: 18 }} />
                         <Text style={styles.addressText}>
                             B 121 Block 2, Gulshan-e-Iqbal, Karachi
                         </Text>
@@ -64,16 +67,12 @@ const styles = StyleSheet.create({
         alignItems: "center",
         gap: wp("1%"),
         marginBottom: hp("1%"),
-        justifyContent:'space-between'
+        justifyContent: 'space-between'
     },
     row: {
         flexDirection: "row",
         gap: 5,
         alignItems: "center",
-    },
-    icon: {
-        width: wp("4%"),
-        height: wp("4%"),
     },
     orderId: {
         fontSize: wp("3%"),

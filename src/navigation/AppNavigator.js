@@ -20,11 +20,14 @@ import AnotherOrder from '../screens/anotherOrderScreen/anotherOrder';
 import CustomerDrawerNavigator from './CustomerDrawerNavigator';
 import NewOrderScreen from '../screens/newOrder/newOrder';
 import CustomerDetailsScreen from '../screens/customerDetailScreen/customerDetail';
+import ActiveLoads from '../screens/activeLoads/activeLoads';
+import { OrderProvider } from "../CountContext/orderContext"; 
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
 
 const AppNavigator = () => (
+  <OrderProvider>
   <NavigationContainer>
     <Stack.Navigator initialRouteName="Login">
       <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }} />
@@ -38,8 +41,10 @@ const AppNavigator = () => (
       <Stack.Screen name="CustomerDetail" component={CustomerDetailsScreen} options={{ headerShown: false }} />
       <Stack.Screen name="DeliveredScreen" component={DeliveredScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AnotherOrder" component={AnotherOrder} options={{ headerShown: false }} />
+      <Stack.Screen name="ActiveLoads" component={ActiveLoads} options={{ headerShown: false }} />
       <Stack.Screen name="CustomerDrawer" component={CustomerDrawerNavigator} options={{headerShown:false}}/>
       <Stack.Screen name="RiderDrawer" component={RiderDrawerNavigatior} options={{headerShown:false}}/>
+      <Stack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <Stack.Screen
         name="Notifications"
         component={NotificationScreen}
@@ -47,6 +52,7 @@ const AppNavigator = () => (
       />
     </Stack.Navigator>
   </NavigationContainer>
+  </OrderProvider>
 );
 
 export default AppNavigator;

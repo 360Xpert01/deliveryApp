@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 const AnotherOrder = () => {
   const navigation = useNavigation();
   const [time, setTime] = useState(dayjs());
+  const [count, setCount] = useState(1);
 
   useEffect(() => {
     const interval = setInterval(() => setTime(dayjs()), 1000);
@@ -24,11 +25,9 @@ const AnotherOrder = () => {
   return (
     <SafeAreaView style={[styles.container, { backgroundColor: themes.greenLight.locationBackground }]}>
       <View style={styles.navtime}>
-        <TouchableOpacity
-                style={styles.backButton}
-                onPress={() => navigation.goBack()}>
-                <Image source={LeftArrow} style={styles.backIcon} />
-              </TouchableOpacity>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Image source={LeftArrow} style={styles.backIcon} />
+        </TouchableOpacity>
         <Text style={styles.time}>{time.format('hh:mm:ss')}</Text>
       </View>
 
@@ -36,7 +35,11 @@ const AnotherOrder = () => {
         <FlatList
           data={users}
           keyExtractor={(item, index) => index.toString()}
-          renderItem={({ item }) => <OrderCard {...item} navigation={navigation} />}
+          renderItem={({ item }) => (
+            <TouchableOpacity >
+              <OrderCard {...item} />
+            </TouchableOpacity>
+          )}
         />
       </View>
 
@@ -46,14 +49,7 @@ const AnotherOrder = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { 
-    paddingVertical: 20, 
-    flex: 1 
-  },
-  img: { 
-    height: 30, 
-    width: 30 
-  },
+  container: { paddingVertical: 20, flex: 1 },
   main: {
     backgroundColor: '#F9F9F9',
     borderTopLeftRadius: 30,
@@ -73,7 +69,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  
 });
 
 export default AnotherOrder;

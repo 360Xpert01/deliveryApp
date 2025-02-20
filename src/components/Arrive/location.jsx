@@ -14,7 +14,7 @@ const Location = () => {
 
 const styles = StyleSheet.create({
   box: {
-    // backgroundColor: "#F9F9F9",
+    
     flexDirection: "row",
     gap: 8,
     paddingVertical: 10,

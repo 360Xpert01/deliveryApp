@@ -17,7 +17,7 @@ const ArriveButton = () => {
         style={[styles.btn, { backgroundColor: theme.button }]} 
         onPress={handleArrive} 
       >
-        <Text style={styles.btnText}>Arrived</Text>
+        <Text style={styles.btnText}>Arrive</Text>
       </TouchableOpacity>
     </View>
   );

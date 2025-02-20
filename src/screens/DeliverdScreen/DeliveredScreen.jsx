@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
 import Svg, { Path } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
+import { useOrderContext } from "../../CountContext/newOrderContext";
 
 const CheckIcon = () => (
   <Svg width="136" height="133" viewBox="0 0 136 133" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -24,7 +25,25 @@ const DeliveredScreen = () => {
   const [receivedBy, setReceivedBy] = useState("");
   const [rating, setRating] = useState(0);
   const navigation = useNavigation();
+  const { count, setCount } = useOrderContext();
+  console.log("count" + count);
 
+  const handleSubmit = () => {
+    if (count > 0) {
+      setCount(prevCount => {
+        const newCount = prevCount - 1;
+        if (newCount === 0) {
+          navigation.navigate("Home"); 
+        } else {
+          navigation.navigate("Arrived"); 
+        }
+        return newCount;
+      });
+    } else {
+      navigation.navigate("Home"); 
+    }
+  };
+  
   return (
     <View style={styles.container}>
       <View style={styles.successBoxWrapper}>
@@ -53,7 +72,7 @@ const DeliveredScreen = () => {
         ))}
       </View>
 
-      <TouchableOpacity style={styles.submitButton} onPress={() => navigation.navigate("drawer")}>
+      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
         <Text style={styles.submitButtonText}>Submit</Text>
       </TouchableOpacity>
     </View>
