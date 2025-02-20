@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState , useEffect} from 'react';
 import {View, Text, StyleSheet, TouchableOpacity, Image,ScrollView} from 'react-native';
 import Map from '../../components/Map';
 import {useTheme} from '../../theme/themeContext';
@@ -11,6 +11,17 @@ import StatusOrder from '../../components/statusOrder';
 const backButton = require('../../../assets/backbutton.png');
 const bullet = require('../../assest/bullet.png')
 const location = require('../../assest/location.png')
+
+
+
+const statusData = [
+  { status: 'Order Created', createdDate: '2025/02/14', createdTime: '3:27:25' },
+  { status: 'Order Accepted', createdDate: '2025/02/14', createdTime: '3:30:00' },
+  { status: 'Rider Arrived', createdDate: '2025/02/14', createdTime: '3:35:14' },
+  { status: 'Rider Picked', createdDate: '2025/02/14', createdTime: '3:40:00' },
+  { status: 'Order Delivered', createdDate: '2025/02/14', createdTime: '3:50:30' },
+  { status: 'Order Completed', createdDate: '2025/02/14', createdTime: '4:00:00' },
+];
 
 const CustomerDetailsScreen = () => {
   const {theme} = useTheme();
@@ -29,7 +40,6 @@ const CustomerDetailsScreen = () => {
       <View style={styles.mapContainer}>
         <Map showHelmet={false} animate={animate} setAnimate={setAnimate} />
       </View>
-
       <View style={[styles.detailsContainer, {backgroundColor: theme.surface}]}>
         <View style={styles.headerRow}>
           <Image
@@ -73,13 +83,21 @@ const CustomerDetailsScreen = () => {
             <Text style={styles.delivered}>Delievered By : <Text style={styles.delivered2}>Umair Khan</Text></Text>
             <Text style={styles.delivered}>Received By : <Text style={styles.delivered2}>Bilal Ahmed</Text></Text>
         </View>
-        <ScrollView >
-        <StatusOrder status={'Order Created'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
+        <ScrollView style={[{flex:1, height:200}]}>
+        {/* <StatusOrder status={'Order Created'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
         <StatusOrder status={'Order Accepted'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
         <StatusOrder status={'Order Arrived'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
         <StatusOrder status={'Rider Picked'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
         <StatusOrder status={'Order Delievered'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
-        <StatusOrder status={'Order Completed'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/>
+        <StatusOrder status={'Order Completed'} createdDate={'2025/02/14'} createdTime={'3:27:25'}/> */}
+        {statusData.map((item, index) => (
+        <StatusOrder 
+          key={index} 
+          status={item.status} 
+          createdDate={item.createdDate} 
+          createdTime={item.createdTime} 
+        />
+      ))}
         </ScrollView>
         {/* <Text style={[styles.description, {color: theme.text.light}]}>
         </Text> */}
