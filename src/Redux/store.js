@@ -19,6 +19,7 @@ import authReducer from './slices/authSlice';
 import notificationReducer from './slices/notificationSlice';
 import orderReducer from './slices/orderSlice';
 import getOrdersSlice from "./slices/orders/getOrders"
+import getOrdersHistorySlice from "./slices/orders/orderHistory"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -34,6 +35,7 @@ const rootReducer = combineReducers({
   notifications: notificationReducer,
   orders: orderReducer,
   getOrders: getOrdersSlice,
+  getOrdersHistory: getOrdersHistorySlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

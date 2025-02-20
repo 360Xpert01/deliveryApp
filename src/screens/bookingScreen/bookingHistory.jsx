@@ -1,15 +1,32 @@
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text, FlatList } from "react-native";
+import React,{useEffect} from "react";
+import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text, FlatList, Alert } from "react-native";
 import { useNavigation } from "@react-navigation/native"; 
 import OrderCard from "../../components/ordercard";
 import themes from "../../theme/theme";
 import HistoryCard from "../../components/historyCard";
+import { useSelector,useDispatch } from "react-redux";
+import { getOrdersHistory } from "../../Redux/slices/orders/orderHistory";
 const SideBarImage = require("../../../assets/sidebar.png");
 
 
 const BookingHistory = () => {
+  const dispatch = useDispatch()
   const navigation = useNavigation(); 
-
+  const {token} = useSelector((state) => state.auth);
+  const history = useSelector((state) => state.getOrdersHistory?.getOrdersHistory);
+  console.log("dserwerafk",token)
+  
+  const getOrder = async ()=>{
+    if(token){
+      const res = await dispatch(getOrdersHistory({token})).unwrap();
+      console.log("efgsfvs",res);
+    }else{
+      Alert.alert("token not found")
+    }
+  }
+  useEffect(() => {
+    getOrder()
+  }, [])
   const users = [
     {
       codID: "11, 999",
