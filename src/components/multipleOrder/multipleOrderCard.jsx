@@ -11,12 +11,12 @@ const MultipleOrder = () => {
   const navigation = useNavigation();
   const [selectedOrder, setSelectedOrder] = useState(orders[0]);
 
-  const handleClick = () => {
-    navigation.navigate('ActiveLoads');
+  const handleOpenOrderPage = () => {
+    navigation.navigate('OrderSelection', { selectedOrder, onSelect: setSelectedOrder });
   };
 
   return (
-    <TouchableOpacity style={styles.cardContainer} onPress={handleClick}>
+    <TouchableOpacity style={styles.cardContainer} onPress={handleOpenOrderPage}>
       <View style={styles.orderNumContainer}>
         <Text style={styles.orderNum}>{selectedOrder.id}</Text>
       </View>
@@ -89,7 +89,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 16,
     fontWeight: 'bold',
-  }
+  },
 });
 
 export default MultipleOrder;
+
+
