@@ -79,6 +79,7 @@ const PickScreen = () => {
         </View>
       </View>
       </View>
+      </View>
   );
 };
 
