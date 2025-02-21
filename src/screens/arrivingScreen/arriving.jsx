@@ -10,6 +10,7 @@ import KHI from '../../components/Arrive/khi';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import { useOrderContext } from '../../CountContext/newOrderContext';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
 
 const ArrivingScreen = () => {
     const { count } = useOrderContext();
@@ -48,18 +49,18 @@ const styles = StyleSheet.create({
         bottom: 0,
         width: "100%",
         backgroundColor: "white",
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        padding: 20,
+        borderTopLeftRadius: wp("8%"),
+        borderTopRightRadius: wp("8%"),
+        padding: wp("5%"),
         elevation: 10,
     },
     btnRow: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        marginTop: 10,
+        marginTop: hp("1.5%"),
     },
     line: {
-        marginVertical: 20,
+        marginVertical: hp("2.5%"),
         height: 1,
         backgroundColor: '#E4E4E4',
         width: '100%',
@@ -70,17 +71,17 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     whatsapp: {
-        padding: 10,
+        padding: wp("2.5%"),
         backgroundColor: "white",
-        borderRadius: 50,
+        borderRadius: wp("10%"),
         elevation: 5,
     },
     multiCard: {
         position: "absolute",
         alignItems: "center",
         width: "100%",
-        bottom: "40%",
-        zIndex:10,
+        bottom: hp("40%"),
+        zIndex: 10,
     }
 });
 

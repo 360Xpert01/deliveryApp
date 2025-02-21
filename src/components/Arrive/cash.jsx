@@ -5,7 +5,7 @@ import themes from '../../theme/theme'
 const COD = () => {
   return (
     <View style={styles.cash}>
-      <Text style={styles.label}>COD:</Text>
+      <Text style={[styles.label, {color: themes.greenLight.text}]}>COD:</Text>
       <Text style={[styles.amount, {color: themes.greenLight.button}]}>11,999</Text>
     </View>
   )

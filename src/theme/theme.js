@@ -25,6 +25,8 @@ export const themes = {
     locationBackground: '#F9F9F9',
     black: '#252525',
     gray: '#A3A3A3',
+    text: '#181815',
+    lightgray: '#999999'
   },
 
   // Green Theme - Dark Mode

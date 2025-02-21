@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useOrderContext } from '../../CountContext/newOrderContext'; 
 const food = require("../../assest/food.png")
 import WhatsAppIcon from '../../components/WhatsAppIcon';
+import themes from '../../theme/theme';
 
 const backButton = require('../../../assets/backbutton.png');
 
@@ -39,7 +40,7 @@ const LoadDetailsScreen = () => {
       <View style={[styles.detailsContainer, { backgroundColor: theme.surface }]}>
         <View style={styles.headerRow}>
           <Image source={food} style={styles.foodIcon} />
-          <Text style={[styles.orderId, { color: theme.text.primary }]}>
+          <Text style={[styles.orderId, { color: themes.greenLight.text }]}>
             ORD-2023-4578
           </Text>
           <TouchableOpacity
@@ -51,23 +52,23 @@ const LoadDetailsScreen = () => {
         </View>
 
         <View style={styles.locationRow}>
-          <Text style={[styles.locationText, { color: theme.text.secondary }]}>
+          <Text style={[styles.locationText, { color: themes.greenLight.text }]}>
             📍 14th Street Pizza Co, Block-7, Gulshan-e-Iqbal
           </Text>
         </View>
         <View style={styles.locationRow}>
-          <Text style={[styles.locationText, { color: theme.text.secondary }]}>
+          <Text style={[styles.locationText, { color: themes.greenLight.text }]}>
             📍 B 121 Block 66, Gulshan-e-Iqbal, Karachi.
           </Text>
         </View>
-        <Text style={[styles.distanceText, { color: theme.text.primary }]}>
+        <Text style={[styles.distanceText, { color: themes.greenLight.shadow }]}>
           Distance: 1.6 Kms
         </Text>
-        <Text style={[styles.description, { color: theme.text.light }]}>
-          Figma ipsum component variant main layer...
+        <Text style={[styles.description, { color: themes.greenLight.lightgray }]}>
+        Figma ipsum component variant main layer. Mask connection slice underline rotate. Vertical editor effect arrow union font. Font hand pixel library select figjam share. Line duplicate ipsum arrange slice invite thumbnail figma.
         </Text>
-        <Text style={[styles.priceText, { color: theme.text.primary }]}>
-          COD: <Text style={{ color: theme.primary }}>11,999</Text>
+        <Text style={[styles.priceText, { color: themes.greenLight.text }]}>
+          COD: <Text style={{ color: themes.greenLight.button }}>11,999</Text>
         </Text>
         
         {/* Accept Request Button */}

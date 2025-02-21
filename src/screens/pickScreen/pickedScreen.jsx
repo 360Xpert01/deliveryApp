@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useOrder } from '../../CountContext/orderContext'; // Import context
 import Map from '../../components/Map';
@@ -17,6 +17,8 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import { useOrderContext } from '../../CountContext/newOrderContext';
 
+const { width, height } = Dimensions.get('window');
+
 const pickupPoints = [
   { latitude: 24.897345, longitude: 67.081231 }, // Example Pickup Point 1
   { latitude: 24.882123, longitude: 67.065432 }, // Example Pickup Point 2
@@ -30,18 +32,13 @@ const PickScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Map />
-
+      <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
       {count > 1 && (
         <View style={styles.multiCard}>
           <MultipleOrder />
         </View>
       )}
-
       <View style={styles.overlay}>
-
-<Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
-<View style={styles.overlay}>
         <View style={styles.section}>
           <PickButton />
           <Arrow />
@@ -53,94 +50,83 @@ const PickScreen = () => {
               <WhatsAppIcon />
             </View>
           </View>
-
-          <View style={styles.bottomContainer}>
-            <View style={styles.orderSec}>
-              <Order />
-              <View style={styles.whatsapp}>
-                <WhatsAppIcon />
-              </View>
-            </View>
-
-            <View style={styles.line} />
-            <Location />
-            <View style={styles.verticle} />
-            <Locate />
-            <Distance />
-            <View style={styles.line} />
-            <Customer />
-            <View style={styles.line} />
-            <COD />
-            <View style={styles.btnRow}>
-              <CancelButton onPress={() => navigation.navigate('Arrived')} />
-              <Pick onPress={() => navigation.navigate('Delivered')} />
-            </View>
+          <View style={styles.line} />
+          <Location />
+          <View style={styles.verticle} />
+          <Locate />
+          <Distance />
+          <View style={styles.line} />
+          <Customer />
+          <View style={styles.line} />
+          <COD />
+          <View style={styles.btnRow}>
+            <CancelButton onPress={() => navigation.navigate('Arrived')} />
+            <Pick onPress={() => navigation.navigate('Delivered')} />
           </View>
         </View>
       </View>
-      </View>
-      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: { flex: 1 },
   overlay: {
-    position: "absolute",
+    position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    justifyContent: "flex-end",
+    justifyContent: 'flex-end',
   },
   bottomContainer: {
     backgroundColor: 'white',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    padding: 20,
+    borderTopLeftRadius: width * 0.08,
+    borderTopRightRadius: width * 0.08,
+    padding: width * 0.05,
     elevation: 10,
   },
   verticle: {
-    height: 30,
+    height: height * 0.04,
     borderLeftWidth: 1,
     borderColor: '#ccc',
     borderStyle: 'dashed',
-    marginLeft: 15,
+    marginLeft: width * 0.04,
   },
   btnRow: {
     flexDirection: 'row',
-    justifyContent: "space-between",
-    gap: 20,
-    marginTop: 10,
+    justifyContent: 'space-between',
+    gap: width * 0.05,
+    marginTop: height * 0.01,
   },
   line: {
-    marginVertical: 5,
+    marginVertical: height * 0.007,
     height: 1,
     backgroundColor: '#E4E4E4',
     width: '100%',
   },
   orderSec: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   whatsapp: {
-    padding: 10,
-    backgroundColor: "white",
+    padding: width * 0.025,
+    backgroundColor: 'white',
     borderRadius: 50,
     elevation: 5,
   },
   section: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: 80,
-    paddingHorizontal: 20,
+    paddingVertical: height * 0.1,
+    paddingHorizontal: width * 0.05,
   },
   multiCard: {
-    position: "absolute",
-    alignItems: "center",
-    width: "100%",
-    top: "30%",
+    position: 'absolute',
+    alignItems: 'center',
+    width: '100%',
+    top: height * 0.3,
     zIndex: 10,
   },
 });
