@@ -39,13 +39,19 @@ const PickScreen = () => {
       )}
 
       <View style={styles.overlay}>
-        <Map showHelmet={true} showLine={false} pickupPoints={pickupPoints} />
 
-       
-        <View style={styles.overlay}>
-          <View style={styles.section}>
-            <PickButton />
-            <Arrow />
+<Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
+<View style={styles.overlay}>
+        <View style={styles.section}>
+          <PickButton />
+          <Arrow />
+        </View>
+        <View style={styles.bottomContainer}>
+          <View style={styles.orderSec}>
+            <Order />
+            <View style={styles.whatsapp}>
+              <WhatsAppIcon />
+            </View>
           </View>
 
           <View style={styles.bottomContainer}>
