@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useOrder } from '../../CountContext/orderContext'; // Import context
+import { useOrder } from '../../CountContext/orderContext'; 
 import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import PickButton from '../../components/Arrive/pickButton';
@@ -22,7 +22,7 @@ import themes from '../../theme/theme';
 
 const DeliverScreen = () => {
   const navigation = useNavigation();
-  const { count } = useOrderContext(); // Get count from context
+  const { count } = useOrderContext(); 
 console.log("count" + count);
   return (
     <View style={[styles.container, {color: themes.greenLight.shadow}]}>
