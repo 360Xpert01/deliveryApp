@@ -45,19 +45,19 @@ const LoadDetailsScreen = () => {
           </Text>
           <TouchableOpacity
             style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
-            <View style={styles.whatsappIcon}>
-              <WhatsAppIcon />
+            <View>
+              <WhatsAppIcon style={styles.whatsappIcon}/>
             </View>
           </TouchableOpacity>
         </View>
 
         <View style={styles.locationRow}>
-          <Text style={[styles.locationText, { color: themes.greenLight.text }]}>
+          <Text style={[styles.locationText, { color: themes.greenLight.text,backgroundColor: themes.greenLight.locationBackground  }]}>
             📍 14th Street Pizza Co, Block-7, Gulshan-e-Iqbal
           </Text>
         </View>
         <View style={styles.locationRow}>
-          <Text style={[styles.locationText, { color: themes.greenLight.text }]}>
+          <Text style={[styles.locationText, { color: themes.greenLight.text, backgroundColor: themes.greenLight.locationBackground }]}>
             📍 B 121 Block 66, Gulshan-e-Iqbal, Karachi.
           </Text>
         </View>
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
   },
   whatsappIcon: { width: 24, height: 24, tintColor: 'white' },
   locationRow: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
-  locationText: { marginLeft: 10, fontSize: 14, marginBottom: 20, backgroundColor: "#F9F9F9", paddingTop: 5, paddingBottom: 5, },
+  locationText: { marginLeft: 10, fontSize: 14, marginBottom: 20, paddingTop: 5, paddingBottom: 5, },
   distanceText: { marginTop: 10, fontWeight: 'bold', marginBottom: 10, },
   description: { fontSize: 12, marginTop: 5 },
   priceText: { fontSize: 20, fontWeight: 'bold', marginTop: 10 },

@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useOrderContext } from '../../CountContext/newOrderContext';
+import {StyleSheet, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useOrderContext} from '../../CountContext/newOrderContext';
 import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import PickButton from '../../components/Arrive/pickButton';
@@ -15,23 +15,27 @@ import Locate from '../../components/Pick/locate';
 import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
+import themes from '../../theme/theme';
 
 const pickupPoints = [
-  { latitude: 24.897345, longitude: 67.081231 },
-  { latitude: 24.882123, longitude: 67.065432 },
-  { latitude: 24.875678, longitude: 67.072345 },
+  {latitude: 24.897345, longitude: 67.081231},
+  {latitude: 24.882123, longitude: 67.065432},
+  {latitude: 24.875678, longitude: 67.072345},
 ];
 
 const PickScreen = () => {
   const navigation = useNavigation();
-  const { count } = useOrderContext(); // Get count from context
-  console.log("count:", count);
+  const {count} = useOrderContext(); // Get count from context
+  console.log('count:', count);
 
   return (
     <View style={styles.container}>
       <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
-      
+
       {/* Show Multi Order Card if count > 1 */}
       {count > 1 && (
         <View style={styles.multiCard}>
@@ -41,7 +45,11 @@ const PickScreen = () => {
 
       <View style={styles.overlay}>
         {/* Adjust section positioning dynamically */}
-        <View style={[styles.section, { marginBottom: count > 1 ? hp('9%') : hp('2%') }]}>
+        <View
+          style={[
+            styles.section,
+            {marginBottom: count > 1 ? hp('9%') : hp('2%')},
+          ]}>
           <PickButton />
           <Arrow />
         </View>
@@ -53,14 +61,29 @@ const PickScreen = () => {
               <WhatsAppIcon />
             </View>
           </View>
-          <View style={styles.line} />
+          <View
+            style={[
+              styles.line,
+              {backgroundColor: themes.greenLight.lineColor},
+            ]}
+          />
           <Location />
-          <View style={styles.verticle} />
+          <View style={[styles.verticle, {borderColor: themes.greenLight.lineColor}]} />
           <Locate />
           <Distance />
-          <View style={styles.line} />
+          <View
+            style={[
+              styles.line,
+              {backgroundColor: themes.greenLight.lineColor},
+            ]}
+          />
           <Customer />
-          <View style={styles.line} />
+          <View
+            style={[
+              styles.line,
+              {backgroundColor: themes.greenLight.lineColor},
+            ]}
+          />
           <COD />
           <View style={styles.btnRow}>
             <CancelButton onPress={() => navigation.navigate('Arrived')} />
@@ -73,7 +96,7 @@ const PickScreen = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {flex: 1},
   overlay: {
     position: 'absolute',
     top: 0,
@@ -92,7 +115,6 @@ const styles = StyleSheet.create({
   verticle: {
     height: hp('4%'),
     borderLeftWidth: 1,
-    borderColor: '#ccc',
     borderStyle: 'dashed',
     marginLeft: wp('4%'),
   },
@@ -105,7 +127,6 @@ const styles = StyleSheet.create({
   line: {
     marginVertical: hp('1%'),
     height: 1,
-    backgroundColor: '#E4E4E4',
     width: '100%',
   },
   orderSec: {

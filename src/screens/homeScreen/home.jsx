@@ -15,6 +15,7 @@ import dayjs from "dayjs";
 import { getToken } from "../../service/storageService";
 import { useDispatch , useSelector } from "react-redux";
 import { getOrders } from "../../Redux/slices/orders/getOrders";
+import themes from "../../theme/theme";
 
 const SideBarImage = require("../../../assets/sidebar.png");
 
@@ -69,10 +70,10 @@ const HomeScreen = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.openDrawer()}>
           <Image source={SideBarImage} style={styles.img} />
         </TouchableOpacity>
-        <Text style={styles.time}>{time.format("hh:mm:ss")}</Text>
+        <Text style={[styles.time, {color: themes.greenLight.button}]}>{time.format("hh:mm:ss")}</Text>
       </View>
 
-      <View style={styles.main}>
+      <View style={[styles.main, {backgroundColor: themes.greenLight.locationBackground}]}>
         {/* Agar Loading ho raha hai to Spinner dikhana */}
         {loading ? (
           <ActivityIndicator size="large" color="#00AA2F" />
@@ -112,7 +113,6 @@ const styles = StyleSheet.create({
     paddingLeft: 15,
   },
   main: {
-    backgroundColor: "#F9F9F9",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     paddingTop: 21,
@@ -124,7 +124,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     textAlignVertical: "center",
-    color: "#00AA2F",
     paddingRight: 20,
   },
   navtime: {
