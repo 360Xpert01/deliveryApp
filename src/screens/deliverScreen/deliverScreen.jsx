@@ -18,13 +18,14 @@ import ReturnButton from '../../components/Deliver/returnButton';
 import Deliver from '../../components/Deliver/deliverButton';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import { useOrderContext } from '../../CountContext/newOrderContext';
+import themes from '../../theme/theme';
 
 const DeliverScreen = () => {
   const navigation = useNavigation();
   const { count } = useOrderContext(); // Get count from context
 console.log("count" + count);
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {color: themes.greenLight.shadow}]}>
       <Map />
 
       {count > 1 && (
@@ -105,7 +106,7 @@ const styles = StyleSheet.create({
   },
   section: {
     position: "absolute",
-    top: "25%",  
+    top: "23%",  
     left: 0,
     right: 0,
     width: "100%",

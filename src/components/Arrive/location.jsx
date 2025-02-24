@@ -6,8 +6,10 @@ import themes from '../../theme/theme'
 const Location = () => {
   return (
     <View style={[styles.box, {backgroundColor: themes.greenLight.locationBackground}]}>
-      <Image source={Bullet} />
-      <Text>14th Street Pizza Co, Block-7, Gulshan-e-Iqbal</Text>
+      <Image source={Bullet}/>
+      <Text style={{ color: themes.greenLight.text }}>
+      14th Street Pizza Co, Block-7, Gulshan-e-Iqbal
+      </Text>
     </View>
   )
 }

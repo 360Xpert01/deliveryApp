@@ -1,6 +1,7 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import Food from '../../assest/food.png'
+import themes from '../../theme/theme';
 
 
 
@@ -10,7 +11,7 @@ const KHI = () => {
     <View style={styles.container}>
       <View style={styles.foodContainer}>
         <Image source={Food} style={styles.foodImage} />
-        <Text style={styles.orderText}>KHI 123545689713</Text>
+        <Text style={[styles.orderText, {color: themes.greenLight.text}]}>KHI 123545689713</Text>
       </View>
       <View style={styles.iconContainer}>
 

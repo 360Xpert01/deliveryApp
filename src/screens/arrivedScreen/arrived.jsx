@@ -13,6 +13,7 @@ import ArrivedButton from '../../components/Arrive/arrivedButton';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import { useOrderContext } from '../../CountContext/newOrderContext';
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const Arrived = () => {
     const { count } = useOrderContext(); 
@@ -56,19 +57,26 @@ const Arrived = () => {
 };
 
 const styles = StyleSheet.create({
-    container: { flex: 1 },
+    container: { 
+        flex: 1,
+        backgroundColor: 'red',
+        height: hp('100%'),
+    },
     bottomContainer: {
         width: '100%',
+        paddingVertical: hp('2%'),
         backgroundColor: 'white',
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-        padding: 20,
+        borderTopLeftRadius: wp('8%'),
+        borderTopRightRadius: wp('8%'),
+        padding: wp('5%'),
         elevation: 10,
+        position: 'absolute', 
+        bottom: 0
     },
     btnRow: {
         flexDirection: 'row',
         justifyContent: "space-between",
-        marginTop: 10,
+        marginTop: hp('1%'),
     },
     orderSec: {
         flexDirection: "row",
@@ -76,28 +84,33 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
     },
     line: {
-        marginVertical: 20,
+        marginVertical: hp('2%'),
         height: 1,
         backgroundColor: '#E4E4E4',
         width: '100%',
     },
     whatsapp: {
-        padding: 10,
+        padding: wp('3%'),
         backgroundColor: "white",
         borderRadius: 50,
         elevation: 5,
     },
     section: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingHorizontal: 10,
-        bottom: "10%",
-    },
+        position: "absolute",
+        top: hp('40%'),  
+        left: 0,
+        right: 0,
+        width: "100%",
+        flexDirection: "row",
+        justifyContent: "space-between", 
+        alignItems: "center",  
+        paddingHorizontal: wp('5%'),
+    },  
     multiCard: {
         position: "absolute",
         alignItems: "center",
         width: "100%",
-        bottom: "40%",
+        bottom: hp('40%'),
         zIndex: 10,
     }
 });
