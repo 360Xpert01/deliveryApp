@@ -14,7 +14,7 @@ export const getOrders = createAsyncThunk(
         const token = await getToken();
         try {
             // const response = await axios.get(`${baseUrl}/v1/orders`)
-            const response = await axios.get(`${baseUrl}/v1/orders`, {
+            const response = await axios.get(`${baseUrl}/v1/requested-orders`, {
                 headers: {
 
                     Authorization: `Bearer ${token}`,
@@ -23,7 +23,7 @@ export const getOrders = createAsyncThunk(
             });
             return response.data
         } catch (error) {
-            console.log("order Api",`${baseUrl}/v1/orders`)
+            console.log("order Api",`${baseUrl}/v1/requested-orders`)
             console.error("ERROR CATCH ORDERS Error:", error.response?.data || error.message);
             // return rejectWithValue(error.response?.data || error.message);
             return []

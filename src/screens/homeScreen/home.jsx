@@ -24,9 +24,9 @@ const HomeScreen = ({ navigation }) => {
   const [orders, setOrders] = useState([]); // Orders ko yahan store karenge
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error handling
-  const waiz = useSelector((state) => state.getOrders?.getOrders);
+  const OrdersData = useSelector((state) => state.getOrders?.getOrders);
   // 🕒 Time update karne ke liye useEffect
-  // console.log("sdfuysdtgfvsd",waiz)
+  // console.log("sdfuysdtgfvsd",OrdersData)
   const apiFetch  = async()=>{
     const res = await dispatch(getOrders()).unwrap();
     // console.log("gfghfghdsfgsdfgj",res)
@@ -80,14 +80,15 @@ const HomeScreen = ({ navigation }) => {
           <Text style={styles.error}>{error}</Text>
         ) : (
           <FlatList
-            data={orders}
+            data={OrdersData?.data}
             keyExtractor={(item) => item.id} // Unique key
             renderItem={({ item }) => (
               <OrderCard 
-                codId={item.cod} 
-                location={item.location} 
-                orderId={item.id} 
-                navigation={navigation} 
+                item={item}
+                // codId={item.cod} 
+                // location={item.location} 
+                // orderId={item.id} 
+                // navigation={navigation} 
               />
             )}
           />
