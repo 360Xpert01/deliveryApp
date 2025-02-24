@@ -1,7 +1,7 @@
 import React from 'react';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useOrder } from '../../CountContext/orderContext'; // Import context
+import { useOrderContext } from '../../CountContext/newOrderContext';
 import Map from '../../components/Map';
 import CancelButton from '../../components/Arrive/cancelButton';
 import PickButton from '../../components/Arrive/pickButton';
@@ -15,34 +15,37 @@ import Locate from '../../components/Pick/locate';
 import Distance from '../../components/Pick/distance';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
-import { useOrderContext } from '../../CountContext/newOrderContext';
-
-const { width, height } = Dimensions.get('window');
+import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
 const pickupPoints = [
-  { latitude: 24.897345, longitude: 67.081231 }, // Example Pickup Point 1
-  { latitude: 24.882123, longitude: 67.065432 }, // Example Pickup Point 2
-  { latitude: 24.875678, longitude: 67.072345 }, // Example Pickup Point 3
+  { latitude: 24.897345, longitude: 67.081231 },
+  { latitude: 24.882123, longitude: 67.065432 },
+  { latitude: 24.875678, longitude: 67.072345 },
 ];
 
 const PickScreen = () => {
   const navigation = useNavigation();
   const { count } = useOrderContext(); // Get count from context
-  console.log("count" + count);
+  console.log("count:", count);
 
   return (
     <View style={styles.container}>
       <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
+      
+      {/* Show Multi Order Card if count > 1 */}
       {count > 1 && (
         <View style={styles.multiCard}>
           <MultipleOrder />
         </View>
       )}
+
       <View style={styles.overlay}>
-        <View style={styles.section}>
+        {/* Adjust section positioning dynamically */}
+        <View style={[styles.section, { marginBottom: count > 1 ? hp('7%') : hp('2%') }]}>
           <PickButton />
           <Arrow />
         </View>
+
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
             <Order />
@@ -81,26 +84,26 @@ const styles = StyleSheet.create({
   },
   bottomContainer: {
     backgroundColor: 'white',
-    borderTopLeftRadius: width * 0.08,
-    borderTopRightRadius: width * 0.08,
-    padding: width * 0.05,
+    borderTopLeftRadius: wp('8%'),
+    borderTopRightRadius: wp('8%'),
+    padding: wp('5%'),
     elevation: 10,
   },
   verticle: {
-    height: height * 0.04,
+    height: hp('4%'),
     borderLeftWidth: 1,
     borderColor: '#ccc',
     borderStyle: 'dashed',
-    marginLeft: width * 0.04,
+    marginLeft: wp('4%'),
   },
   btnRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    gap: width * 0.05,
-    marginTop: height * 0.01,
+    gap: wp('5%'),
+    marginTop: hp('1%'),
   },
   line: {
-    marginVertical: height * 0.007,
+    marginVertical: hp('1%'),
     height: 1,
     backgroundColor: '#E4E4E4',
     width: '100%',
@@ -111,7 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   whatsapp: {
-    padding: width * 0.025,
+    padding: wp('3%'),
     backgroundColor: 'white',
     borderRadius: 50,
     elevation: 5,
@@ -119,14 +122,13 @@ const styles = StyleSheet.create({
   section: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingVertical: height * 0.1,
-    paddingHorizontal: width * 0.05,
+    paddingHorizontal: wp('5%'),
   },
   multiCard: {
     position: 'absolute',
     alignItems: 'center',
     width: '100%',
-    top: height * 0.3,
+    top: hp('30%'),
     zIndex: 10,
   },
 });
