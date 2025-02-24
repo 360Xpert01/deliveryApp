@@ -41,7 +41,7 @@ const PickScreen = () => {
 
       <View style={styles.overlay}>
         {/* Adjust section positioning dynamically */}
-        <View style={[styles.section, { marginBottom: count > 1 ? hp('7%') : hp('2%') }]}>
+        <View style={[styles.section, { marginBottom: count > 1 ? hp('9%') : hp('2%') }]}>
           <PickButton />
           <Arrow />
         </View>
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     width: '100%',
-    top: hp('30%'),
+    top: hp('28%'),
     zIndex: 10,
   },
 });

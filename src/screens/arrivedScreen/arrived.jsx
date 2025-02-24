@@ -35,7 +35,7 @@ const Arrived = () => {
       )}
 
       <View
-        style={[styles.section, {bottom: count > 1 ? hp('50%') : hp('30%')}]}>
+        style={[styles.section, {bottom: count > 1 ? hp('45%') : hp('30%')}]}>
         <PickButton />
         <Arrow />
       </View>
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     alignItems: 'center',
     width: '100%',
-    bottom: hp('40%'),
+    bottom: hp('37%'),
     zIndex: 10,
   },
 });
