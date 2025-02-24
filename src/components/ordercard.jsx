@@ -7,36 +7,37 @@ const dish = require("../../assets/dish.png");
 const ellipse = require("../../assets/Ellipse.png");
 const LocationIcon = require('../assest/location.png');
 
-const OrderCard = ({ codId, location, orderId }) => {
+const OrderCard = ({item}) => {
+    // console.log("fdsgwdasdsasdf",item)
     const navigation = useNavigation();  
 
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate("LoadDetail", { orderId, codId, location })}
+            onPress={() => navigation.navigate("LoadDetail", {item})}
             style={styles.card}
         >
             <View style={styles.cardContent}>
                 <View style={styles.header}>
                     <View style={styles.row}>
                         <Image source={dish} style={{ width: 20, height: 20 }} />
-                        <Text style={styles.orderId}>{orderId}</Text>
+                        <Text style={styles.orderId}>{item?.order_number}</Text>
                     </View>
-                    <Text style={styles.cod}>COD {codId}</Text>
+                    <Text style={styles.cod}>{item?.payment_method} {item?.amount}</Text>
                     <View style={styles.tag}>
-                        <Text style={styles.tagText}>{location}</Text>
+                        <Text style={styles.tagText}>F11-markaz</Text>
                     </View>
                 </View>
                 <View style={styles.addressContainer}>
                     <View style={styles.addressRow}>
                         <Image source={ellipse} style={styles.ellipse} />
                         <Text style={styles.addressText}>
-                            14th Street Pizza Co. Block-7, Gulshan-e-Iqbal
+                            {item?.pickup_location}
                         </Text>
                     </View>
                     <View style={styles.addressRow}>
                         <Image source={LocationIcon} style={{ width: 18, height: 18 }} />
                         <Text style={styles.addressText}>
-                            B 121 Block 2, Gulshan-e-Iqbal, Karachi
+                            {item?.consignee_address}
                         </Text>
                     </View>
                 </View>
@@ -78,6 +79,7 @@ const styles = StyleSheet.create({
         fontSize: wp("3%"),
         fontWeight: "700",
         marginLeft: wp("1%"),
+        color:"black"
     },
     cod: {
         fontSize: wp("4%"),
