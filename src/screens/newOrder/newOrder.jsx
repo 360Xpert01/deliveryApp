@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,ScrollView  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CreateDeliveryButton from '../../components/CustomerDashboard/createDeliveryButton';
 import themes from '../../theme/theme';
@@ -11,11 +11,11 @@ const backButton = require('../../assest/arrow-left.png');
 const NewOrderScreen = () => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const waiz = useSelector((state) => state.auth);
+    const {token} = useSelector((state) => state.auth);
 
 
     
-    console.log("esgsregrsdstfg",waiz)
+    // console.log("esgsregrsdstfg",waiz)
     const [form, setForm] = useState({
         fullName: '',
         mobileNumber: '',
@@ -55,15 +55,20 @@ const NewOrderScreen = () => {
                 "amount": form?.cod,
                 "payment_method": form?.payment,
                 payment_status: "unpaid",
-                pickup_location:  {
-                    "latitude": 24.9167871,
-                    "longitude": 67.0859261
-                  }
+                pickup_location:  "akschj"
+                // {
+                //     "latitude": 24.9167871,
+                //     "longitude": 67.0859261
+                //   }
               
         }
         console.log("fsdassjgs",body)
-        const res = await dispatch(createOrders({body,token})).unwrap()
-        console.log("eafesd",res)
+        try {
+            const res = await dispatch(createOrders({body,token})).unwrap()
+            console.log("eafesd",res)
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 
     return (
