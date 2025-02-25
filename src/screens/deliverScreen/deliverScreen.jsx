@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View ,Alert} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useOrderContext } from '../../CountContext/newOrderContext';
 import Map from '../../components/Map';
@@ -19,13 +19,37 @@ import Deliver from '../../components/Deliver/deliverButton';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import themes from '../../theme/theme';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import { useDispatch ,useSelector} from 'react-redux';
+import { updateStatusRider } from '../../Redux/slices/orders/updateOrderStatus';
 
-const DeliverScreen = () => {
+const DeliverScreen = ({route}) => {
+  const {item} = route.params
+  const {token} = useSelector((state) => state.auth);
+  console.log("sdfgsd",item)
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { count } = useOrderContext();
 
   console.log("count:", count);
 
+  const handelPic = async (id)=>{
+      console.log(id)
+       const body ={
+            order_id: id,
+            order_status: "deliver"
+          }
+          console.log(body)
+          try {
+            const res = await dispatch(updateStatusRider({body , token})).unwrap()
+            console.log("fsdsilgxdfd",res)
+            Alert.alert("deliver")
+            navigation.navigate('DeliveredScreen',{item})
+            // navigation.navigate('Delivered',{item})
+            // navigation.navigate("Arriving",{item});
+          } catch (error) {
+            console.log("sadfsdf",error)
+          }
+    }
   return (
     <View style={[styles.container, { color: themes.greenLight.shadow }]}>
       <Map />
@@ -43,24 +67,24 @@ const DeliverScreen = () => {
 
       <View style={styles.bottomContainer}>
         <View style={styles.orderSec}>
-          <Order />
+          <Order orderNum={item?.order_number}/>
           <View style={styles.whatsapp}>
             <WhatsAppIcon />
           </View>
         </View>
 
         <View style={styles.line} />
-        <Location />
+        <Location location={item?.pickup_location}/>
         <View style={styles.verticle} />
-        <Locate />
+        <Locate locate = {item?.consignee_address}/>
         <Distance />
         <View style={styles.line} />
-        <Customer />
+        <Customer name={item?.customer?.full_name} num={item?.customer?.phone_number}/>
         <View style={styles.line} />
-        <COD />
+        <COD amount={item?.amount} paymentMethod={item?.payment_method} />
         <View style={styles.btnRow}>
           <ReturnButton onPress={() => navigation.navigate('Pick')} />
-          <Deliver onPress={() => navigation.navigate('DeliveredScreen')} />
+          <Deliver onPress={() => {handelPic(item?.id)}} />
         </View>
       </View>
     </View>

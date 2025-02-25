@@ -6,6 +6,7 @@ import {
   TextInput,
   TouchableOpacity,
   ScrollView,
+  Alert
 } from 'react-native';
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
@@ -15,6 +16,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import themes from '../../theme/theme';
+import { useDispatch,useSelector } from 'react-redux';
+import { updateStatusRider } from '../../Redux/slices/orders/updateOrderStatus';
 
 const CheckIcon = () => (
   <Svg
@@ -44,10 +47,14 @@ const StarIcon = ({filled}) => (
   </Svg>
 );
 
-const DeliveredScreen = () => {
+const DeliveredScreen = ({route}) => {
+  const {item} = route.params
+  console.log("sadfas",item)
+  const {token } = useSelector((state) => state.auth);
   const [receivedBy, setReceivedBy] = useState('');
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const {count, setCount} = useOrderContext();
   const orderId = 'KHI 646543218798'; // Static orderId for now, can be dynamic
@@ -67,6 +74,24 @@ const DeliveredScreen = () => {
       navigation.navigate('Home');
     }
   };
+
+
+  const handelPic = async (id)=>{
+        console.log(id)
+         const body ={
+              order_id: id,
+              order_status: "complete"
+            }
+            console.log(body)
+            try {
+              const res = await dispatch(updateStatusRider({body , token})).unwrap()
+              console.log("fsdsilgxdfd",res)
+              Alert.alert("Completed")
+              navigation.navigate('Home');
+            } catch (error) {
+              console.log("sadfsdf",error)
+            }
+      }
 
   return (
     <View
@@ -127,7 +152,8 @@ const DeliveredScreen = () => {
             styles.submitButton,
             {backgroundColor: themes.greenLight.button},
           ]}
-          onPress={handleSubmit}>
+          onPress={()=>{handelPic(item?.id)}}>
+            {/* //handleSubmit */}
           <View
             style={[
               styles.buttonContent,
