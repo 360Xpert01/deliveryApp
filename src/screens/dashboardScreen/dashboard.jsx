@@ -15,10 +15,14 @@ import dayjs from 'dayjs';
 import FilterOrder from '../../components/filterOrder';
 import themes from '../../theme/theme';
 import CustomerCard from '../../components/customerCard';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SideBarImage = require('../../../assets/sidebar.png');
 
 const Dashboard = ({navigation}) => {
+  const dispatch = useDispatch();
+  // const waiz = useSelector((state) => state.auth);
+  // // console.log("esgsregrstfg",waiz)
   const [time, setTime] = useState(dayjs());
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,7 +85,11 @@ const Dashboard = ({navigation}) => {
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button}
+        onPress={()=>{
+          navigation.navigate('NewOrderScreen');
+        }}
+        >
           <Text style={styles.buttonText}>+ Add New Order</Text>
         </TouchableOpacity>
       </View>

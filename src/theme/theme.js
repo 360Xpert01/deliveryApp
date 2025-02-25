@@ -26,7 +26,8 @@ export const themes = {
     black: '#252525',
     gray: '#A3A3A3',
     text: '#181815',
-    lightgray: '#999999'
+    lightgray: '#999999',
+    lineColor: '#E4E4E4'
   },
 
   // Green Theme - Dark Mode
