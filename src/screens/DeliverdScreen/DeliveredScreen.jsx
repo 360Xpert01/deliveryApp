@@ -10,7 +10,10 @@ import {
 import Svg, {Path} from 'react-native-svg';
 import {useNavigation} from '@react-navigation/native';
 import {useOrderContext} from '../../CountContext/newOrderContext';
-import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP as hp,
+} from 'react-native-responsive-screen';
 import themes from '../../theme/theme';
 
 const CheckIcon = () => (
@@ -44,7 +47,7 @@ const StarIcon = ({filled}) => (
 const DeliveredScreen = () => {
   const [receivedBy, setReceivedBy] = useState('');
   const [rating, setRating] = useState(0);
-  const [comment, setComment] = useState("");
+  const [comment, setComment] = useState('');
   const navigation = useNavigation();
   const {count, setCount} = useOrderContext();
   const orderId = 'KHI 646543218798'; // Static orderId for now, can be dynamic
@@ -66,14 +69,24 @@ const DeliveredScreen = () => {
   };
 
   return (
-    <View style={[styles.container, {backgroundColor: themes.greenLight.locationBackground}]}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: themes.greenLight.locationBackground},
+      ]}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-      
         <View style={styles.successBoxWrapper}>
-        
-          <View style={[styles.successBox, {shadowColor: themes.greenLight.shadow}]}>
-          <CheckIcon style={styles.checkIcon} /> 
-            <View style={[styles.orderIdContainer, {backgroundColor: themes.greenLight.button}]}>
+          <View
+            style={[
+              styles.successBox,
+              {shadowColor: themes.greenLight.shadow},
+            ]}>
+            <CheckIcon style={styles.checkIcon} />
+            <View
+              style={[
+                styles.orderIdContainer,
+                {backgroundColor: themes.greenLight.button},
+              ]}>
               <Text style={styles.orderId}>{orderId}</Text>
             </View>
             <Text style={styles.successMessage}>
@@ -97,28 +110,45 @@ const DeliveredScreen = () => {
             </TouchableOpacity>
           ))}
         </View>
-        <View  style={styles.commentBox}>
-      <TextInput
-        placeholder="Your Comment..."
-        value={comment}
-        onChangeText={setComment}
-        placeholderTextColor="#aaa"
-        multiline
-      />
-      </View>
+        <View style={styles.commentBox}>
+          <TextInput
+            placeholder="Your Comment..."
+            value={comment}
+            onChangeText={setComment}
+            placeholderTextColor="#aaa"
+            multiline
+          />
+        </View>
       </ScrollView>
-     
+
       <View style={styles.buttonWrapper}>
-        <TouchableOpacity style={[styles.submitButton, {backgroundColor: themes.greenLight.button}]} onPress={handleSubmit}>
+        <TouchableOpacity
+          style={[
+            styles.submitButton,
+            {backgroundColor: themes.greenLight.button},
+          ]}
+          onPress={handleSubmit}>
           <View
             style={[
               styles.buttonContent,
               count > 1 ? styles.spaceBetween : styles.center,
             ]}>
             {count > 1 && (
-              <Text style={[styles.submitButtonText, {color: themes.greenLight.secondary}]}>{orderId}</Text>
+              <Text
+                style={[
+                  styles.submitButtonText,
+                  {color: themes.greenLight.secondary},
+                ]}>
+                {orderId}
+              </Text>
             )}
-            <Text style={[styles.submitButtonText, {color: themes.greenLight.secondary}]}>Submit</Text>
+            <Text
+              style={[
+                styles.submitButtonText,
+                {color: themes.greenLight.secondary},
+              ]}>
+              Submit
+            </Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -135,7 +165,7 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingBottom: 100, 
+    paddingBottom: 100,
   },
 
   orderIdContainer: {
@@ -176,14 +206,14 @@ const styles = StyleSheet.create({
   },
   checkIcon: {
     position: 'absolute',
-    top: '-25%', 
-    alignSelf: 'center', 
+    top: '-25%',
+    alignSelf: 'center',
     zIndex: 1,
   },
   successBoxWrapper: {
     alignItems: 'center',
     width: '100%',
-    marginBottom: 40, 
+    marginBottom: 40,
     overflow: 'visible',
   },
   successBox: {
@@ -192,12 +222,12 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     alignItems: 'center',
     width: '90%',
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: {width: 0, height: 4},
     shadowOpacity: 0.2,
     shadowRadius: 5,
     elevation: 8,
-    position: 'relative', 
-    paddingTop: 60, 
+    position: 'relative',
+    paddingTop: 60,
   },
   submitButton: {
     paddingVertical: 15,
