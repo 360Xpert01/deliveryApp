@@ -2,6 +2,8 @@ import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native"; 
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useDispatch,useSelector } from "react-redux";
+import { getOrdersId } from "../Redux/slices/customer/orderById";
 
 const dish = require("../../assets/dish.png");
 const ellipse = require("../../assets/Ellipse.png");
@@ -9,11 +11,21 @@ const LocationIcon = require('../assest/location.png');
 
 const OrderCard = ({item}) => {
     // console.log("fdsgwdasdsasdf",item)
-    const navigation = useNavigation();  
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const {token} = useSelector((state) => state.auth);
+    const api = async ()=>{
+        const id = item?.id
+        const res = await dispatch(getOrdersId({id , token})).unwrap()
+        console.log("ASDGDSFG",res)
+        navigation.navigate("LoadDetail")
+    }
 
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate("LoadDetail", {item})}
+            onPress={() => {
+                api()
+            }}
             style={styles.card}
         >
             <View style={styles.cardContent}>

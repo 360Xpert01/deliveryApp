@@ -3,27 +3,24 @@ import React, { useState } from 'react';
 import themes from '../theme/theme';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from 'react-native-responsive-screen';
 
-const FilterOrder = () => {
-  const [selectedFilter, setSelectedFilter] = useState('All');
-  const filters = ['All', 'Active', 'Return', 'Delivered'];
+const FilterOrder = ({ setSelectedFilter }) => {
+  const [selectedFilter, setLocalFilter] = useState("All");
+  const filters = ["All","Active", "Delivered", "Returned"];
+
+  const handlePress = (filter) => {
+    setLocalFilter(filter);
+    setSelectedFilter(filter); // Update the parent state
+  };
 
   return (
     <View style={styles.container}>
       {filters.map((filter) => (
         <TouchableOpacity
           key={filter}
-          style={[
-            styles.button,
-            selectedFilter === filter && styles.selectedButton,
-          ]}
-          onPress={() => setSelectedFilter(filter)}
+          style={[styles.button, selectedFilter === filter && styles.selectedButton]}
+          onPress={() => handlePress(filter)}
         >
-          <Text
-            style={[
-              styles.buttonText,
-              selectedFilter === filter && styles.selectedText,
-            ]}
-          >
+          <Text style={[styles.buttonText, selectedFilter === filter && styles.selectedText]}>
             {filter}
           </Text>
         </TouchableOpacity>
@@ -31,6 +28,7 @@ const FilterOrder = () => {
     </View>
   );
 };
+
 
 export default FilterOrder;
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View,TouchableOpacity,Linking,Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useOrderContext} from '../../CountContext/newOrderContext';
 import Map from '../../components/Map';
@@ -20,6 +20,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import themes from '../../theme/theme';
+import { updateStatusRider } from '../../Redux/slices/orders/updateOrderStatus';
+import { useDispatch ,useSelector} from 'react-redux';
 
 // const pickupPoints = [
 //   {latitude: 24.897345, longitude: 67.081231},
@@ -27,11 +29,42 @@ import themes from '../../theme/theme';
 //   {latitude: 24.875678, longitude: 67.072345},
 // ];
 
-const PickScreen = () => {
+const PickScreen = ({route}) => {
+  const dispatch = useDispatch();
+  const {item} = route.params;
+  const {token} = useSelector((state) => state.auth);
+  console.log("aefsgve",item)
+  const cus= item?.customer
+  console.log(cus)
   const navigation = useNavigation();
   const {count} = useOrderContext(); // Get count from context
   console.log('count:', count);
-
+const openWhatsApp = () => {
+    console.log("sdafkjg")
+    const phoneNumber =  item?.consignee_mobile;// Replace with your number//item?.consignee_mobile;"03090769754"
+    const url = `https://wa.me/${phoneNumber}`;
+  
+    Linking.openURL(url).catch(() => {
+      Alert.alert('WhatsApp is not installed');
+    });
+  };
+  const handelPic = async (id)=>{
+    console.log(id)
+     const body ={
+          order_id: id,
+          order_status: "pick"
+        }
+        console.log(body)
+        try {
+          const res = await dispatch(updateStatusRider({body , token})).unwrap()
+          console.log("fsdsilgd",res)
+          Alert.alert("picked")
+          navigation.navigate('Delivered',{item})
+          // navigation.navigate("Arriving",{item});
+        } catch (error) {
+          console.log("sadfsdf",error)
+        }
+  }
   return (
     <View style={styles.container}>
       <Map showHelmet={true} showLine= {false} staticHelmet={true} pickupPoints={[]}/>
@@ -56,10 +89,10 @@ const PickScreen = () => {
 
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
-            <Order />
-            <View style={styles.whatsapp}>
+            <Order orderNum={item?.order_number}/>
+            <TouchableOpacity onPress={openWhatsApp} style={styles.whatsapp}>
               <WhatsAppIcon />
-            </View>
+            </TouchableOpacity>
           </View>
           <View
             style={[
@@ -67,9 +100,9 @@ const PickScreen = () => {
               {backgroundColor: themes.greenLight.lineColor},
             ]}
           />
-          <Location />
+          <Location location={item?.pickup_location} />
           <View style={[styles.verticle, {borderColor: themes.greenLight.lineColor}]} />
-          <Locate />
+          <Locate locate = {item?.consignee_address}/>
           <Distance />
           <View
             style={[
@@ -77,17 +110,20 @@ const PickScreen = () => {
               {backgroundColor: themes.greenLight.lineColor},
             ]}
           />
-          <Customer />
+          <Customer name={item?.customer?.full_name} num={item?.customer?.phone_number}/>
           <View
             style={[
               styles.line,
               {backgroundColor: themes.greenLight.lineColor},
             ]}
           />
-          <COD />
+          <COD amount={item?.amount} paymentMethod={item?.payment_method} />
           <View style={styles.btnRow}>
             <CancelButton onPress={() => navigation.navigate('Arrived')} />
-            <Pick onPress={() => navigation.navigate('Delivered')} />
+            <Pick onPress={() => {
+              handelPic(item?.id)
+            } } />
+              {/* //navigation.navigate('Delivered') */}
           </View>
         </View>
       </View>

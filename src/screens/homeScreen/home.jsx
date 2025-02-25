@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react';
+import {useState, useEffect,useCallback} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  // BackHandler
 } from 'react-native';
 import OrderCard from '../../components/ordercard';
 import apiClient from '../../Redux/client'; // API Client import karo
@@ -19,6 +20,7 @@ import themes from '../../theme/theme';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 
 const SideBarImage = require('../../../assets/sidebar.png');
+import { useFocusEffect } from "@react-navigation/native";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -33,9 +35,27 @@ const HomeScreen = ({navigation}) => {
     const res = await dispatch(getOrders()).unwrap();
     // console.log("gfghfghdsfgsdfgj",res)
   };
-  useEffect(() => {
-    apiFetch();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      apiFetch()
+    }, [])
+  );
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     BackHandler.exitApp(); // Exit the app
+  //     return true; // Prevent default behavior
+  //   };
+
+  //   // const backHandler = BackHandler.addEventListener(
+  //   //   'hardwareBackPress',
+  //   //   backAction
+  //   // );
+
+  //   return () => backHandler.remove(); // Cleanup on unmount
+  // }, []);
+  // useEffect(() => {
+  //   apiFetch();
+  // }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(dayjs());
@@ -87,14 +107,11 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.error}>{error}</Text>
         ) : (
           <FlatList
-            data={orders}
+            data={OrdersData?.data}
             keyExtractor={item => item.id} // Unique key
             renderItem={({item}) => (
               <OrderCard
-                codId={item.cod}
-                location={item.location}
-                orderId={item.id}
-                navigation={navigation}
+              item={item}
               />
             )}
           />

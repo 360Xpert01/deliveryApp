@@ -11,11 +11,16 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 import { useOrderContext } from '../../CountContext/newOrderContext';
 import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-native-responsive-screen";
+import { useDispatch , useSelector} from 'react-redux';
 
-const ArrivingScreen = () => {
+const ArrivingScreen = ({route}) => {
+    const {item} = route.params;
+    console.log("jwhgljasg",item)
     const { count } = useOrderContext();
+    const dispatch = useDispatch();
     console.log("count" + count);
-    
+    // const data = useSelector((state) => state.getOrdersId?.getOrdersId?.data);
+    // console.log("sdfgsf",data)
     const navigation = useNavigation();
 
     return (
@@ -24,16 +29,16 @@ const ArrivingScreen = () => {
             {count > 1 && <View style={styles.multiCard}><MultipleOrder /></View>}
             <View style={styles.bottomContainer}>
                 <View style={styles.orderSec}>
-                    <KHI />
+                    <KHI orderNum={item?.order_number}/>
                     <View style={styles.whatsapp}><WhatsAppIcon /></View>
                 </View>
                 <View style={styles.line} />
-                <Location />
+                <Location location={item?.pickup_location} />
                 <View style={styles.line} />
-                <COD />
+                <COD amount={item?.amount} paymentMethod={item?.payment_method}/>
                 <View style={styles.btnRow}>
                     <CancelButton onPress={() => navigation.navigate('RiderDrawer')} />
-                    <ArriveButton />
+                    <ArriveButton item={item} />
                 </View>
             </View>
         </View>

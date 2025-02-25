@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert,Linking } from 'react-native';
 import Map from '../../components/Map';
 import { useTheme } from '../../theme/themeContext';
 import { useNavigation } from '@react-navigation/native';
@@ -9,11 +9,14 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 import themes from '../../theme/theme';
 import {updateStatusRider} from "../../Redux/slices/orders/updateOrderStatus"
 import { useDispatch , useSelector} from 'react-redux';
+import { getOrdersId } from '../../Redux/slices/customer/orderById';
 
 const backButton = require('../../../assets/backbutton.png');
 
-const LoadDetailsScreen = ({route}) => {
-  const {item} = route.params;
+const LoadDetailsScreen = () => {
+  // const {item} = route.params;
+  const item = useSelector((state) => state.getOrdersId?.getOrdersId?.data);
+      // console.log("sdfgsf",data)
   console.log("fsvadsu",item)
   const {token} = useSelector((state) => state.auth);
   console.log("ergfves",token)
@@ -39,12 +42,27 @@ const LoadDetailsScreen = ({route}) => {
       const res = await dispatch(updateStatusRider({body , token})).unwrap()
       console.log("fsdsd",res)
       Alert.alert("accepted")
-      navigation.navigate("Arriving");
+      navigation.navigate("Arriving",{item});
     } catch (error) {
       console.log("sadfsdf",error)
     }
+    // try {
+    //   const res = await dispatch(getOrdersId({id , token})).unwrap()
+    //   console.log("ASDGDSFG",res)
+    //   navigation.navigate("Arriving");
+    // } catch (error) {
+      
+    // }
   };
-
+  const openWhatsApp = () => {
+    console.log("sdafkjg")
+    const phoneNumber =  item?.consignee_mobile;// Replace with your number//item?.consignee_mobile;"03090769754"
+    const url = `https://wa.me/${phoneNumber}`;
+  
+    Linking.openURL(url).catch(() => {
+      Alert.alert('WhatsApp is not installed');
+    });
+  };
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Back Button */}
@@ -65,6 +83,7 @@ const LoadDetailsScreen = ({route}) => {
             {item?.order_number}
           </Text>
           <TouchableOpacity
+            onPress={openWhatsApp}
             style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
             <View>
               <WhatsAppIcon style={styles.whatsappIcon}/>
@@ -74,12 +93,12 @@ const LoadDetailsScreen = ({route}) => {
 
         <View style={styles.locationRow}>
           <Text style={[styles.locationText, { color: themes.greenLight.text,backgroundColor: themes.greenLight.locationBackground  }]}>
-            📍 14th Street Pizza Co, Block-7, Gulshan-e-Iqbal
+            📍 {item?.pickup_location}
           </Text>
         </View>
         <View style={styles.locationRow}>
           <Text style={[styles.locationText, { color: themes.greenLight.text, backgroundColor: themes.greenLight.locationBackground }]}>
-            📍 B 121 Block 66, Gulshan-e-Iqbal, Karachi.
+            📍 {item?.consignee_address}
           </Text>
         </View>
         <Text style={[styles.distanceText, { color: themes.greenLight.shadow }]}>

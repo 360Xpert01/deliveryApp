@@ -2,11 +2,11 @@ import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 import themes from '../../theme/theme'
 
-const COD = () => {
+const COD = ({paymentMethod,amount}) => {
   return (
     <View style={styles.cash}>
-      <Text style={[styles.label, {color: themes.greenLight.text}]}>COD:</Text>
-      <Text style={[styles.amount, {color: themes.greenLight.button}]}>11,999</Text>
+      <Text style={[styles.label, {color: themes.greenLight.text}]}>{paymentMethod}:</Text>
+      <Text style={[styles.amount, {color: themes.greenLight.button}]}>{amount}</Text>
     </View>
   )
 }
