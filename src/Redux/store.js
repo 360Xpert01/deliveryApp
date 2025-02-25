@@ -22,6 +22,7 @@ import getOrdersSlice from "./slices/orders/getOrders"
 import getOrdersHistorySlice from "./slices/orders/orderHistory"
 import updateStatusRiderSlice from "./slices/orders/updateOrderStatus"
 import createOrdersSlice from "./slices/customer/createOrder"
+import getOrdersIdSlice from "./slices/customer/orderById"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -40,6 +41,7 @@ const rootReducer = combineReducers({
   getOrdersHistory: getOrdersHistorySlice,
   updateStatusRider: updateStatusRiderSlice,
   createOrder: createOrdersSlice,
+  getOrdersId: getOrdersIdSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

@@ -8,7 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
-  BackHandler
+  // BackHandler
 } from 'react-native';
 import OrderCard from '../../components/ordercard';
 import apiClient from '../../Redux/client'; // API Client import karo
@@ -40,19 +40,19 @@ const HomeScreen = ({navigation}) => {
       apiFetch()
     }, [])
   );
-  useEffect(() => {
-    const backAction = () => {
-      BackHandler.exitApp(); // Exit the app
-      return true; // Prevent default behavior
-    };
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     BackHandler.exitApp(); // Exit the app
+  //     return true; // Prevent default behavior
+  //   };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction
-    );
+  //   // const backHandler = BackHandler.addEventListener(
+  //   //   'hardwareBackPress',
+  //   //   backAction
+  //   // );
 
-    return () => backHandler.remove(); // Cleanup on unmount
-  }, []);
+  //   return () => backHandler.remove(); // Cleanup on unmount
+  // }, []);
   // useEffect(() => {
   //   apiFetch();
   // }, []);

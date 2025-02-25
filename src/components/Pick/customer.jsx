@@ -5,10 +5,10 @@ import CallIcon from "../callIcon"; // Ensure correct import
 import call from "react-native-phone-call"; // Import phone call functionality
 import themes from "../../theme/theme";
 
-const Customer = ({ phoneNumber = "" }) => {
+const Customer = ({ name,num}) => {
   const makeCall = () => {
     const args = {
-      number: phoneNumber,
+      number: num,
       prompt: true, // Show confirmation before dialing
     };
     call(args).catch(console.error);
@@ -18,7 +18,7 @@ const Customer = ({ phoneNumber = "" }) => {
     <View style={styles.container}>
       <View style={styles.box}>
         <Image source={Profile} style={styles.profileImage} />
-        <Text style={[styles.text, {color: themes.greenLight.text}]}>Customer Name</Text>
+        <Text style={[styles.text, {color: themes.greenLight.text}]}>{name}</Text>
       </View>
       <TouchableOpacity style={styles.callButton} onPress={makeCall}>
         <CallIcon width={22} height={22} />

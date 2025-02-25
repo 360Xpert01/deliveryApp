@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View,TouchableOpacity,Linking} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useOrderContext} from '../../CountContext/newOrderContext';
 import Map from '../../components/Map';
@@ -27,11 +27,23 @@ const pickupPoints = [
   {latitude: 24.875678, longitude: 67.072345},
 ];
 
-const PickScreen = () => {
+const PickScreen = ({route}) => {
+  const {item} = route.params;
+  console.log("aefsgve",item)
+  const cus= item?.customer
+  console.log(cus)
   const navigation = useNavigation();
   const {count} = useOrderContext(); // Get count from context
   console.log('count:', count);
-
+const openWhatsApp = () => {
+    console.log("sdafkjg")
+    const phoneNumber =  item?.consignee_mobile;// Replace with your number//item?.consignee_mobile;"03090769754"
+    const url = `https://wa.me/${phoneNumber}`;
+  
+    Linking.openURL(url).catch(() => {
+      Alert.alert('WhatsApp is not installed');
+    });
+  };
   return (
     <View style={styles.container}>
       <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
@@ -56,10 +68,10 @@ const PickScreen = () => {
 
         <View style={styles.bottomContainer}>
           <View style={styles.orderSec}>
-            <Order />
-            <View style={styles.whatsapp}>
+            <Order orderNum={item?.order_number}/>
+            <TouchableOpacity onPress={openWhatsApp} style={styles.whatsapp}>
               <WhatsAppIcon />
-            </View>
+            </TouchableOpacity>
           </View>
           <View
             style={[
@@ -67,9 +79,9 @@ const PickScreen = () => {
               {backgroundColor: themes.greenLight.lineColor},
             ]}
           />
-          <Location />
+          <Location location={item?.pickup_location} />
           <View style={[styles.verticle, {borderColor: themes.greenLight.lineColor}]} />
-          <Locate />
+          <Locate locate = {item?.consignee_address}/>
           <Distance />
           <View
             style={[
@@ -77,14 +89,14 @@ const PickScreen = () => {
               {backgroundColor: themes.greenLight.lineColor},
             ]}
           />
-          <Customer />
+          <Customer name={item?.customer?.full_name} num={item?.customer?.phone_number}/>
           <View
             style={[
               styles.line,
               {backgroundColor: themes.greenLight.lineColor},
             ]}
           />
-          <COD />
+          <COD amount={item?.amount} paymentMethod={item?.payment_method} />
           <View style={styles.btnRow}>
             <CancelButton onPress={() => navigation.navigate('Arrived')} />
             <Pick onPress={() => navigation.navigate('Delivered')} />
