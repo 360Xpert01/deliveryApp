@@ -107,14 +107,11 @@ const HomeScreen = ({navigation}) => {
           <Text style={styles.error}>{error}</Text>
         ) : (
           <FlatList
-            data={orders}
+            data={OrdersData?.data}
             keyExtractor={item => item.id} // Unique key
             renderItem={({item}) => (
               <OrderCard
-                codId={item.cod}
-                location={item.location}
-                orderId={item.id}
-                navigation={navigation}
+              item={item}
               />
             )}
           />
