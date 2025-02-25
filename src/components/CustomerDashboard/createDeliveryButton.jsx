@@ -2,11 +2,11 @@ import React from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import themes from '../../theme/theme';
 
-const CreateDeliveryButton = () => {
+const CreateDeliveryButton = ({ onSubmit }) => {
     
     return (
         <View>
-            <TouchableOpacity style={styles.createButton}>
+            <TouchableOpacity style={styles.createButton}  onPress={onSubmit}>
                 <Text style={styles.createButtonText}>Create Delivery</Text>
             </TouchableOpacity>
         </View>
