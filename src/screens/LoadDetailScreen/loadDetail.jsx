@@ -83,12 +83,12 @@ const LoadDetailsScreen = ({route}) => {
 
         <View style={styles.locationRow}>
           <Text style={[styles.locationText, { color: themes.greenLight.text,backgroundColor: themes.greenLight.locationBackground  }]}>
-            📍 14th Street Pizza Co, Block-7, Gulshan-e-Iqbal
+            📍 {item?.pickup_location}
           </Text>
         </View>
         <View style={styles.locationRow}>
           <Text style={[styles.locationText, { color: themes.greenLight.text, backgroundColor: themes.greenLight.locationBackground }]}>
-            📍 B 121 Block 66, Gulshan-e-Iqbal, Karachi.
+            📍 {item?.consignee_address}
           </Text>
         </View>
         <Text style={[styles.distanceText, { color: themes.greenLight.shadow }]}>
