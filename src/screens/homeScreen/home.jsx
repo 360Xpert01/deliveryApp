@@ -8,6 +8,7 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  BackHandler
 } from 'react-native';
 import OrderCard from '../../components/ordercard';
 import apiClient from '../../Redux/client'; // API Client import karo
@@ -19,6 +20,7 @@ import themes from '../../theme/theme';
 import MultipleOrder from '../../components/multipleOrder/multipleOrderCard';
 
 const SideBarImage = require('../../../assets/sidebar.png');
+import { useFocusEffect } from "@react-navigation/native";
 
 const HomeScreen = ({navigation}) => {
   const dispatch = useDispatch();
@@ -33,9 +35,27 @@ const HomeScreen = ({navigation}) => {
     const res = await dispatch(getOrders()).unwrap();
     // console.log("gfghfghdsfgsdfgj",res)
   };
+  useFocusEffect(
+    useCallback(() => {
+      apiFetch()
+    }, [])
+  );
   useEffect(() => {
-    apiFetch();
+    const backAction = () => {
+      BackHandler.exitApp(); // Exit the app
+      return true; // Prevent default behavior
+    };
+
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup on unmount
   }, []);
+  // useEffect(() => {
+  //   apiFetch();
+  // }, []);
   useEffect(() => {
     const interval = setInterval(() => {
       setTime(dayjs());

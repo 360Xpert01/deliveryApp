@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert,Linking } from 'react-native';
 import Map from '../../components/Map';
 import { useTheme } from '../../theme/themeContext';
 import { useNavigation } from '@react-navigation/native';
@@ -44,7 +44,15 @@ const LoadDetailsScreen = ({route}) => {
       console.log("sadfsdf",error)
     }
   };
-
+  const openWhatsApp = () => {
+    console.log("sdafkjg")
+    const phoneNumber =  item?.consignee_mobile;// Replace with your number//item?.consignee_mobile;"03090769754"
+    const url = `https://wa.me/${phoneNumber}`;
+  
+    Linking.openURL(url).catch(() => {
+      Alert.alert('WhatsApp is not installed');
+    });
+  };
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
       {/* Back Button */}
@@ -65,6 +73,7 @@ const LoadDetailsScreen = ({route}) => {
             {item?.order_number}
           </Text>
           <TouchableOpacity
+            onPress={openWhatsApp}
             style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
             <View>
               <WhatsAppIcon style={styles.whatsappIcon}/>
