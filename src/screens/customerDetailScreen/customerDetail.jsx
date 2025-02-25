@@ -90,7 +90,7 @@ const CustomerDetailsScreen = () => {
         </View>
 
        {/* Order Status List */}
-<ScrollView style={{ maxHeight: 200 }} contentContainerStyle={{ paddingBottom: 20 }}>
+<ScrollView style={{ maxHeight: 240 }} contentContainerStyle={{ paddingBottom: 20 }}>
   {statusData.map((item, index) => (
     <StatusOrder key={index} status={item.status} createdDate={item.createdDate} createdTime={item.createdTime} />
   ))}
@@ -115,6 +115,7 @@ const CustomerDetailsScreen = () => {
             if (!isOrderCompleted) {
               setAnimate(true);
               navigation.navigate("CustomerDrawer",{screen:"All Order"});
+              // navigation.navigate("Arriving");
             }
           }}
           disabled={isOrderCompleted}
