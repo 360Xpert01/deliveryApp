@@ -1,107 +1,63 @@
-import React from "react";
-import { SafeAreaView, ScrollView, StyleSheet, Image, View, Text, FlatList } from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView, Image, View, Text, FlatList, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native"; 
-import OrderCard from "../../components/ordercard";
 import themes from "../../theme/theme";
-import HistoryCard from "../../components/historyCard";
 import AllOrderCard from "../../components/AllOrderCard";
 import FilterOrder from "../../components/filterOrder";
-const SideBarImage = require("../../../assets/sidebar.png");
 
+const SideBarImage = require("../../../assets/sidebar.png");
 
 const AllOrder = () => {
   const navigation = useNavigation(); 
 
+  const [selectedFilter, setSelectedFilter] = useState("All");
+
   const users = [
-    {
-      codID: "PRE PAID",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Delivered',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "9,800",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Returned',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "1,999",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Delivered',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "4,295",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Returned',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "1,800",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Delivered',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "5,208",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Returned',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "5,208",
-      area:"DHA",
-      location: "Gulistan-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Delivered',
-      riderName:"Umair Kalam" 
-    },
-    {
-      codID: "5,208",
-      area:"DHA",
-      location: "Huzaifa-e-Jauhor",
-      Id: "KHI 123545689713",
-      status:'Returned',
-      riderName:"Umair Kalam" 
-    },
+    { codID: "PRE PAID", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+    { codID: "9,800", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+    { codID: "1,999", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+    { codID: "4,295", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+    { codID: "1,800", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+    { codID: "5,208", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+    { codID: "5,208", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+    { codID: "5,208", area: "DHA", location: "Huzaifa-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
   ];
+
+  // Filter orders based on selected status
+  const filteredOrders = selectedFilter === "All" ? users : users.filter(user => user.status === selectedFilter);
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navtime}>
-        {/* Add an onPress event to the Image to open the drawer */}
         <Image
           source={SideBarImage}
           style={styles.img}
-          onTouchEnd={() => navigation.openDrawer()} // This will open the drawer when clicked
+          onTouchEnd={() => navigation.openDrawer()} 
         />
         <Text style={styles.time}>All Order</Text>
       </View>
-        <View>
-          <FilterOrder/>
-        </View>
+
+      <View>
+        {/* Pass setSelectedFilter to FilterOrder */}
+        <FilterOrder setSelectedFilter={setSelectedFilter} />
+      </View>
+
       <View style={styles.main}>
-        <View>
-          <FlatList
-            data={users}
-            renderItem={({ item }) => (
-              <AllOrderCard area={item.area} codId={item.codID} location={item.location} orderId={item.Id} riderName={item.riderName} status={item.status} navigation={navigation} />
-            )}
-          />
-        </View>
+        <FlatList
+          data={filteredOrders}
+          keyExtractor={(item) => item.Id}
+          renderItem={({ item }) => (
+            <AllOrderCard 
+              area={item.area} 
+              codId={item.codID} 
+              location={item.location} 
+              orderId={item.Id} 
+              riderName={item.riderName} 
+              status={item.status} 
+              navigation={navigation} 
+            />
+          )}
+        />
       </View>
     </SafeAreaView>
   );
@@ -112,8 +68,8 @@ const styles = StyleSheet.create({
     paddingTop: 14,
     flex: 1,
     backgroundColor: "#fff",
+    marginBottom:50
   },
-
   img: {
     height: 58,
     width: 58,
@@ -129,19 +85,14 @@ const styles = StyleSheet.create({
     paddingBottom: 100,
   },
   time: {
-    height: 45,
     fontSize: 32,
     fontWeight: "bold",
-    color: "white",
-    justifyContent:'center',
-    textAlign: "center",
-    // textAlignVertical: "center",
     color: themes.primary,
+    textAlign: "center",
     paddingRight: 20,
   },
   navtime: {
     flexDirection: "row",
-    // justifyContent: "center",
     alignItems: "center",
   },
 });

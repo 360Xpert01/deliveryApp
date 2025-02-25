@@ -6,11 +6,22 @@ import { useNavigation } from '@react-navigation/native';
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import themes from '../../theme/theme';
 import StatusOrder from '../../components/statusOrder';
+import { Linking } from 'react-native';
+
 
 const food = require("../../assest/food.png");
 const backButton = require('../../../assets/backbutton.png');
 const bullet = require('../../assest/bullet.png');
 const location = require('../../assest/location.png');
+
+ const openWhatsApp = () => {
+    const phoneNumber = "+923253588091"; 
+    const url = `whatsapp://send?phone=${phoneNumber}`;
+
+    Linking.openURL(url).catch(() => {
+      alert("WhatsApp is not installed on this device.");
+    });
+  };
 
 const statusData = [
   { status: 'Order Created', createdDate: '2025/02/14', createdTime: '3:27:25' },
@@ -47,7 +58,7 @@ const CustomerDetailsScreen = () => {
         <View style={styles.headerRow}>
           <Image source={food} style={styles.foodIcon} />
           <Text style={[styles.orderId, { color: theme.text.primary }]}>ORD-2023-4578</Text>
-          <TouchableOpacity style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
+          <TouchableOpacity onPress={openWhatsApp} style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
             <WhatsAppIcon />
           </TouchableOpacity>
         </View>
@@ -103,7 +114,7 @@ const CustomerDetailsScreen = () => {
           onPress={() => {
             if (!isOrderCompleted) {
               setAnimate(true);
-              navigation.navigate("All Order");
+              navigation.navigate("CustomerDrawer",{screen:"All Order"});
             }
           }}
           disabled={isOrderCompleted}
