@@ -6,12 +6,12 @@ import themes from '../../theme/theme';
 
 
 
-const KHI = () => {
+const KHI = ({orderNum}) => {
   return (
     <View style={styles.container}>
       <View style={styles.foodContainer}>
         <Image source={Food} style={styles.foodImage} />
-        <Text style={[styles.orderText, {color: themes.greenLight.text}]}>KHI 123545689713</Text>
+        <Text style={[styles.orderText, {color: themes.greenLight.text}]}>{orderNum}</Text>
       </View>
       <View style={styles.iconContainer}>
 

@@ -9,11 +9,14 @@ import WhatsAppIcon from '../../components/WhatsAppIcon';
 import themes from '../../theme/theme';
 import {updateStatusRider} from "../../Redux/slices/orders/updateOrderStatus"
 import { useDispatch , useSelector} from 'react-redux';
+import { getOrdersId } from '../../Redux/slices/customer/orderById';
 
 const backButton = require('../../../assets/backbutton.png');
 
-const LoadDetailsScreen = ({route}) => {
-  const {item} = route.params;
+const LoadDetailsScreen = () => {
+  // const {item} = route.params;
+  const item = useSelector((state) => state.getOrdersId?.getOrdersId?.data);
+      // console.log("sdfgsf",data)
   console.log("fsvadsu",item)
   const {token} = useSelector((state) => state.auth);
   console.log("ergfves",token)
@@ -39,10 +42,17 @@ const LoadDetailsScreen = ({route}) => {
       const res = await dispatch(updateStatusRider({body , token})).unwrap()
       console.log("fsdsd",res)
       Alert.alert("accepted")
-      navigation.navigate("Arriving");
+      navigation.navigate("Arriving",{item});
     } catch (error) {
       console.log("sadfsdf",error)
     }
+    // try {
+    //   const res = await dispatch(getOrdersId({id , token})).unwrap()
+    //   console.log("ASDGDSFG",res)
+    //   navigation.navigate("Arriving");
+    // } catch (error) {
+      
+    // }
   };
   const openWhatsApp = () => {
     console.log("sdafkjg")

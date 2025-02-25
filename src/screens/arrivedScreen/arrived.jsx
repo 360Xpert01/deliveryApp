@@ -18,7 +18,9 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-const Arrived = () => {
+const Arrived = ({route}) => {
+  const {item} = route.params;
+  console.log("sergfsdgds",item)
   const {count} = useOrderContext();
   console.log('count' + count);
   const navigation = useNavigation();
@@ -42,18 +44,18 @@ const Arrived = () => {
 
       <View style={styles.bottomContainer}>
         <View style={styles.orderSec}>
-          <Order />
+          <Order orderNum={item?.order_number}/>
           <View style={styles.whatsapp}>
             <WhatsAppIcon />
           </View>
         </View>
         <View style={styles.line} />
-        <Location />
+        <Location location={item?.pickup_location}/>
         <View style={styles.line} />
-        <COD />
+        <COD  amount={item?.amount} paymentMethod={item?.payment_method}/>
         <View style={styles.btnRow}>
           <CancelButton onPress={() => navigation.navigate('Arriving')} />
-          <ArrivedButton />
+          <ArrivedButton item={item}/>
         </View>
       </View>
     </View>

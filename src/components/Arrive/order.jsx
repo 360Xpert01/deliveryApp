@@ -6,12 +6,12 @@ import themes from '../../theme/theme';
 
 
 
-const Order = () => {
+const Order = ({orderNum}) => {
   return (
     <View style={styles.container}>
       <View style={styles.foodContainer}>
         <Image source={Food} style={styles.foodImage} />
-        <Text style={[styles.orderText, { color: themes.greenLight.text }]}>ORD-2023-4578</Text>
+        <Text style={[styles.orderText, { color: themes.greenLight.text }]}>{orderNum}</Text>
       </View>
       <View style={styles.iconContainer}>
 

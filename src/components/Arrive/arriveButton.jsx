@@ -3,12 +3,12 @@ import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useTheme } from '../../theme/themeContext';
 
-const ArriveButton = () => {
+const ArriveButton = ({item}) => {
   const { theme } = useTheme();
   const navigation = useNavigation(); 
 
   const handleArrive = () => {
-    navigation.navigate('Arrived'); 
+    navigation.navigate('Arrived',{item}); 
   };
 
   return (
