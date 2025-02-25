@@ -20,7 +20,7 @@ const ArrivingScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Map showHelmet={true} showLine={false} />
+            <Map showHelmet={true} showLine={false} staticHelmet={true}/>
             {count > 1 && <View style={styles.multiCard}><MultipleOrder /></View>}
             <View style={styles.bottomContainer}>
                 <View style={styles.orderSec}>

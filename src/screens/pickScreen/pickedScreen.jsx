@@ -21,11 +21,11 @@ import {
 } from 'react-native-responsive-screen';
 import themes from '../../theme/theme';
 
-const pickupPoints = [
-  {latitude: 24.897345, longitude: 67.081231},
-  {latitude: 24.882123, longitude: 67.065432},
-  {latitude: 24.875678, longitude: 67.072345},
-];
+// const pickupPoints = [
+//   {latitude: 24.897345, longitude: 67.081231},
+//   {latitude: 24.882123, longitude: 67.065432},
+//   {latitude: 24.875678, longitude: 67.072345},
+// ];
 
 const PickScreen = () => {
   const navigation = useNavigation();
@@ -34,7 +34,7 @@ const PickScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
+      <Map showHelmet={true} showLine= {false} staticHelmet={true} pickupPoints={[]}/>
 
       {/* Show Multi Order Card if count > 1 */}
       {count > 1 && (

@@ -76,6 +76,7 @@ const DeliveredScreen = () => {
       ]}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
         <View style={styles.successBoxWrapper}>
+          
           <View
             style={[
               styles.successBox,
@@ -94,7 +95,7 @@ const DeliveredScreen = () => {
             </Text>
           </View>
         </View>
-
+       
         <TextInput
           style={styles.input}
           placeholder="Received By..."

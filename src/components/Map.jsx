@@ -4,7 +4,7 @@ import MapView, { Marker, PROVIDER_GOOGLE, Polyline, AnimatedRegion } from "reac
 import HelmetIcon from "./HelmetIcon";
 import helmetMarker from "../assest/marker1.png";
 
-const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
+const Map = ({ showHelmet = true, showLine = true, pickupPoints = [], staticHelmet = false  }) => {
   const origin = { latitude: 24.910402, longitude: 67.092132 }; // 360 Xpert
   const destination = { latitude: 24.867326, longitude: 67.056164 }; // McDonald's Tariq Road
   const routePoints = [origin, ...pickupPoints, destination];
@@ -13,11 +13,12 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
   const markerScales = useRef(pickupPoints.map(() => new Animated.Value(1))).current;
   const helmetPosition = useRef(new AnimatedRegion(routePoints[0])).current;
 
-  useEffect(() => {
-    if (showHelmet && routePoints.length > 1) {
-      animateHelmet(0);
-    }
-  }, [showHelmet]);
+ useEffect(() => {
+  if (showHelmet && !staticHelmet && routePoints.length > 1) {
+    animateHelmet(0);
+  }
+}, [showHelmet, staticHelmet]);
+
 
   const animateHelmet = (index) => {
     if (index >= routePoints.length - 1) return;
@@ -111,15 +112,22 @@ const Map = ({ showHelmet = true, showLine = true, pickupPoints = [] }) => {
         }}
       >
         {showHelmet && (
-          <Marker.Animated coordinate={helmetPosition} title="Helmet Rider">
-            <HelmetIcon width={30} height={30} />
-          </Marker.Animated>
-        )}
+  staticHelmet ? (
+    <Marker coordinate={routePoints[0]} title="Static Helmet">
+      <HelmetIcon width={30} height={30} />
+    </Marker>
+  ) : (
+    <Marker.Animated coordinate={helmetPosition} title="Helmet Rider">
+      <HelmetIcon width={30} height={30} />
+    </Marker.Animated>
+  )
+)}
+
 
         {showLine && <Polyline coordinates={curvedRoute} strokeWidth={5} strokeColor="green" />}
 
-        <Marker coordinate={origin} title="Pickup: 360 Xpert" />
-        <Marker coordinate={destination} title="Drop-off: McDonald's Tariq Road" />
+        {/* <Marker coordinate={origin} title="Pickup: 360 Xpert" />
+        <Marker coordinate={destination} title="Drop-off: McDonald's Tariq Road" />  */}
 
         {pickupPoints.map((point, index) => (
           <Marker key={index} coordinate={point} title={`Pickup Point ${index + 1}`}>

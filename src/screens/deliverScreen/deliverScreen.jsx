@@ -28,7 +28,7 @@ const DeliverScreen = () => {
 
   return (
     <View style={[styles.container, { color: themes.greenLight.shadow }]}>
-      <Map />
+      <Map showLine={false}/>
 
       {count > 1 && (
         <View style={styles.multiCard}>
