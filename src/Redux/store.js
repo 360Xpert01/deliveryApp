@@ -20,6 +20,7 @@ import notificationReducer from './slices/notificationSlice';
 import orderReducer from './slices/orderSlice';
 import getOrdersSlice from "./slices/orders/getOrders"
 import getOrdersHistorySlice from "./slices/orders/orderHistory"
+import updateStatusRiderSlice from "./slices/orders/updateOrderStatus"
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
@@ -36,6 +37,7 @@ const rootReducer = combineReducers({
   orders: orderReducer,
   getOrders: getOrdersSlice,
   getOrdersHistory: getOrdersHistorySlice,
+  updateStatusRider: updateStatusRiderSlice,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

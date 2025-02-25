@@ -26,10 +26,10 @@ const HomeScreen = ({navigation}) => {
   const [orders, setOrders] = useState([]); // Orders ko yahan store karenge
   const [loading, setLoading] = useState(true); // Loading state
   const [error, setError] = useState(null); // Error handling
-  const waiz = useSelector(state => state.getOrders?.getOrders);
+  const OrdersData = useSelector((state) => state.getOrders?.getOrders);
   // 🕒 Time update karne ke liye useEffect
-  // console.log("sdfuysdtgfvsd",waiz)
-  const apiFetch = async () => {
+  // console.log("sdfuysdtgfvsd",OrdersData)
+  const apiFetch  = async()=>{
     const res = await dispatch(getOrders()).unwrap();
     // console.log("gfghfghdsfgsdfgj",res)
   };

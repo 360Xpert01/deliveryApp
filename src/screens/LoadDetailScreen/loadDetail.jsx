@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image, Alert } from 'react-native';
 import Map from '../../components/Map';
 import { useTheme } from '../../theme/themeContext';
 import { useNavigation } from '@react-navigation/native';
@@ -7,21 +7,42 @@ import { useOrderContext } from '../../CountContext/newOrderContext';
 const food = require("../../assest/food.png")
 import WhatsAppIcon from '../../components/WhatsAppIcon';
 import themes from '../../theme/theme';
+import {updateStatusRider} from "../../Redux/slices/orders/updateOrderStatus"
+import { useDispatch , useSelector} from 'react-redux';
 
 const backButton = require('../../../assets/backbutton.png');
 
-const LoadDetailsScreen = () => {
+const LoadDetailsScreen = ({route}) => {
+  const {item} = route.params;
+  console.log("fsvadsu",item)
+  const {token} = useSelector((state) => state.auth);
+  console.log("ergfves",token)
   const { theme } = useTheme();
   const navigation = useNavigation();
+  const dispatch = useDispatch()
   const { count, setCount } = useOrderContext(); 
   const [animate, setAnimate] = useState(false);
 
-  const handleAcceptRequest = () => {
-    const newCount = count + 1; 
-    setCount(newCount); 
+  const handleAcceptRequest = async (id) => {
+    // const newCount = count + 1; 
+    // setCount(newCount); 
 
-    setAnimate(true); 
-    navigation.navigate("Arriving"); 
+    // setAnimate(true); 
+    // navigation.navigate("Arriving"); 
+    console.log("edgjhedj",id)
+    const body ={
+      order_id: id,
+      order_status: "accept"
+    }
+    console.log(body)
+    try {
+      const res = await dispatch(updateStatusRider({body , token})).unwrap()
+      console.log("fsdsd",res)
+      Alert.alert("accepted")
+      navigation.navigate("Arriving");
+    } catch (error) {
+      console.log("sadfsdf",error)
+    }
   };
 
   return (
@@ -41,7 +62,7 @@ const LoadDetailsScreen = () => {
         <View style={styles.headerRow}>
           <Image source={food} style={styles.foodIcon} />
           <Text style={[styles.orderId, { color: themes.greenLight.text }]}>
-            ORD-2023-4578
+            {item?.order_number}
           </Text>
           <TouchableOpacity
             style={[styles.whatsappButton, { backgroundColor: theme.whatsapp }]}>
@@ -68,13 +89,15 @@ const LoadDetailsScreen = () => {
         Figma ipsum component variant main layer. Mask connection slice underline rotate. Vertical editor effect arrow union font. Font hand pixel library select figjam share. Line duplicate ipsum arrange slice invite thumbnail figma.
         </Text>
         <Text style={[styles.priceText, { color: themes.greenLight.text }]}>
-          COD: <Text style={{ color: themes.greenLight.button }}>11,999</Text>
+        {item?.payment_method}: <Text style={{ color: themes.greenLight.button }}>{item?.amount}</Text>
         </Text>
         
         {/* Accept Request Button */}
         <TouchableOpacity
           style={[styles.acceptButton, { backgroundColor: theme.primary }]}
-          onPress={handleAcceptRequest} // Call function on press
+          onPress={()=>{
+            handleAcceptRequest(item?.id)
+          }} // Call function on press
         >
           <Text style={[styles.acceptButtonText, { color: theme.text.onPrimary }]}>
             Accept Request
