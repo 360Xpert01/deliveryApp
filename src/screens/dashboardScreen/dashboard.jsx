@@ -8,6 +8,8 @@ import {
   FlatList,
   TouchableOpacity,
   ActivityIndicator,
+  Alert,
+  BackHandler,
 } from 'react-native';
 import OrderCard from '../../components/ordercard';
 import apiClient from '../../Redux/client';
@@ -15,18 +17,18 @@ import dayjs from 'dayjs';
 import FilterOrder from '../../components/filterOrder';
 import themes from '../../theme/theme';
 import CustomerCard from '../../components/customerCard';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const SideBarImage = require('../../../assets/sidebar.png');
 
 const Dashboard = ({navigation}) => {
   const dispatch = useDispatch();
-  // const waiz = useSelector((state) => state.auth);
-  // // console.log("esgsregrstfg",waiz)
   const [time, setTime] = useState(dayjs());
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+    const [selectedFilter, setSelectedFilter] = useState("All");
+  
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -50,6 +52,20 @@ const Dashboard = ({navigation}) => {
     fetchOrders();
   }, []);
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+        { text: 'Cancel', onPress: () => null, style: 'cancel' },
+        { text: 'Exit', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.navtime}>
@@ -67,33 +83,25 @@ const Dashboard = ({navigation}) => {
             <Text style={styles.label2}>Total no of Order for today</Text>
           </View>
           <View style={styles.card}>
-            <Text style={styles.number}>
-              {orders.filter(o => o.status === 'active').length}
-            </Text>
+            <Text style={styles.number}>{orders.filter(o => o.status === 'active').length}</Text>
             <Text style={styles.label}>Active Orders</Text>
             <Text style={styles.label2}>Total no of Order for today</Text>
           </View>
         </View>
         <View style={[styles.card2, styles.fullWidth]}>
-          <Text style={styles.number}>
-            {orders.filter(o => o.status === 'returned').length}
-          </Text>
+          <Text style={styles.number}>{orders.filter(o => o.status === 'returned').length}</Text>
           <View>
-          <Text style={styles.label3}>Order Returns</Text>
-          <Text style={styles.label2}>Total no of Order for today</Text>
+            <Text style={styles.label3}>Order Returns</Text>
+            <Text style={styles.label2}>Total no of Order for today</Text>
           </View>
         </View>
       </View>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={styles.button}
-        onPress={()=>{
-          navigation.navigate('NewOrderScreen');
-        }}
-        >
+        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('NewOrderScreen')}>
           <Text style={styles.buttonText}>+ Add New Order</Text>
         </TouchableOpacity>
       </View>
-      <FilterOrder />
+      <FilterOrder setSelectedFilter={setSelectedFilter} />
 
       <View style={styles.main}>
         {loading ? (
@@ -105,12 +113,7 @@ const Dashboard = ({navigation}) => {
             data={orders}
             keyExtractor={item => item.id}
             renderItem={({item}) => (
-              <CustomerCard
-                codId={item.cod}
-                location={item.location}
-                orderId={item.id}
-                navigation={navigation}
-              />
+              <CustomerCard codId={item.cod} location={item.location} orderId={item.id} navigation={navigation} />
             )}
           />
         )}
@@ -156,7 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     shadowOpacity: 0.1,
     elevation: 5,
-    paddingLeft:0,
+    paddingLeft: 0,
     width: '48%',
     marginBottom: 10,
   },
@@ -168,7 +171,7 @@ const styles = StyleSheet.create({
     flexDirection:'row',
     shadowOpacity: 0.1,
     elevation: 5,
-    paddingLeft:0,
+    paddingLeft: 0,
     width: '48%',
     marginBottom: 10,
   },
@@ -179,7 +182,7 @@ const styles = StyleSheet.create({
     fontSize: 40,
     fontWeight: 'bold',
     color: '#0AAA4D',
-    marginLeft:15
+    marginLeft: 15
   },
   label: {
     fontSize: 16,

@@ -23,6 +23,7 @@ import CustomerDetailsScreen from '../screens/customerDetailScreen/customerDetai
 import ActiveLoads from '../screens/activeLoads/activeLoads';
 import { OrderProvider } from "../CountContext/orderContext"; 
 import OrderSelectionScreen from '../components/multipleOrder/OrderSelectionScreen';
+import AllOrder from '../screens/allOrderScreen/allOrder';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
