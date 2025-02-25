@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
     borderRadius: 50,
   },
-  backIcon: { width: 60, height: 60 },
+  backIcon: { width: 70, height: 70 },
   mapContainer: { flex: 1 },
   detailsContainer: {
     padding: 20,
