@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View,TouchableOpacity,Linking} from 'react-native';
+import {StyleSheet, View,TouchableOpacity,Linking,Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useOrderContext} from '../../CountContext/newOrderContext';
 import Map from '../../components/Map';
@@ -20,6 +20,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import themes from '../../theme/theme';
+import { updateStatusRider } from '../../Redux/slices/orders/updateOrderStatus';
+import { useDispatch ,useSelector} from 'react-redux';
 
 const pickupPoints = [
   {latitude: 24.897345, longitude: 67.081231},
@@ -28,7 +30,9 @@ const pickupPoints = [
 ];
 
 const PickScreen = ({route}) => {
+  const dispatch = useDispatch();
   const {item} = route.params;
+  const {token} = useSelector((state) => state.auth);
   console.log("aefsgve",item)
   const cus= item?.customer
   console.log(cus)
@@ -44,6 +48,23 @@ const openWhatsApp = () => {
       Alert.alert('WhatsApp is not installed');
     });
   };
+  const handelPic = async (id)=>{
+    console.log(id)
+     const body ={
+          order_id: id,
+          order_status: "pick"
+        }
+        console.log(body)
+        try {
+          const res = await dispatch(updateStatusRider({body , token})).unwrap()
+          console.log("fsdsilgd",res)
+          Alert.alert("picked")
+          navigation.navigate('Delivered',{item})
+          // navigation.navigate("Arriving",{item});
+        } catch (error) {
+          console.log("sadfsdf",error)
+        }
+  }
   return (
     <View style={styles.container}>
       <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
@@ -99,7 +120,10 @@ const openWhatsApp = () => {
           <COD amount={item?.amount} paymentMethod={item?.payment_method} />
           <View style={styles.btnRow}>
             <CancelButton onPress={() => navigation.navigate('Arrived')} />
-            <Pick onPress={() => navigation.navigate('Delivered')} />
+            <Pick onPress={() => {
+              handelPic(item?.id)
+            } } />
+              {/* //navigation.navigate('Delivered') */}
           </View>
         </View>
       </View>
