@@ -23,6 +23,7 @@ import CustomerDetailsScreen from '../screens/customerDetailScreen/customerDetai
 import ActiveLoads from '../screens/activeLoads/activeLoads';
 import { OrderProvider } from "../CountContext/orderContext"; 
 import OrderSelectionScreen from '../components/multipleOrder/OrderSelectionScreen';
+import AllOrder from '../screens/allOrderScreen/allOrder';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -40,6 +41,7 @@ const AppNavigator = () => (
       <Stack.Screen name="Delivered" component={DeliverScreen} options={{ headerShown: false }} />
       <Stack.Screen name="LoadDetail" component={LoadDetailsScreen} options={{ headerShown: false }} />
       <Stack.Screen name="CustomerDetail" component={CustomerDetailsScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="All Order" component={AllOrder}  options={{ headerShown: false }} />
       <Stack.Screen name="DeliveredScreen" component={DeliveredScreen} options={{ headerShown: false }} />
       <Stack.Screen name="AnotherOrder" component={AnotherOrder} options={{ headerShown: false }} />
       <Stack.Screen name="ActiveLoads" component={ActiveLoads} options={{ headerShown: false }} />
