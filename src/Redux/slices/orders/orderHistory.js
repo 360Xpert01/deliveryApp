@@ -46,7 +46,7 @@ const getOrdersHistorySlice = createSlice({
             }
             ).addCase(getOrdersHistory.fulfilled, (state, action) => {
                 state.loading = false;
-                state.getOrders = action.payload
+                state.getOrdersHistory = action.payload
                 state.error = null
             }
             ).addCase(getOrdersHistory.rejected, (state, action) => {
