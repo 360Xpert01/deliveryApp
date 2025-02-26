@@ -17,10 +17,15 @@ import BookingHistory from '../screens/bookingScreen/bookingHistory';
 import Wallet from '../screens/walletScreen/wallet';
 import Contact from '../screens/contact/contact';
 import HomeScreen from '../screens/homeScreen/home';
+import { useDispatch } from 'react-redux';
+import { logout } from '../Redux/slices/authSlice';
+import { useNavigation } from '@react-navigation/native';
 
 const Drawer = createDrawerNavigator();
 
 const CustomDrawerContent = props => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation()
   const [isEnglish, setIsEnglish] = useState(true);
   const [activeItem, setActiveItem] = useState('Home');
 
@@ -32,7 +37,16 @@ const CustomDrawerContent = props => {
       alert("WhatsApp is not installed on this device.");
     });
   };
-
+const waiz = async ()=>{
+  try {
+    dispatch(logout())
+    // console.log("sdafsdf",res)
+    navigation.navigate("Login")
+    alert('Logging out Rider')
+  } catch (error) {
+    console.log("sdafgvsdvd",error.message)
+  }
+}
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.header}>
@@ -84,7 +98,9 @@ const CustomDrawerContent = props => {
 
       <TouchableOpacity
         style={styles.logoutButton}
-        onPress={() => alert('Logging out')}>
+        onPress={() => {
+          waiz()
+          }}>
         <Text style={styles.logoutText}>Logout</Text>
       </TouchableOpacity>
     </DrawerContentScrollView>

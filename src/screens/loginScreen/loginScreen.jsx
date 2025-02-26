@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet,
+  View, Text, TextInput, TouchableOpacity, StyleSheet,BackHandler,
   ActivityIndicator, Alert
 } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
@@ -31,7 +31,19 @@ const LoginScreen = () => {
       }
     }
   }, [token, user_type]);
+  useEffect(() => {
+    const backAction = () => {
+      BackHandler.exitApp(); // Exit the app
+      return true; // Prevent default behavior
+    };
 
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      backAction
+    );
+
+    return () => backHandler.remove(); // Cleanup on unmount
+  }, []);
   const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; 
     return regex.test(email);
