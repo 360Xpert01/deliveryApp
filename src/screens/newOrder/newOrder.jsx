@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,ScrollView  } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Image,ScrollView, Alert  } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import CreateDeliveryButton from '../../components/CustomerDashboard/createDeliveryButton';
 import themes from '../../theme/theme';
@@ -66,6 +66,8 @@ const NewOrderScreen = () => {
         try {
             const res = await dispatch(createOrders({body,token})).unwrap()
             console.log("eafesd",res)
+            navigation.goBack()
+            Alert.alert("success")
         } catch (error) {
             console.log(error.message)
         }

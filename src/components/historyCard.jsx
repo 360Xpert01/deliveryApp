@@ -6,12 +6,12 @@ const dish = require("../../assets/dish.png");
 const ellipse = require("../../assets/Ellipse.png");
 const locationIcon = require("../../assets/location.png"); 
 
-const HistoryCard = ({ codId, place, orderId, navigation, distance, status }) => { 
-    const statusColor = status === "Delivered" ? themes.greenDark.success : themes.greenDark.error;
+const HistoryCard = ({item, codId, orderId, navigation, distance, status ,payment_method,picLocation,consigneeAddress}) => { 
+    const statusColor = status === "delivered" ? themes.greenDark.success : themes.greenDark.error;
 
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate("LoadDetail", { orderId, codId, place })}
+            onPress={() => navigation.navigate("LoadDetail", {item})}
             style={styles.card}
         >
             <View>
@@ -21,9 +21,9 @@ const HistoryCard = ({ codId, place, orderId, navigation, distance, status }) =>
                         <Image source={dish} style={styles.icon} />
                         <Text style={styles.orderId}>{orderId}</Text>
                     </View>
-                    <Text style={styles.cod}>COD {codId}</Text>
+                    <Text style={styles.cod}>{payment_method} {codId}</Text>
                     <View style={styles.tag}>
-                        <Text style={styles.tagText}>{place}</Text>
+                        {/* <Text style={styles.tagText}>{place}</Text> */}
                     </View>
                 </View>
 
@@ -32,13 +32,13 @@ const HistoryCard = ({ codId, place, orderId, navigation, distance, status }) =>
                     <View style={styles.addressRow}>
                         <Image source={ellipse} style={styles.ellipse} />
                         <Text style={styles.addressText}>
-                            14th Street Pizza Co. Block-7, Gulshan-e-Iqbal
+                            {picLocation}
                         </Text>
                     </View>
                     <View style={styles.addressRow}>
                         <Image source={locationIcon} style={styles.icon} />
                         <Text style={styles.addressText}>
-                            B 121 Block 2, Gulshan-e-Iqbal, Karachi
+                            {consigneeAddress}
                         </Text>
                     </View>
                     <View style={styles.distance}>
@@ -90,6 +90,7 @@ const styles = StyleSheet.create({
     orderId: {
         fontSize: wp(3),
         fontWeight: "700",
+        color:"black",
         marginLeft: wp(1),
     },
     cod: {
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
         fontSize: wp(3),
         fontWeight: "600",
         textTransform: "capitalize",
+        color:"black"
     },
     addressContainer: {
         marginTop: hp(0.5),

@@ -52,19 +52,19 @@ const Dashboard = ({navigation}) => {
     fetchOrders();
   }, []);
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to exit?', [
-        { text: 'Cancel', onPress: () => null, style: 'cancel' },
-        { text: 'Exit', onPress: () => BackHandler.exitApp() },
-      ]);
-      return true;
-    };
+  // useEffect(() => {
+  //   const backAction = () => {
+  //     Alert.alert('Hold on!', 'Are you sure you want to exit?', [
+  //       { text: 'Cancel', onPress: () => null, style: 'cancel' },
+  //       { text: 'Exit', onPress: () => BackHandler.exitApp() },
+  //     ]);
+  //     return true;
+  //   };
 
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+  //   const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
 
-    return () => backHandler.remove();
-  }, []);
+  //   return () => backHandler.remove();
+  // }, []);
 
   return (
     <SafeAreaView style={styles.container}>
