@@ -73,7 +73,7 @@ const LoadDetailsScreen = () => {
       </TouchableOpacity>
 
       <View style={styles.mapContainer}>
-        <Map showHelmet={false} animate={animate} setAnimate={setAnimate} showLine={true} />
+        <Map showHelmet={true} animate={animate} setAnimate={setAnimate} showLine={true} />
       </View>
 
       <View style={[styles.detailsContainer, { backgroundColor: theme.surface }]}>

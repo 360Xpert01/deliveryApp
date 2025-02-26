@@ -27,7 +27,7 @@ const Arrived = ({route}) => {
 
   return (
     <View style={styles.container}>
-      <Map />
+      <Map  showLine={false}/>
 
       {/* Show MultipleOrder card if count > 1 */}
       {count > 1 && (

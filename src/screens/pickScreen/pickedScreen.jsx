@@ -23,11 +23,11 @@ import themes from '../../theme/theme';
 import { updateStatusRider } from '../../Redux/slices/orders/updateOrderStatus';
 import { useDispatch ,useSelector} from 'react-redux';
 
-const pickupPoints = [
-  {latitude: 24.897345, longitude: 67.081231},
-  {latitude: 24.882123, longitude: 67.065432},
-  {latitude: 24.875678, longitude: 67.072345},
-];
+// const pickupPoints = [
+//   {latitude: 24.897345, longitude: 67.081231},
+//   {latitude: 24.882123, longitude: 67.065432},
+//   {latitude: 24.875678, longitude: 67.072345},
+// ];
 
 const PickScreen = ({route}) => {
   const dispatch = useDispatch();
@@ -67,7 +67,7 @@ const openWhatsApp = () => {
   }
   return (
     <View style={styles.container}>
-      <Map showHelmet={true} showLine={true} pickupPoints={pickupPoints} />
+      <Map showHelmet={true} showLine= {false} staticHelmet={true} pickupPoints={[]}/>
 
       {/* Show Multi Order Card if count > 1 */}
       {count > 1 && (
