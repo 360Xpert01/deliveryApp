@@ -13,8 +13,8 @@ const BookingHistory = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation(); 
   const {token} = useSelector((state) => state.auth);
-  const history = useSelector((state) => state.getOrdersHistory?.getOrdersHistory);
-  console.log("dserwerafk",token)
+  const history = useSelector((state) => state.getOrdersHistory?.getOrdersHistory?.data);
+  // console.log("dsersawazcsdASDerafk",history)
   
   const getOrder = async ()=>{
     if(token){
@@ -100,9 +100,20 @@ const BookingHistory = () => {
       <View style={styles.main}>
         <View>
           <FlatList
-            data={users}
+            data={history}
             renderItem={({ item }) => (
-              <HistoryCard codId={item.codID} location={item.location} orderId={item.Id} distance={item.distance} status={item.status} navigation={navigation} />
+              <HistoryCard 
+              codId={item.amount} 
+              // location={item.location}
+              orderId={item.order_number} 
+              distance={item.distance} 
+              status={item.order_status} 
+              navigation={navigation} 
+              payment_method={item.payment_method}
+              picLocation={item?.pickup_location}
+              consigneeAddress={item?.consignee_address}
+              item={item}
+              />
             )}
           />
         </View>
