@@ -13,7 +13,7 @@ const OrderHistory = () => {
 
   const users = [
     {
-      codID: "11, 999",
+      codID: "11,999",
       location: "Gulistan-e-Jauhor",
       Id: "KHI 123545689713",
       status:'Delivered',

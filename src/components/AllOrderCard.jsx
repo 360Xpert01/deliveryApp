@@ -16,14 +16,15 @@ const AllOrderCard = ({
   navigation,
   riderName,
   status,
-  distance
+  distance,
+  place
 }) => {
   const statusColor =
     status === 'Delivered' ? themes.greenDark.success : themes.greenDark.error;
   const areaColor = themes.greenDark.success
   return (
     <TouchableOpacity
-      onPress={() => navigation.navigate('LoadDetail', {orderId, codId, place})}
+      onPress={() => navigation.navigate('OrderDetail', {orderId, codId, place})}
       style={styles.card}>
       <View>
         {/* Header */}
