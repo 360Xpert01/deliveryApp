@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import apiClient from '../client';
 import StorageService, { StoreToken } from '../../service/storageService';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const loginUser = createAsyncThunk(
   'auth/loginUser',
@@ -47,6 +48,9 @@ const authSlice = createSlice({
       StorageService.remove('authToken'); 
       StorageService.remove('userType'); 
       StorageService.remove('userData'); 
+      // AsyncStorage.removeItem('authToken'); 
+      // AsyncStorage.removeItem('userType'); 
+      // AsyncStorage.removeItem('userData');
     },
   },
   extraReducers: (builder) => {

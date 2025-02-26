@@ -22,6 +22,13 @@ const StorageService = (() => {
       throw error;
     }
   };
+  const remove =  async(key)=> {
+    try {
+      await AsyncStorage.removeItem(key);
+    } catch (error) {
+      console.error('Error removing data:', error);
+    }
+  }
 
   const logToken = async () => {
     const token = await get('authToken');
@@ -33,6 +40,7 @@ const StorageService = (() => {
     store,
     get,
     logToken,
+    remove
   };
 })();
 
