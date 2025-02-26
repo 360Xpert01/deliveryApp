@@ -111,7 +111,7 @@ export default function RiderDrawerNavigator() {
   return (
     <Drawer.Navigator
       drawerContent={props => <CustomDrawerContent {...props} />}
-      screenOptions={{drawerStyle: {width: '70%'},headerShown:true}}>
+      screenOptions={{drawerStyle: {width: '70%'},headerShown:false}}>
       <Drawer.Screen name="Home" component={HomeScreen} />
       <Drawer.Screen name="Booking History" component={BookingHistory} />
       <Drawer.Screen name="Wallet" component={Wallet} />
