@@ -12,6 +12,8 @@ import { useDispatch , useSelector} from 'react-redux';
 import { getOrdersId } from '../../Redux/slices/customer/orderById';
 
 const backButton = require('../../../assets/backbutton.png');
+const bullet = require('../../assest/bullet.png');
+const location = require('../../assest/location.png');
 
 const OrderDetailsScreen = () => {
   // const {item} = route.params;
@@ -80,7 +82,8 @@ const OrderDetailsScreen = () => {
         <View style={styles.headerRow}>
           <Image source={food} style={styles.foodIcon} />
           <Text style={[styles.orderId, { color: themes.greenLight.text }]}>
-            {item?.order_number}
+            KHI 646543218
+            {/* {item?.order_number} */}
           </Text>
           <TouchableOpacity
             onPress={openWhatsApp}
@@ -92,13 +95,17 @@ const OrderDetailsScreen = () => {
         </View>
 
         <View style={styles.locationRow}>
-          <Text style={[styles.locationText, { color: themes.greenLight.text,backgroundColor: themes.greenLight.locationBackground  }]}>
-            📍 {item?.pickup_location}
+          <Text style={[styles.locationText, { color: themes.greenLight.text }]}>
+            <Image source={bullet} /> 
+            {/* {item?.pickup_location} */}
+            Darbar Haleem & Biryani, Block-6, Gulshan-e-Iqbal
           </Text>
         </View>
         <View style={styles.locationRow}>
-          <Text style={[styles.locationText, { color: themes.greenLight.text, backgroundColor: themes.greenLight.locationBackground }]}>
-            📍 {item?.consignee_address}
+          <Text style={[styles.locationText, { color: themes.greenLight.text}]}>
+          <Image source={location} /> 
+          {/* {item?.consignee_address} */}
+          Core Health, B-53, Block 2, Gulshan-e-Iqbal, Karachi
           </Text>
         </View>
         <Text style={[styles.distanceText, { color: themes.greenLight.shadow }]}>
@@ -110,13 +117,13 @@ const OrderDetailsScreen = () => {
         <Text style={[styles.priceText, { color: themes.greenLight.text }]}>
         {item?.payment_method} <Text style={{ color: themes.greenLight.button }}>{item?.amount}</Text>
         </Text>
-        <Text>COD: 1000</Text>
+        <Text style={{fontWeight:'bold',fontSize:16}}>COD:  <Text style={{fontSize:18,color:'green'}}>1000</Text></Text>
           <View style={styles.transiction}>
         <Text style={styles.delieverd}>
-          Delievered By : <Text>Umair Khan</Text>
+          Delievered By : <Text style={{fontWeight:'400'}}>Umair Khan</Text>
         </Text>
         <Text style={styles.delieverd}>
-          Delievered By : <Text>Umair Khan</Text>
+          Received By : <Text style={{fontWeight:'400'}}>Umair Khan</Text>
         </Text>
           </View>
       </View>
@@ -156,8 +163,8 @@ const styles = StyleSheet.create({
     borderRadius: 50,
   },
   whatsappIcon: { width: 24, height: 24, tintColor: 'white' },
-  locationRow: { flexDirection: 'row', alignItems: 'center', marginTop: 10 },
-  locationText: { marginLeft: 10, fontSize: 14, marginBottom: 20, paddingTop: 5, paddingBottom: 5, },
+  locationRow: { flexDirection: 'row', alignItems: 'center', marginTop: 10,justifyContent:'space-between' },
+  locationText: { marginLeft: 10, marginRight:0, fontSize: 12, marginBottom: 20, paddingTop: 5, paddingBottom: 5, },
   distanceText: { marginTop: 10, fontWeight: 'bold', marginBottom: 10, },
   description: { fontSize: 12, marginTop: 5 },
   priceText: { fontSize: 20, fontWeight: 'bold', marginTop: 10 },
