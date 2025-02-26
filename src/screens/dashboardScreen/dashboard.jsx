@@ -18,6 +18,7 @@ import FilterOrder from '../../components/filterOrder';
 import themes from '../../theme/theme';
 import CustomerCard from '../../components/customerCard';
 import { useDispatch } from 'react-redux';
+import AllOrderCard from '../../components/AllOrderCard';
 
 const SideBarImage = require('../../../assets/sidebar.png');
 
@@ -28,7 +29,20 @@ const Dashboard = ({navigation}) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
     const [selectedFilter, setSelectedFilter] = useState("All");
+
+    const users = [
+      { codID: "PRE PAID", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+      { codID: "9,800", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+      { codID: "1,999", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+      { codID: "4,295", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+      { codID: "1,800", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+      { codID: "5,208", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+      { codID: "5,208", area: "DHA", location: "Gulistan-e-Jauhor", Id: "KHI 123545689713", status: "Delivered", riderName: "Umair Kalam" },
+      { codID: "5,208", area: "DHA", location: "Huzaifa-e-Jauhor", Id: "KHI 123545689713", status: "Returned", riderName: "Umair Kalam" },
+    ];
   
+    const filteredOrders = selectedFilter === "All" ? users : users.filter(user => user.status === selectedFilter);
+
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -110,12 +124,20 @@ const Dashboard = ({navigation}) => {
           <Text style={styles.error}>{error}</Text>
         ) : (
           <FlatList
-            data={orders}
-            keyExtractor={item => item.id}
-            renderItem={({item}) => (
-              <CustomerCard codId={item.cod} location={item.location} orderId={item.id} navigation={navigation} />
-            )}
-          />
+          data={filteredOrders}
+          keyExtractor={(item) => item.Id}
+          renderItem={({ item }) => (
+            <AllOrderCard 
+              area={item.area} 
+              codId={item.codID} 
+              location={item.location} 
+              orderId={item.Id} 
+              riderName={item.riderName} 
+              status={item.status} 
+              navigation={navigation} 
+            />
+          )}
+        />
         )}
       </View>
     </SafeAreaView>
