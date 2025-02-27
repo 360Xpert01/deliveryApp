@@ -111,7 +111,7 @@ const BookingHistory = () => {
               navigation={navigation} 
               payment_method={item.payment_method}
               picLocation={item?.pickup_location}
-              consigneeAddress={item?.consignee_address}
+              consigneeAddress={item?.dropoff_location}//consignee_address
               item={item}
               />
             )}
