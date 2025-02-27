@@ -11,7 +11,7 @@ const HistoryCard = ({item, codId, orderId, navigation, distance, status ,paymen
 
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate("LoadDetail", {item})}
+            onPress={() => navigation.navigate("BookingDetails", {item})}
             style={styles.card}
         >
             <View>
