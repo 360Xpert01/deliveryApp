@@ -48,7 +48,7 @@ const AllOrder = () => {
           data={filteredOrders}
           keyExtractor={(item) => item.Id}
           renderItem={({ item }) => (
-            // <CustomerCard codId={item.cod} location={item.location} orderId={item.id} navigation={navigation} />
+            //  <CustomerCard codId={item.cod} location={item.location} orderId={item.id} navigation={navigation} />
             <CustomerCard 
               area={item.area} 
               codId={item.codID} 

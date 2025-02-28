@@ -26,6 +26,8 @@ import OrderSelectionScreen from '../components/multipleOrder/OrderSelectionScre
 import AllOrder from '../screens/allOrderScreen/allOrder';
 import OrderDetailsScreen from '../screens/customerOrderDetails/customerOrderDetails';
 import BookingDetailsScreen from "../screens/bookingScreen/bookingDetails"
+import codScreen from '../screens/orderDetail/orderDetail';
+import ReceivedScreen from '../screens/receivedScreen/receivedScreen';
 
 const Stack = createNativeStackNavigator();
 // const AuthenticatedNotificationScreen = withAuth(withLoading(NotificationScreen));
@@ -53,6 +55,8 @@ const AppNavigator = () => (
       <Stack.Screen name="OrderSelection" component={OrderSelectionScreen} options={{headerShown:false}}/>
       <Stack.Screen name="NewOrderScreen" component={NewOrderScreen} options={{headerShown:false}} />
       <Stack.Screen name="BookingDetails" component={BookingDetailsScreen} options={{headerShown:false}} />
+      <Stack.Screen name="codScreen" component={codScreen} options={{headerShown:false}} />
+      <Stack.Screen name="ReceivedScreen" component={ReceivedScreen} options={{headerShown:false}} />
       <Stack.Screen
         name="Notifications"
         component={NotificationScreen}

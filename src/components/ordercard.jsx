@@ -5,7 +5,7 @@ import { widthPercentageToDP as wp, heightPercentageToDP as hp } from "react-nat
 import { useDispatch,useSelector } from "react-redux";
 import { getOrdersId } from "../Redux/slices/customer/orderById";
 
-const dish = require("../../assets/dish.png");
+const dish = require("../assest/food.svg");
 const ellipse = require("../../assets/Ellipse.png");
 const LocationIcon = require('../assest/location.png');
 
