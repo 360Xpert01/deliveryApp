@@ -25,6 +25,7 @@ const AllOrderCard = ({
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('OrderDetail', {orderId, codId, place})}
+      // onPress={() => navigation.navigate('CustomerDetail')}
       style={styles.card}>
       <View>
         {/* Header */}

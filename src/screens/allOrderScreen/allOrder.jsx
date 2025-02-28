@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import themes from "../../theme/theme";
 import AllOrderCard from "../../components/AllOrderCard";
 import FilterOrder from "../../components/filterOrder";
+import CustomerCard from '../../components/customerCard';
 
 const SideBarImage = require("../../../assets/sidebar.png");
 
@@ -47,7 +48,8 @@ const AllOrder = () => {
           data={filteredOrders}
           keyExtractor={(item) => item.Id}
           renderItem={({ item }) => (
-            <AllOrderCard 
+            // <CustomerCard codId={item.cod} location={item.location} orderId={item.id} navigation={navigation} />
+            <CustomerCard 
               area={item.area} 
               codId={item.codID} 
               location={item.location} 
@@ -56,6 +58,15 @@ const AllOrder = () => {
               status={item.status} 
               navigation={navigation} 
             />
+            // <AllOrderCard 
+            //   area={item.area} 
+            //   codId={item.codID} 
+            //   location={item.location} 
+            //   orderId={item.Id} 
+            //   riderName={item.riderName} 
+            //   status={item.status} 
+            //   navigation={navigation} 
+            // />
           )}
         />
       </View>

@@ -127,7 +127,8 @@ const Dashboard = ({navigation}) => {
           data={filteredOrders}
           keyExtractor={(item) => item.Id}
           renderItem={({ item }) => (
-            <AllOrderCard 
+            // <CustomerCard codId={item.cod} location={item.location} orderId={item.id} navigation={navigation} />
+            <CustomerCard 
               area={item.area} 
               codId={item.codID} 
               location={item.location} 
@@ -136,6 +137,15 @@ const Dashboard = ({navigation}) => {
               status={item.status} 
               navigation={navigation} 
             />
+            // <AllOrderCard 
+            //   area={item.area} 
+            //   codId={item.codID} 
+            //   location={item.location} 
+            //   orderId={item.Id} 
+            //   riderName={item.riderName} 
+            //   status={item.status} 
+            //   navigation={navigation} 
+            // />
           )}
         />
         )}
